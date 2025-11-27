@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Bridge Angels Treats | Custom Cakes in Lichtenburg</title>
-<meta name="description" content="Order custom wedding cakes, birthday cakes, cupcakes, and scones in Lichtenburg. Handcrafted by Bridget, certified by Midrand Baking School.">
+<meta name="description" content="Order custom wedding cakes, birthday cakes, cupcakes, and scones in Lichtenburg. Handcrafted by Bridget. Cakes starting from R600.">
 <meta name="keywords" content="cakes Lichtenburg, custom cakes, wedding cakes, birthday cakes, kids cakes, cupcakes, scones, bakery Lichtenburg, Bridge Angels Treats">
 <meta name="author" content="Bridge Angels Treats">
+
+<meta name="theme-color" content="#EC4899">
+<link rel="canonical" href="https://bridgeangelscakes.netlify.app">
 
 <meta property="og:title" content="Bridge Angels Treats - Custom Cakes">
 <meta property="og:description" content="Delicious handcrafted cakes for weddings, birthdays, and celebrations in Lichtenburg.">
@@ -51,25 +54,62 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: { gold: '#D4AF37', 'soft-pink': '#FFF0F5', 'deep-pink': '#DB2777' },
-                fontFamily: { sans: ['Lato', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
-            }
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#FFF8F0',
+          butter: '#FFFBEB',
+          rose: '#FECDD3',
+          strawberry: '#EC4899',
+          chocolate: '#92400E',
+          gold: '#CA8A04',
+          vanilla: '#FEF3C7',
+          'deep-pink': '#EC4899' /* Mapped to strawberry for compatibility */
+        },
+        fontFamily: {
+          serif: ['"Playfair Display"', 'serif'],
+          sans: ['Lato', 'sans-serif']
         }
+      }
     }
+  }
 </script>
+
 <style>
     html { scroll-behavior:smooth; }
-    .hero-overlay{background:rgba(0,0,0,0.4);} 
+    
+    /* Darker overlay so white text pops */
+    .hero-overlay{ background: rgba(0,0,0,0.5); } 
+    
     #sharePopup{display:none;} 
+    
     /* Animation for gallery filtering */
     .gallery-item { transition: all 0.3s ease; }
     .hidden-item { display: none; }
+    
     /* Checkbox styling */
-    .checkbox-wrapper input:checked + div { background-color: #DB2777; color: white; border-color: #DB2777; }
+    .checkbox-wrapper input:checked + div { background-color: #EC4899; color: white; border-color: #EC4899; }
+
+    /* Creamy shadows */
+    .shadow-cream { box-shadow: 0 10px 30px rgba(236, 178, 120, 0.15); }
+
+    /* Softer hover on buttons */
+    button, .hover\:scale-105:hover, a { transition: all 0.3s ease; }
+
+    /* Make gallery images pop more */
+    .gallery-item img:hover {
+        transform: scale(1.08);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        z-index: 10;
+        position: relative;
+    }
+    
+    /* FAQ Details styling */
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
 </style>
 </head>
 <body class="font-sans text-gray-700 antialiased">
@@ -79,27 +119,26 @@
   <div class="flex justify-between h-20 items-center">
    <div class="flex items-center gap-3">
        <img src="logo.png" class="h-16 w-auto object-contain" alt="Bridge Angels Logo">
-       <span class="font-serif text-2xl font-bold text-deep-pink hidden sm:block">Bridge Angels Treats</span>
+       <span class="font-serif text-2xl font-bold text-strawberry hidden sm:block">Bridge Angels Treats</span>
    </div>
    
    <div class="hidden md:flex space-x-6 items-center">
-    <a href="#about" class="hover:text-deep-pink transition">About</a>
-    <a href="#services" class="hover:text-deep-pink transition">Services</a>
-    <a href="#gallery" class="hover:text-deep-pink transition">Gallery</a>
-    <a href="#contact" class="hover:text-deep-pink transition">Contact</a>
-    <a href="tel:+27737095975" class="text-gray-600 hover:text-deep-pink" title="Call Us"><i class="fas fa-phone-alt text-xl"></i></a>
+    <a href="#about" class="hover:text-strawberry transition font-bold">About</a>
+    <a href="#services" class="hover:text-strawberry transition font-bold">Services</a>
+    <a href="#gallery" class="hover:text-strawberry transition font-bold">Gallery</a>
+    <a href="#contact" class="hover:text-strawberry transition font-bold">Contact</a>
+    <a href="tel:+27737095975" class="text-gray-600 hover:text-strawberry" title="Call Us"><i class="fas fa-phone-alt text-xl"></i></a>
     <a href="https://www.facebook.com/share/19hLgJkBUj/" target="_blank" class="text-blue-600 hover:text-blue-800" title="Facebook Page"><i class="fab fa-facebook text-2xl"></i></a>
-    <a href="https://wa.me/27737095975" class="bg-green-500 text-white px-5 py-2 rounded-full hover:bg-green-600 transition shadow-md"><i class="fab fa-whatsapp mr-2"></i>Order Now</a>
    </div>
 
-   <button id="mobile-menu-btn" class="md:hidden text-2xl text-deep-pink"><i class="fas fa-bars"></i></button>
+   <button id="mobile-menu-btn" class="md:hidden text-2xl text-strawberry"><i class="fas fa-bars"></i></button>
   </div>
  </div>
 
  <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 shadow-xl">
-  <a href="#about" class="block py-3 border-b">About</a>
-  <a href="#services" class="block py-3 border-b">Services</a>
-  <a href="#gallery" class="block py-3 border-b">Gallery</a>
+  <a href="#about" class="block py-3 border-b text-chocolate font-bold">About</a>
+  <a href="#services" class="block py-3 border-b text-chocolate font-bold">Services</a>
+  <a href="#gallery" class="block py-3 border-b text-chocolate font-bold">Gallery</a>
   <a href="https://www.facebook.com/share/19hLgJkBUj/" target="_blank" class="block py-3 text-blue-600 font-bold"><i class="fab fa-facebook mr-2"></i>Visit Facebook</a>
   <div class="grid grid-cols-2 gap-2 mt-4">
       <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
@@ -111,44 +150,57 @@
 <header class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image:url('wedding-modern-black-gold-stripes.jpg');">
  <div class="absolute inset-0 hero-overlay"></div>
  <div class="relative z-10 text-center px-4 max-w-4xl">
+  
+  <div class="inline-block bg-strawberry text-white px-6 py-2 rounded-full text-sm font-bold mb-6 animate-bounce shadow-lg">
+      🎂 Cakes starting from R600
+  </div>
+
   <h1 class="font-serif text-5xl text-white font-bold mb-4 drop-shadow-lg leading-tight">Baking Sweet Memories <br>in Lichtenburg</h1>
   <p class="text-white mb-8 text-lg font-light">Custom handcrafted cakes by Bridget. Certified by Midrand Baking School.</p>
+  
   <div class="flex flex-col sm:flex-row justify-center gap-4">
-   <a href="#order" class="bg-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">Get a Quote</a>
+   <a href="https://wa.me/27737095975?text=Hi%20Bridget%2C%20I%20saw%20your%20beautiful%20cakes%20online%20%F0%9F%98%8D%20Can%20I%20get%20a%20quote%3F" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
+       <i class="fab fa-whatsapp mr-2"></i> 💬 Chat on WhatsApp Now
+   </a>
+   
    <a href="#gallery" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">View Gallery</a>
   </div>
  </div>
 </header>
 
-<section id="about" class="py-20 bg-soft-pink">
+<section id="about" class="py-20 bg-cream">
  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-  <img src="about-bridget-roses-cake-midrand.jpg" loading="lazy" alt="Bridget holding a cake" class="rounded-lg shadow-2xl border-4 border-white transform hover:scale-105 transition duration-500" />
+  <picture>
+      <source srcset="about-bridget-roses-cake-midrand.webp" type="image/webp">
+      <img loading="lazy" src="about-bridget-roses-cake-midrand.jpg" alt="Bridget holding a cake" class="rounded-lg shadow-2xl border-4 border-white transform hover:scale-105 transition duration-500" />
+  </picture>
+  
   <div>
-   <h2 class="font-serif text-4xl font-bold mb-6">Hello, I'm Bridget</h2>
+   <h2 class="font-serif text-4xl font-bold mb-6 text-chocolate">Hello, I'm Bridget</h2>
    <p class="text-gray-700 mb-4 text-lg">With over 8 years of experience and certification from <strong>Midrand Baking School</strong>, I create centerpieces for your biggest celebrations.</p>
    <p class="text-gray-700 mb-6">Based in Lichtenburg, I turn your ideas into delicious reality — weddings, birthdays, kids’ cakes, anniversaries and more.</p>
-   <a href="flyer.pdf" download class="bg-deep-pink hover:bg-pink-700 text-white px-6 py-3 rounded-lg inline-flex items-center shadow-lg transition">
+   <a href="flyer.pdf" download class="bg-strawberry hover:bg-pink-700 text-white px-6 py-3 rounded-lg inline-flex items-center shadow-lg transition">
        <i class="fas fa-file-pdf mr-2"></i>Download Price List (PDF)
    </a>
   </div>
  </div>
 </section>
 
-<section id="services" class="py-20 bg-white text-center">
- <h2 class="font-serif text-4xl font-bold mb-4">Our Specialties</h2>
+<section id="services" class="py-20 bg-butter text-center">
+ <h2 class="font-serif text-4xl font-bold mb-4 text-chocolate">Our Specialties</h2>
  <p class="text-gray-500 mb-12">Click a category below to see our work</p>
  
  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
   
-  <div onclick="filterGallery('wedding')" class="cursor-pointer p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl hover:bg-pink-50 transition border border-gray-100 group">
+  <div onclick="filterGallery('wedding')" class="cursor-pointer p-6 rounded-xl shadow-cream bg-white hover:shadow-2xl hover:bg-pink-50 transition border border-white group">
    <div class="h-16 w-16 mx-auto bg-pink-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
-       <i class="fas fa-ring text-3xl text-deep-pink"></i>
+       <i class="fas fa-ring text-3xl text-strawberry"></i>
    </div>
    <h3 class="font-serif text-xl font-bold mb-2">Weddings</h3>
    <p class="text-sm text-gray-500">Elegant multi-tier cakes & traditional designs.</p>
   </div>
 
-  <div onclick="filterGallery('kids')" class="cursor-pointer p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl hover:bg-blue-50 transition border border-gray-100 group">
+  <div onclick="filterGallery('kids')" class="cursor-pointer p-6 rounded-xl shadow-cream bg-white hover:shadow-2xl hover:bg-blue-50 transition border border-white group">
     <div class="h-16 w-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
         <i class="fas fa-birthday-cake text-3xl text-blue-500"></i>
     </div>
@@ -156,15 +208,15 @@
    <p class="text-sm text-gray-500">Spiderman, Castles & Imagination.</p>
   </div>
 
-  <div onclick="filterGallery('celebration')" class="cursor-pointer p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl hover:bg-yellow-50 transition border border-gray-100 group">
+  <div onclick="filterGallery('celebration')" class="cursor-pointer p-6 rounded-xl shadow-cream bg-white hover:shadow-2xl hover:bg-yellow-50 transition border border-white group">
     <div class="h-16 w-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
-        <i class="fas fa-glass-cheers text-3xl text-yellow-500"></i>
+        <i class="fas fa-glass-cheers text-3xl text-gold"></i>
     </div>
    <h3 class="font-serif text-xl font-bold mb-2">Celebrations</h3>
    <p class="text-sm text-gray-500">Anniversaries, Birthdays & Events.</p>
   </div>
 
-  <div onclick="filterGallery('bakes')" class="cursor-pointer p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl hover:bg-purple-50 transition border border-gray-100 group">
+  <div onclick="filterGallery('bakes')" class="cursor-pointer p-6 rounded-xl shadow-cream bg-white hover:shadow-2xl hover:bg-purple-50 transition border border-white group">
     <div class="h-16 w-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
         <i class="fas fa-cookie-bite text-3xl text-purple-500"></i>
     </div>
@@ -175,9 +227,9 @@
  </div>
 </section>
 
-<section id="gallery" class="py-20 bg-gray-50 min-h-screen">
+<section id="gallery" class="py-20 bg-vanilla min-h-screen">
  <div class="text-center mb-10">
-    <h2 class="font-serif text-4xl font-bold text-gray-800 mb-4">Our Gallery</h2>
+    <h2 class="font-serif text-4xl font-bold text-chocolate mb-4">Our Gallery</h2>
     <button id="showAllBtn" onclick="filterGallery('all')" class="hidden bg-gray-800 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-gray-700 transition">
         Show All Photos
     </button>
@@ -186,100 +238,177 @@
  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto px-4" id="galleryGrid">
   
   <div class="gallery-item" data-category="wedding">
-    <img loading="lazy" src="wedding-modern-black-gold-stripes.jpg" alt="Modern Black and Gold Stripe Wedding Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="wedding-modern-black-gold-stripes.webp" type="image/webp">
+        <img loading="lazy" src="wedding-modern-black-gold-stripes.jpg" alt="Modern Black and Gold Stripe Wedding Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="wedding">
-    <img loading="lazy" src="wedding-black-white-marble-gold.jpg" alt="Black White Marble Wedding Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="wedding-black-white-marble-gold.webp" type="image/webp">
+        <img loading="lazy" src="wedding-black-white-marble-gold.jpg" alt="Black White Marble Wedding Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="wedding">
-    <img loading="lazy" src="confirmation-white-green-leaves-gold.jpg" alt="White and Green Confirmation Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="confirmation-white-green-leaves-gold.webp" type="image/webp">
+        <img loading="lazy" src="confirmation-white-green-leaves-gold.jpg" alt="White and Green Confirmation Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
 
   <div class="gallery-item" data-category="kids">
-    <img loading="lazy" src="kids-spiderman-birthday-3-year.jpg" alt="Spiderman Birthday Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="kids-spiderman-birthday-3-year.webp" type="image/webp">
+        <img loading="lazy" src="kids-spiderman-birthday-3-year.jpg" alt="Spiderman Birthday Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="kids">
-    <img loading="lazy" src="kids-princess-castle-pink-zoey.jpg" alt="Princess Castle Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="kids-princess-castle-pink-zoey.webp" type="image/webp">
+        <img loading="lazy" src="kids-princess-castle-pink-zoey.jpg" alt="Princess Castle Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="kids">
-    <img loading="lazy" src="kids-barbie-two-tier-pink-retshegofadi.jpg" alt="Barbie Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="kids-barbie-two-tier-pink-retshegofadi.webp" type="image/webp">
+        <img loading="lazy" src="kids-barbie-two-tier-pink-retshegofadi.jpg" alt="Barbie Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="kids">
-    <img loading="lazy" src="kids-ronaldo-soccer-birthday-akani.jpg" alt="Ronaldo Soccer Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="kids-ronaldo-soccer-birthday-akani.webp" type="image/webp">
+        <img loading="lazy" src="kids-ronaldo-soccer-birthday-akani.jpg" alt="Ronaldo Soccer Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="kids">
-    <img loading="lazy" src="kids-baby-shower-boy-blue-clouds.jpg" alt="Blue Baby Shower Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="kids-baby-shower-boy-blue-clouds.webp" type="image/webp">
+        <img loading="lazy" src="kids-baby-shower-boy-blue-clouds.jpg" alt="Blue Baby Shower Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
 
   <div class="gallery-item" data-category="celebration">
-    <img loading="lazy" src="birthday-gold-drip-white-sinah-50.jpg" alt="Gold Drip Birthday Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="birthday-gold-drip-white-sinah-50.webp" type="image/webp">
+        <img loading="lazy" src="birthday-gold-drip-white-sinah-50.jpg" alt="Gold Drip Birthday Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="celebration">
-    <img loading="lazy" src="birthday-pink-ombre-roses-tracy.jpg" alt="Pink Ombre Roses Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="birthday-pink-ombre-roses-tracy.webp" type="image/webp">
+        <img loading="lazy" src="birthday-pink-ombre-roses-tracy.jpg" alt="Pink Ombre Roses Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="celebration">
-    <img loading="lazy" src="birthday-wife-rose-gold-textured.jpg" alt="Rose Gold Textured Cake" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="birthday-wife-rose-gold-textured.webp" type="image/webp">
+        <img loading="lazy" src="birthday-wife-rose-gold-textured.jpg" alt="Rose Gold Textured Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="celebration">
-    <img loading="lazy" src="birthday-husband-father-white-gold.jpg" alt="Men's Birthday Cake White Gold" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="birthday-husband-father-white-gold.webp" type="image/webp">
+        <img loading="lazy" src="birthday-husband-father-white-gold.jpg" alt="Men's Birthday Cake White Gold" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
 
   <div class="gallery-item" data-category="bakes">
-    <img loading="lazy" src="kids-gender-reveal-pink-blue-cupcakes.jpg" alt="Gender Reveal Cupcakes" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="kids-gender-reveal-pink-blue-cupcakes.webp" type="image/webp">
+        <img loading="lazy" src="kids-gender-reveal-pink-blue-cupcakes.jpg" alt="Gender Reveal Cupcakes" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="bakes">
-    <img loading="lazy" src="treats-chocolate-muffins.jpg" alt="Chocolate Muffins" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="treats-chocolate-muffins.webp" type="image/webp">
+        <img loading="lazy" src="treats-chocolate-muffins.jpg" alt="Chocolate Muffins" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
   <div class="gallery-item" data-category="bakes">
-    <img loading="lazy" src="treats-peanut-butter-cookies.jpg" alt="Peanut Butter Cookies" class="rounded-lg h-80 w-full object-cover shadow-md hover:scale-105 transition duration-300" />
+    <picture>
+        <source srcset="treats-peanut-butter-cookies.webp" type="image/webp">
+        <img loading="lazy" src="treats-peanut-butter-cookies.jpg" alt="Peanut Butter Cookies" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
   </div>
 
  </div>
 </section>
 
-<section class="py-20 bg-pink-50 text-center">
+<section class="py-20 bg-rose/30 text-center">
     <div class="max-w-6xl mx-auto px-4">
-        <h2 class="font-serif text-4xl font-bold mb-10 text-gray-800">Client Love</h2>
+        <h2 class="font-serif text-4xl font-bold mb-10 text-chocolate">Client Love</h2>
         <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-xl shadow-md border border-pink-100">
-                <i class="fas fa-quote-left text-deep-pink text-2xl mb-4"></i>
+            <div class="bg-white p-6 rounded-xl shadow-cream border border-pink-100">
+                <i class="fas fa-quote-left text-strawberry text-2xl mb-4"></i>
                 <p class="text-gray-600 mb-4 italic">"The wedding cake was absolutely stunning and tasted divine! Bridget is a true artist."</p>
-                <p class="font-bold text-gray-800">- Sarah M.</p>
+                <p class="font-bold text-chocolate">- Sarah M.</p>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-md border border-pink-100">
-                <i class="fas fa-quote-left text-deep-pink text-2xl mb-4"></i>
+            <div class="bg-white p-6 rounded-xl shadow-cream border border-pink-100">
+                <i class="fas fa-quote-left text-strawberry text-2xl mb-4"></i>
                 <p class="text-gray-600 mb-4 italic">"My son loved his Spiderman cake. It was the highlight of the party! Highly recommended."</p>
-                <p class="font-bold text-gray-800">- Thabo K.</p>
+                <p class="font-bold text-chocolate">- Thabo K.</p>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-md border border-pink-100">
-                <i class="fas fa-quote-left text-deep-pink text-2xl mb-4"></i>
+            <div class="bg-white p-6 rounded-xl shadow-cream border border-pink-100">
+                <i class="fas fa-quote-left text-strawberry text-2xl mb-4"></i>
                 <p class="text-gray-600 mb-4 italic">"Best scones in Lichtenburg. We order them for every office function now."</p>
-                <p class="font-bold text-gray-800">- Anel V.</p>
+                <p class="font-bold text-chocolate">- Anel V.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section id="order" class="py-20 bg-white">
+<section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4">
+        <h2 class="font-serif text-3xl font-bold text-center mb-8 text-chocolate">Frequently Asked Questions</h2>
+        
+        <div class="space-y-4">
+            <details class="bg-cream rounded-lg p-4 cursor-pointer border border-gold/20 shadow-sm group">
+                <summary class="font-bold text-lg flex justify-between items-center text-chocolate">
+                    How far in advance should I order?
+                    <i class="fas fa-chevron-down text-strawberry group-open:rotate-180 transition"></i>
+                </summary>
+                <p class="mt-2 text-gray-600">We recommend ordering at least 2 weeks in advance for celebration cakes, and 1-2 months for wedding cakes to ensure availability.</p>
+            </details>
+
+            <details class="bg-cream rounded-lg p-4 cursor-pointer border border-gold/20 shadow-sm group">
+                <summary class="font-bold text-lg flex justify-between items-center text-chocolate">
+                    Do you deliver?
+                    <i class="fas fa-chevron-down text-strawberry group-open:rotate-180 transition"></i>
+                </summary>
+                <p class="mt-2 text-gray-600">Yes! We offer delivery within Lichtenburg for a small fee. Collection from 19C Hamman Street is free.</p>
+            </details>
+
+            <details class="bg-cream rounded-lg p-4 cursor-pointer border border-gold/20 shadow-sm group">
+                <summary class="font-bold text-lg flex justify-between items-center text-chocolate">
+                    Do you cater for allergies?
+                    <i class="fas fa-chevron-down text-strawberry group-open:rotate-180 transition"></i>
+                </summary>
+                <p class="mt-2 text-gray-600">Please see our disclaimer below. While we take care, our kitchen handles nuts, dairy, and wheat, so we cannot guarantee 100% allergen-free products.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<section id="order" class="py-20 bg-cream">
  <div class="max-w-4xl mx-auto px-4">
-  <h2 class="font-serif text-4xl font-bold text-center mb-10">Order / Request a Quote</h2>
-  <div class="grid grid-cols-1 gap-6 bg-soft-pink p-8 rounded-2xl shadow-xl">
+  <h2 class="font-serif text-4xl font-bold text-center mb-10 text-chocolate">Order / Request a Quote</h2>
+  <div class="grid grid-cols-1 gap-6 bg-white p-8 rounded-2xl shadow-cream border border-pink-100">
    <div class="text-center text-gray-500 mb-4 text-sm">
        <i class="fab fa-whatsapp text-green-500 text-lg mr-1"></i> 
        Submitting this form will open WhatsApp to send your details directly to Bridget.
    </div>
 
-   <input id="orderName" class="p-3 border rounded focus:ring-2 focus:ring-deep-pink outline-none" placeholder="Your Name" required>
-   <input id="orderPhone" class="p-3 border rounded focus:ring-2 focus:ring-deep-pink outline-none" placeholder="Phone Number" required>
+   <input id="orderName" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Your Name" required>
+   <input id="orderPhone" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Phone Number" required>
    
    <div class="grid md:grid-cols-2 gap-4">
        <div>
            <label class="block text-gray-500 text-xs mb-1 ml-1">Event Date</label>
-           <input id="orderDate" type="date" class="w-full p-3 border rounded focus:ring-2 focus:ring-deep-pink outline-none">
+           <input id="orderDate" type="date" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter">
        </div>
        <div>
            <label class="block text-gray-500 text-xs mb-1 ml-1">Quantity/Guests</label>
-           <input id="orderQty" class="w-full p-3 border rounded focus:ring-2 focus:ring-deep-pink outline-none" placeholder="e.g. 50 guests OR 12 cupcakes">
+           <input id="orderQty" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="e.g. 50 guests OR 12 cupcakes">
        </div>
    </div>
 
@@ -288,42 +417,42 @@
        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
            <label class="checkbox-wrapper cursor-pointer">
                <input type="checkbox" name="orderType" value="Wedding Cake" class="hidden">
-               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-deep-pink transition">Wedding Cake</div>
+               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Wedding Cake</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
                <input type="checkbox" name="orderType" value="Birthday Cake" class="hidden">
-               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-deep-pink transition">Birthday Cake</div>
+               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Birthday Cake</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
                <input type="checkbox" name="orderType" value="Kids/Themed" class="hidden">
-               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-deep-pink transition">Kids/Themed</div>
+               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Kids/Themed</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
                <input type="checkbox" name="orderType" value="Cupcakes (R20ea)" class="hidden">
-               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-deep-pink transition">Cupcakes</div>
+               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Cupcakes</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
                <input type="checkbox" name="orderType" value="Scones (5L Bucket)" class="hidden">
-               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-deep-pink transition">Scones</div>
+               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Scones</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
                <input type="checkbox" name="orderType" value="Cookies" class="hidden">
-               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-deep-pink transition">Cookies</div>
+               <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Cookies</div>
            </label>
        </div>
    </div>
    
-   <textarea id="orderDetails" class="p-3 border rounded focus:ring-2 focus:ring-deep-pink outline-none h-32" placeholder="Describe your design, flavors, or any allergies..."></textarea>
+   <textarea id="orderDetails" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none h-32 bg-butter" placeholder="Describe your design, flavors, or any allergies..."></textarea>
    
-   <button onclick="sendToWhatsapp()" class="bg-deep-pink hover:bg-pink-700 transition text-white p-4 rounded-lg text-lg font-bold">
+   <button onclick="sendToWhatsapp()" class="bg-strawberry hover:bg-pink-700 transition text-white p-4 rounded-lg text-lg font-bold shadow-cream">
        <i class="fab fa-whatsapp mr-2"></i> Submit Quote via WhatsApp
    </button>
   </div>
  </div>
 </section>
 
-<section class="py-20 bg-gray-100">
- <h2 class="font-serif text-4xl text-center font-bold mb-10">Behind the Scenes</h2>
+<section class="py-20 bg-white">
+ <h2 class="font-serif text-4xl text-center font-bold mb-10 text-chocolate">Behind the Scenes</h2>
  <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto px-4">
   <video preload="none" controls class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
    <source src="cake-processing1.mp4" type="video/mp4">
@@ -334,19 +463,19 @@
  </div>
 </section>
 
-<section id="contact" class="py-20 bg-white">
+<section id="contact" class="py-20 bg-cream">
  <div class="max-w-5xl mx-auto px-4">
-  <div class="bg-soft-pink rounded-3xl p-10 shadow-xl grid md:grid-cols-2 gap-12">
+  <div class="bg-white rounded-3xl p-10 shadow-xl grid md:grid-cols-2 gap-12">
    <div>
-    <h2 class="font-serif text-3xl font-bold mb-6">Get Your Quote</h2>
-    <p class="mb-6">Send your design idea via WhatsApp for the fastest response.</p>
+    <h2 class="font-serif text-3xl font-bold mb-6 text-chocolate">Get Your Quote</h2>
+    <p class="mb-6 text-gray-600">Send your design idea via WhatsApp for the fastest response.</p>
     <ul class="space-y-4 mb-6">
-     <li class="flex items-center"><i class="fas fa-phone mr-3 text-deep-pink"></i> <a href="tel:+27737095975" class="font-bold">+27 73 709 5975</a></li>
+     <li class="flex items-center"><i class="fas fa-phone mr-3 text-strawberry"></i> <a href="tel:+27737095975" class="font-bold">+27 73 709 5975</a></li>
      <li class="flex items-center"><i class="fab fa-facebook mr-3 text-blue-600"></i> <a href="https://www.facebook.com/share/19hLgJkBUj/" target="_blank" class="font-bold">Bridge Angels on Facebook</a></li>
      
      <li class="flex items-center group">
-         <i class="fas fa-map-marker-alt mr-3 text-deep-pink group-hover:scale-125 transition"></i> 
-         <a href="https://maps.google.com/?q=19C+Hamman+Street,+Lichtenburg" target="_blank" class="hover:text-deep-pink transition font-bold underline decoration-deep-pink/30">
+         <i class="fas fa-map-marker-alt mr-3 text-strawberry group-hover:scale-125 transition"></i> 
+         <a href="https://maps.google.com/?q=19C+Hamman+Street,+Lichtenburg" target="_blank" class="hover:text-strawberry transition font-bold underline decoration-strawberry/30">
              19C Hamman Street, Lichtenburg
          </a>
      </li>
@@ -357,12 +486,12 @@
         <a href="tel:+27737095975" class="bg-gray-800 hover:bg-gray-900 text-white px-8 py-4 rounded-full font-bold text-center shadow-md transition"><i class="fas fa-phone-alt mr-2"></i> Call Now</a>
     </div>
    </div>
-   <iframe loading="lazy" class="rounded-xl w-full h-80 shadow-inner" src="https://www.google.com/maps?q=Lichtenburg&output=embed"></iframe>
+   <iframe loading="lazy" class="rounded-xl w-full h-80 shadow-inner border border-gray-100" src="https://www.google.com/maps?q=Lichtenburg&output=embed"></iframe>
   </div>
  </div>
 </section>
 
-<div class="bg-yellow-50 text-gray-600 py-6 text-center text-xs px-4">
+<div class="bg-butter text-chocolate/70 py-6 text-center text-xs px-4">
     <div class="max-w-4xl mx-auto">
         <strong>Allergy Disclaimer:</strong> Please be aware that our products may contain or come into contact with common allergens, such as dairy, eggs, wheat, soybeans, tree nuts, peanuts, fish, shellfish or wheat. While we take steps to minimize risk and safely handle the foods that contain potential allergens, please be advised that cross contamination may occur.
     </div>
@@ -377,7 +506,12 @@
   <button class="w-full bg-red-500 text-white py-2 rounded-lg" onclick="document.getElementById('sharePopup').style.display='none'">Close</button>
  </div>
 </div>
-<button onclick="document.getElementById('sharePopup').style.display='flex'" class="fixed bottom-6 right-6 bg-deep-pink text-white p-4 rounded-full shadow-xl text-xl hover:scale-110 transition z-40"><i class="fas fa-share"></i></button>
+
+<a href="https://wa.me/27737095975?text=Hi%20Bridget%2C%20I%20saw%20your%20beautiful%20cakes%20online%20%F0%9F%98%8D%20Can%20I%20get%20a%20quote%3F" class="fixed bottom-6 left-6 bg-green-500 text-white p-4 rounded-full shadow-xl text-3xl hover:scale-110 transition z-40 animate-pulse">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<button onclick="document.getElementById('sharePopup').style.display='flex'" class="fixed bottom-6 right-6 bg-strawberry text-white p-4 rounded-full shadow-xl text-xl hover:scale-110 transition z-40"><i class="fas fa-share"></i></button>
 
 <footer class="bg-gray-800 text-white py-12 text-center">
  <p class="font-serif text-xl font-bold mb-4">Bridge Angels Treats (Pty) Ltd</p>
