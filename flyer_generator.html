@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bridge Angels Flyer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* This sets the specific Mobile Ratio (Galaxy A16 approx width, 1.5x height) */
+        @page {
+            size: 1080px 3200px; 
+            margin: 0;
+        }
+        body {
+            width: 100%;
+            max-width: 500px; 
+            margin: 0 auto;
+            background-color: white;
+            font-family: 'Lato', sans-serif;
+            -webkit-print-color-adjust: exact; 
+        }
+        .gold-text { color: #D4AF37; }
+        .deep-pink { color: #DB2777; }
+        .serif { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-white pb-10 border-2 border-gray-100 shadow-2xl">
+
+    <div class="bg-pink-50 p-8 text-center border-b-4 border-pink-200">
+        <h1 class="serif text-4xl font-bold deep-pink mb-2">Bridge Angels Treats</h1>
+        <p class="text-gray-600 uppercase tracking-widest text-xs">Lichtenburg's Finest Custom Cakes</p>
+    </div>
+
+    <div class="p-4">
+        <div class="relative rounded-xl overflow-hidden shadow-lg border-2 border-gold h-80">
+            <img src="wedding-modern-black-gold-stripes.jpg" class="w-full h-full object-cover" alt="Wedding Cake">
+            <div class="absolute bottom-0 bg-white/90 w-full p-2 text-center">
+                <span class="serif text-xl font-bold text-gray-800">Wedding & Traditional</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-6 py-4 text-center">
+        <p class="text-gray-700 leading-relaxed italic text-lg">
+            "Making your sweet memories last forever. Custom designs for every special occasion."
+        </p>
+    </div>
+
+    <div class="px-4 space-y-4">
+        
+        <div class="flex items-center space-x-4">
+            <div class="w-1/2 h-48 rounded-lg overflow-hidden shadow-md">
+                <img src="wedding-black-white-marble-gold.jpg" class="w-full h-full object-cover" alt="Elegant Cake">
+            </div>
+            <div class="w-1/2 text-left">
+                <h3 class="serif text-xl font-bold gold-text">Luxury</h3>
+                <p class="text-sm text-gray-500">Gold leaf details & marble finishes for sophisticated events.</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4 flex-row-reverse">
+            <div class="w-1/2 h-48 rounded-lg overflow-hidden shadow-md">
+                <img src="kids-princess-castle-pink-zoey.jpg" class="w-full h-full object-cover" alt="Kids Cake">
+            </div>
+            <div class="w-1/2 text-right pr-4">
+                <h3 class="serif text-xl font-bold text-pink-500">Fantasy</h3>
+                <p class="text-sm text-gray-500">Castles, Spiderman & more. We bring imagination to life.</p>
+            </div>
+        </div>
+
+        <div class="w-full h-56 rounded-lg overflow-hidden shadow-md relative">
+            <img src="kids-spiderman-birthday-3-year.jpg" class="w-full h-full object-cover" alt="Spiderman">
+             <div class="absolute bottom-4 right-4 bg-deep-pink text-white px-4 py-1 rounded-full text-sm font-bold">
+                Kids Favorites
+            </div>
+        </div>
+
+    </div>
+
+    <div class="m-6 bg-pink-50 rounded-xl p-6 text-center border border-pink-100">
+        <h2 class="serif text-2xl font-bold text-gray-800 mb-4">Price List</h2>
+        
+        <div class="mb-4 pb-4 border-b border-pink-200">
+            <div class="text-lg text-gray-600">Custom Cakes</div>
+            <div class="text-3xl font-bold deep-pink">From R600</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <div class="text-sm text-gray-600">Cupcakes</div>
+                <div class="text-xl font-bold deep-pink">R20 <span class="text-xs">each</span></div>
+            </div>
+            <div>
+                <div class="text-sm text-gray-600">Scones (5L)</div>
+                <div class="text-xl font-bold deep-pink">R280 <span class="text-xs">bucket</span></div>
+            </div>
+        </div>
+
+        <p class="text-xs text-gray-500 mb-4">*Final price depends on design & details</p>
+        <div class="inline-block bg-white px-4 py-2 rounded-lg shadow-sm">
+            <span class="text-green-600 font-bold"><i class="fab fa-whatsapp"></i> Pickup in Lichtenburg</span>
+        </div>
+    </div>
+
+    <div class="bg-gray-900 text-white text-center p-8 mt-4">
+        <p class="mb-2 font-bold text-xl">Ready to Order?</p>
+        <p class="text-gold text-2xl font-bold mb-4">073 709 5975</p>
+        <p class="text-xs text-gray-400">19C Hamman Street, Lichtenburg, 2740</p>
+        <p class="text-xs text-gray-400 mt-4">Bridge Angels Treats (Pty) Ltd</p>
+    </div>
+
+</body>
+</html>
