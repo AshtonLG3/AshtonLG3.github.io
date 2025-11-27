@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Bridge Angels Treats | Custom Cakes in Lichtenburg</title>
-<meta name="description" content="Order custom wedding cakes, birthday cakes, cupcakes, and scones in Lichtenburg. Handcrafted by Bridget. Cakes starting from R600.">
+<meta name="description" content="Order custom wedding cakes, birthday cakes, cupcakes, and scones in Lichtenburg. Handcrafted by Bridget. Cakes starting from R650.">
 <meta name="keywords" content="cakes Lichtenburg, custom cakes, wedding cakes, birthday cakes, kids cakes, cupcakes, scones, bakery Lichtenburg, Bridge Angels Treats">
 <meta name="author" content="Bridge Angels Treats">
 
@@ -34,7 +34,7 @@
     "addressCountry": "ZA"
   },
   "telephone": "+27737095975",
-  "priceRange": "R600+",
+  "priceRange": "R650+",
   "url": "https://bridgeangelscakes.netlify.app"
 }
 </script>
@@ -67,7 +67,7 @@
           chocolate: '#92400E',
           gold: '#CA8A04',
           vanilla: '#FEF3C7',
-          'deep-pink': '#EC4899' /* Mapped to strawberry for compatibility */
+          'deep-pink': '#EC4899'
         },
         fontFamily: {
           serif: ['"Playfair Display"', 'serif'],
@@ -101,7 +101,7 @@
 
     /* Make gallery images pop more */
     .gallery-item img:hover {
-        transform: scale(1.08);
+        transform: scale(1.03);
         box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         z-index: 10;
         position: relative;
@@ -147,25 +147,30 @@
  </div>
 </nav>
 
-<header class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image:url('wedding-modern-black-gold-stripes.jpg');">
- <div class="absolute inset-0 hero-overlay"></div>
- <div class="relative z-10 text-center px-4 max-w-4xl">
-  
-  <div class="inline-block bg-strawberry text-white px-6 py-2 rounded-full text-sm font-bold mb-6 animate-bounce shadow-lg">
-      🎂 Cakes starting from R600
-  </div>
+<header class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <picture>
+            <source srcset="wedding-modern-black-gold-stripes.webp" type="image/webp">
+            <img src="wedding-modern-black-gold-stripes.jpg" alt="Luxury Black and Gold Wedding Cake Background" class="w-full h-full object-cover">
+        </picture>
+        <div class="absolute inset-0 hero-overlay"></div>
+    </div>
 
-  <h1 class="font-serif text-5xl text-white font-bold mb-4 drop-shadow-lg leading-tight">Baking Sweet Memories <br>in Lichtenburg</h1>
-  <p class="text-white mb-8 text-lg font-light">Custom handcrafted cakes by Bridget. Certified by Midrand Baking School.</p>
-  
-  <div class="flex flex-col sm:flex-row justify-center gap-4">
-   <a href="https://wa.me/27737095975?text=Hi%20Bridget%2C%20I%20saw%20your%20beautiful%20cakes%20online%20%F0%9F%98%8D%20Can%20I%20get%20a%20quote%3F" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
-       <i class="fab fa-whatsapp mr-2"></i> 💬 Chat on WhatsApp Now
-   </a>
-   
-   <a href="#gallery" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">View Gallery</a>
-  </div>
- </div>
+    <div class="relative z-10 text-center px-4 max-w-4xl">
+      <div class="inline-block bg-strawberry text-white px-6 py-2 rounded-full text-sm font-bold mb-6 animate-bounce shadow-lg">
+          🎂 Cakes starting from R650
+      </div>
+
+      <h1 class="font-serif text-5xl text-white font-bold mb-4 drop-shadow-lg leading-tight">Baking Sweet Memories <br>in Lichtenburg</h1>
+      <p class="text-white mb-8 text-lg font-light">Custom handcrafted cakes by Bridget. Certified by Midrand Baking School.</p>
+      
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+       <a href="https://wa.me/27737095975?text=Hi%20Bridget%2C%20I%20saw%20your%20beautiful%20cakes%20online%20%F0%9F%98%8D%20Can%20I%20get%20a%20quote%3F" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
+           <i class="fab fa-whatsapp mr-2"></i> 💬 Chat on WhatsApp Now
+       </a>
+       <a href="#gallery" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">View Gallery</a>
+      </div>
+    </div>
 </header>
 
 <section id="about" class="py-20 bg-cream">
@@ -191,7 +196,6 @@
  <p class="text-gray-500 mb-12">Click a category below to see our work</p>
  
  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
-  
   <div onclick="filterGallery('wedding')" class="cursor-pointer p-6 rounded-xl shadow-cream bg-white hover:shadow-2xl hover:bg-pink-50 transition border border-white group">
    <div class="h-16 w-16 mx-auto bg-pink-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
        <i class="fas fa-ring text-3xl text-strawberry"></i>
@@ -199,7 +203,6 @@
    <h3 class="font-serif text-xl font-bold mb-2">Weddings</h3>
    <p class="text-sm text-gray-500">Elegant multi-tier cakes & traditional designs.</p>
   </div>
-
   <div onclick="filterGallery('kids')" class="cursor-pointer p-6 rounded-xl shadow-cream bg-white hover:shadow-2xl hover:bg-blue-50 transition border border-white group">
     <div class="h-16 w-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
         <i class="fas fa-birthday-cake text-3xl text-blue-500"></i>
@@ -207,7 +210,6 @@
    <h3 class="font-serif text-xl font-bold mb-2">Kids & Themed</h3>
    <p class="text-sm text-gray-500">Spiderman, Castles & Imagination.</p>
   </div>
-
   <div onclick="filterGallery('celebration')" class="cursor-pointer p-6 rounded-xl shadow-cream bg-white hover:shadow-2xl hover:bg-yellow-50 transition border border-white group">
     <div class="h-16 w-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
         <i class="fas fa-glass-cheers text-3xl text-gold"></i>
@@ -215,7 +217,6 @@
    <h3 class="font-serif text-xl font-bold mb-2">Celebrations</h3>
    <p class="text-sm text-gray-500">Anniversaries, Birthdays & Events.</p>
   </div>
-
   <div onclick="filterGallery('bakes')" class="cursor-pointer p-6 rounded-xl shadow-cream bg-white hover:shadow-2xl hover:bg-purple-50 transition border border-white group">
     <div class="h-16 w-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
         <i class="fas fa-cookie-bite text-3xl text-purple-500"></i>
@@ -223,13 +224,13 @@
    <h3 class="font-serif text-xl font-bold mb-2">Cookies & Cupcakes</h3>
    <p class="text-sm text-gray-500">Scones, muffins & custom cupcakes.</p>
   </div>
-
  </div>
 </section>
 
 <section id="gallery" class="py-20 bg-vanilla min-h-screen">
  <div class="text-center mb-10">
     <h2 class="font-serif text-4xl font-bold text-chocolate mb-4">Our Gallery</h2>
+    <p class="text-sm text-gray-500 mb-4">Tap on any photo to zoom in</p>
     <button id="showAllBtn" onclick="filterGallery('all')" class="hidden bg-gray-800 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-gray-700 transition">
         Show All Photos
     </button>
@@ -240,97 +241,96 @@
   <div class="gallery-item" data-category="wedding">
     <picture>
         <source srcset="wedding-modern-black-gold-stripes.webp" type="image/webp">
-        <img loading="lazy" src="wedding-modern-black-gold-stripes.jpg" alt="Modern Black and Gold Stripe Wedding Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="wedding-modern-black-gold-stripes.jpg" alt="Modern Black and Gold Stripe Wedding Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="wedding">
     <picture>
         <source srcset="wedding-black-white-marble-gold.webp" type="image/webp">
-        <img loading="lazy" src="wedding-black-white-marble-gold.jpg" alt="Black White Marble Wedding Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="wedding-black-white-marble-gold.jpg" alt="Black White Marble Wedding Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="wedding">
     <picture>
         <source srcset="confirmation-white-green-leaves-gold.webp" type="image/webp">
-        <img loading="lazy" src="confirmation-white-green-leaves-gold.jpg" alt="White and Green Confirmation Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="confirmation-white-green-leaves-gold.jpg" alt="White and Green Confirmation Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
 
   <div class="gallery-item" data-category="kids">
     <picture>
         <source srcset="kids-spiderman-birthday-3-year.webp" type="image/webp">
-        <img loading="lazy" src="kids-spiderman-birthday-3-year.jpg" alt="Spiderman Birthday Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-spiderman-birthday-3-year.jpg" alt="Spiderman Birthday Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="kids">
     <picture>
         <source srcset="kids-princess-castle-pink-zoey.webp" type="image/webp">
-        <img loading="lazy" src="kids-princess-castle-pink-zoey.jpg" alt="Princess Castle Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-princess-castle-pink-zoey.jpg" alt="Princess Castle Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="kids">
     <picture>
         <source srcset="kids-barbie-two-tier-pink-retshegofadi.webp" type="image/webp">
-        <img loading="lazy" src="kids-barbie-two-tier-pink-retshegofadi.jpg" alt="Barbie Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-barbie-two-tier-pink-retshegofadi.jpg" alt="Barbie Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="kids">
     <picture>
         <source srcset="kids-ronaldo-soccer-birthday-akani.webp" type="image/webp">
-        <img loading="lazy" src="kids-ronaldo-soccer-birthday-akani.jpg" alt="Ronaldo Soccer Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-ronaldo-soccer-birthday-akani.jpg" alt="Ronaldo Soccer Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="kids">
     <picture>
         <source srcset="kids-baby-shower-boy-blue-clouds.webp" type="image/webp">
-        <img loading="lazy" src="kids-baby-shower-boy-blue-clouds.jpg" alt="Blue Baby Shower Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-baby-shower-boy-blue-clouds.jpg" alt="Blue Baby Shower Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
 
   <div class="gallery-item" data-category="celebration">
     <picture>
         <source srcset="birthday-gold-drip-white-sinah-50.webp" type="image/webp">
-        <img loading="lazy" src="birthday-gold-drip-white-sinah-50.jpg" alt="Gold Drip Birthday Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="birthday-gold-drip-white-sinah-50.jpg" alt="Gold Drip Birthday Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="celebration">
     <picture>
         <source srcset="birthday-pink-ombre-roses-tracy.webp" type="image/webp">
-        <img loading="lazy" src="birthday-pink-ombre-roses-tracy.jpg" alt="Pink Ombre Roses Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="birthday-pink-ombre-roses-tracy.jpg" alt="Pink Ombre Roses Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="celebration">
     <picture>
         <source srcset="birthday-wife-rose-gold-textured.webp" type="image/webp">
-        <img loading="lazy" src="birthday-wife-rose-gold-textured.jpg" alt="Rose Gold Textured Cake" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="birthday-wife-rose-gold-textured.jpg" alt="Rose Gold Textured Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="celebration">
     <picture>
         <source srcset="birthday-husband-father-white-gold.webp" type="image/webp">
-        <img loading="lazy" src="birthday-husband-father-white-gold.jpg" alt="Men's Birthday Cake White Gold" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="birthday-husband-father-white-gold.jpg" alt="Men's Birthday Cake White Gold" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
 
   <div class="gallery-item" data-category="bakes">
     <picture>
         <source srcset="kids-gender-reveal-pink-blue-cupcakes.webp" type="image/webp">
-        <img loading="lazy" src="kids-gender-reveal-pink-blue-cupcakes.jpg" alt="Gender Reveal Cupcakes" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-gender-reveal-pink-blue-cupcakes.jpg" alt="Gender Reveal Cupcakes" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="bakes">
     <picture>
         <source srcset="treats-chocolate-muffins.webp" type="image/webp">
-        <img loading="lazy" src="treats-chocolate-muffins.jpg" alt="Chocolate Muffins" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="treats-chocolate-muffins.jpg" alt="Chocolate Muffins" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
   <div class="gallery-item" data-category="bakes">
     <picture>
         <source srcset="treats-peanut-butter-cookies.webp" type="image/webp">
-        <img loading="lazy" src="treats-peanut-butter-cookies.jpg" alt="Peanut Butter Cookies" class="rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="treats-peanut-butter-cookies.jpg" alt="Peanut Butter Cookies" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
-
  </div>
 </section>
 
@@ -360,7 +360,6 @@
 <section class="py-16 bg-white">
     <div class="max-w-3xl mx-auto px-4">
         <h2 class="font-serif text-3xl font-bold text-center mb-8 text-chocolate">Frequently Asked Questions</h2>
-        
         <div class="space-y-4">
             <details class="bg-cream rounded-lg p-4 cursor-pointer border border-gold/20 shadow-sm group">
                 <summary class="font-bold text-lg flex justify-between items-center text-chocolate">
@@ -369,7 +368,6 @@
                 </summary>
                 <p class="mt-2 text-gray-600">We recommend ordering at least 2 weeks in advance for celebration cakes, and 1-2 months for wedding cakes to ensure availability.</p>
             </details>
-
             <details class="bg-cream rounded-lg p-4 cursor-pointer border border-gold/20 shadow-sm group">
                 <summary class="font-bold text-lg flex justify-between items-center text-chocolate">
                     Do you deliver?
@@ -377,7 +375,6 @@
                 </summary>
                 <p class="mt-2 text-gray-600">Yes! We offer delivery within Lichtenburg for a small fee. Collection from 19C Hamman Street is free.</p>
             </details>
-
             <details class="bg-cream rounded-lg p-4 cursor-pointer border border-gold/20 shadow-sm group">
                 <summary class="font-bold text-lg flex justify-between items-center text-chocolate">
                     Do you cater for allergies?
@@ -454,10 +451,10 @@
 <section class="py-20 bg-white">
  <h2 class="font-serif text-4xl text-center font-bold mb-10 text-chocolate">Behind the Scenes</h2>
  <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto px-4">
-  <video preload="none" controls class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
+  <video preload="none" aria-label="Video of cake frosting process" controls class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
    <source src="cake-processing1.mp4" type="video/mp4">
   </video>
-  <video preload="none" controls class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
+  <video preload="none" aria-label="Video of cake decorating" controls class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
    <source src="cake-processing2.mp4" type="video/mp4">
   </video>
  </div>
@@ -472,14 +469,12 @@
     <ul class="space-y-4 mb-6">
      <li class="flex items-center"><i class="fas fa-phone mr-3 text-strawberry"></i> <a href="tel:+27737095975" class="font-bold">+27 73 709 5975</a></li>
      <li class="flex items-center"><i class="fab fa-facebook mr-3 text-blue-600"></i> <a href="https://www.facebook.com/share/19hLgJkBUj/" target="_blank" class="font-bold">Bridge Angels on Facebook</a></li>
-     
      <li class="flex items-center group">
          <i class="fas fa-map-marker-alt mr-3 text-strawberry group-hover:scale-125 transition"></i> 
          <a href="https://maps.google.com/?q=19C+Hamman+Street,+Lichtenburg" target="_blank" class="hover:text-strawberry transition font-bold underline decoration-strawberry/30">
              19C Hamman Street, Lichtenburg
          </a>
      </li>
-     
     </ul>
     <div class="flex flex-col gap-4">
         <a href="https://wa.me/27737095975" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold text-center shadow-md transition"><i class="fab fa-whatsapp mr-2"></i> Chat on WhatsApp</a>
@@ -497,7 +492,7 @@
     </div>
 </div>
 
-<div id="sharePopup" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+<div id="sharePopup" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 hidden">
  <div class="bg-white p-6 rounded-xl w-80 text-center space-y-4 shadow-2xl">
   <h3 class="text-xl font-bold">Share Website</h3>
   <button class="w-full bg-green-500 text-white py-2 rounded-lg" onclick="window.open('https://wa.me/?text='+encodeURI(window.location.href))">WhatsApp</button>
@@ -505,6 +500,11 @@
   <button class="w-full bg-gray-800 text-white py-2 rounded-lg" onclick="navigator.clipboard.writeText(window.location.href)">Copy Link</button>
   <button class="w-full bg-red-500 text-white py-2 rounded-lg" onclick="document.getElementById('sharePopup').style.display='none'">Close</button>
  </div>
+</div>
+
+<div id="imageModal" class="fixed inset-0 z-[60] hidden bg-black/95 flex items-center justify-center p-4" onclick="closeModal()">
+    <span class="absolute top-4 right-4 text-white/80 hover:text-white text-5xl cursor-pointer font-bold">&times;</span>
+    <img id="modalImage" class="max-h-[90vh] max-w-full rounded-lg shadow-2xl object-contain" src="" alt="Enlarged view">
 </div>
 
 <a href="https://wa.me/27737095975?text=Hi%20Bridget%2C%20I%20saw%20your%20beautiful%20cakes%20online%20%F0%9F%98%8D%20Can%20I%20get%20a%20quote%3F" class="fixed bottom-6 left-6 bg-green-500 text-white p-4 rounded-full shadow-xl text-3xl hover:scale-110 transition z-40 animate-pulse">
@@ -519,10 +519,13 @@
      <a href="https://www.facebook.com/share/19hLgJkBUj/" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook text-3xl"></i></a>
      <a href="tel:+27737095975" class="text-gray-400 hover:text-white transition"><i class="fas fa-phone text-3xl"></i></a>
  </div>
- <p class="text-gray-400 text-sm">© 2024 Bridge Angels Treats. All rights reserved.</p>
+ <p class="text-gray-400 text-sm">© <span id="currentYear">2025</span> Bridge Angels Treats. All rights reserved.</p>
 </footer>
 
 <script>
+    // AUTO-UPDATE YEAR
+    document.getElementById('currentYear').innerText = new Date().getFullYear();
+
     // MOBILE MENU TOGGLE
     const btn=document.getElementById('mobile-menu-btn'); 
     const menu=document.getElementById('mobile-menu'); 
@@ -553,6 +556,21 @@
         }
     }
 
+    // MODAL FUNCTIONS
+    function openModal(imageSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        modal.classList.remove('hidden');
+        modalImg.src = imageSrc;
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+
     // WHATSAPP SEND FUNCTION
     function sendToWhatsapp() {
         var name = document.getElementById('orderName').value;
@@ -560,7 +578,6 @@
         var date = document.getElementById('orderDate').value;
         var qty = document.getElementById('orderQty').value;
         
-        // Collect ALL checked boxes
         var checkedBoxes = document.querySelectorAll('input[name="orderType"]:checked');
         var selectedTypes = [];
         checkedBoxes.forEach((checkbox) => {
@@ -568,7 +585,6 @@
         });
         
         var typeString = selectedTypes.length > 0 ? selectedTypes.join(", ") : "Not Selected";
-        
         var details = document.getElementById('orderDetails').value;
 
         if(name === "") {
