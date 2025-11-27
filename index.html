@@ -10,12 +10,12 @@
 <meta name="author" content="Bridge Angels Treats">
 
 <meta name="theme-color" content="#EC4899">
-<link rel="canonical" href="https://bridgeangelscakes.netlify.app">
+<link rel="canonical" href="https://bridgeangelscakes.co.za">
 
 <meta property="og:title" content="Bridge Angels Treats - Custom Cakes">
 <meta property="og:description" content="Delicious handcrafted cakes for weddings, birthdays, and celebrations in Lichtenburg.">
-<meta property="og:image" content="kids-gender-reveal-pink-blue-cupcakes.jpg">
-<meta property="og:url" content="https://bridgeangelscakes.netlify.app">
+<meta property="og:image" content="https://bridgeangelscakes.co.za/kids-gender-reveal-pink-blue-cupcakes.jpg">
+<meta property="og:url" content="https://bridgeangelscakes.co.za">
 <meta property="og:type" content="website">
 
 <script type="application/ld+json">
@@ -23,7 +23,7 @@
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "Bakery"],
   "name": "Bridge Angels Treats",
-  "image": "https://bridgeangelscakes.netlify.app/wedding-modern-black-gold-stripes.jpg",
+  "image": "https://bridgeangelscakes.co.za/wedding-modern-black-gold-stripes.jpg",
   "description": "Custom cakes for weddings, birthdays, kids, and special events in Lichtenburg.",
   "address": {
     "@type": "PostalAddress",
@@ -35,7 +35,7 @@
   },
   "telephone": "+27737095975",
   "priceRange": "R650+",
-  "url": "https://bridgeangelscakes.netlify.app"
+  "url": "https://bridgeangelscakes.co.za"
 }
 </script>
 
@@ -99,7 +99,7 @@
     /* Softer hover on buttons */
     button, .hover\:scale-105:hover, a { transition: all 0.3s ease; }
 
-    /* Make gallery images pop more */
+    /* Make gallery images pop more and show zoom cursor */
     .gallery-item img:hover {
         transform: scale(1.03);
         box-shadow: 0 20px 40px rgba(0,0,0,0.2);
@@ -523,15 +523,15 @@
 </footer>
 
 <script>
-    // AUTO-UPDATE YEAR
+    // 1. AUTO-UPDATE YEAR
     document.getElementById('currentYear').innerText = new Date().getFullYear();
 
-    // MOBILE MENU TOGGLE
-    const btn=document.getElementById('mobile-menu-btn'); 
-    const menu=document.getElementById('mobile-menu'); 
-    btn.addEventListener('click',()=>menu.classList.toggle('hidden'));
+    // 2. MOBILE MENU TOGGLE
+    const btn = document.getElementById('mobile-menu-btn'); 
+    const menu = document.getElementById('mobile-menu'); 
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
 
-    // FILTER GALLERY FUNCTION
+    // 3. FILTER GALLERY FUNCTION
     function filterGallery(category) {
         document.getElementById('gallery').scrollIntoView({behavior: 'smooth'});
         const images = document.querySelectorAll('.gallery-item');
@@ -556,13 +556,13 @@
         }
     }
 
-    // MODAL FUNCTIONS
+    // 4. LIGHTBOX MODAL FUNCTIONS
     function openModal(imageSrc) {
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
         modal.classList.remove('hidden');
         modalImg.src = imageSrc;
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden'; // Prevent scrolling background
     }
 
     function closeModal() {
@@ -571,13 +571,14 @@
         document.body.style.overflow = 'auto'; // Re-enable scrolling
     }
 
-    // WHATSAPP SEND FUNCTION
+    // 5. WHATSAPP SEND FUNCTION
     function sendToWhatsapp() {
         var name = document.getElementById('orderName').value;
         var phone = document.getElementById('orderPhone').value;
         var date = document.getElementById('orderDate').value;
         var qty = document.getElementById('orderQty').value;
         
+        // Collect checked boxes
         var checkedBoxes = document.querySelectorAll('input[name="orderType"]:checked');
         var selectedTypes = [];
         checkedBoxes.forEach((checkbox) => {
