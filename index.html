@@ -80,34 +80,19 @@
 
 <style>
     html { scroll-behavior:smooth; }
-    
-    /* Darker overlay so white text pops */
     .hero-overlay{ background: rgba(0,0,0,0.5); } 
-    
     #sharePopup{display:none;} 
-    
-    /* Animation for gallery filtering */
     .gallery-item { transition: all 0.3s ease; }
     .hidden-item { display: none; }
-    
-    /* Checkbox styling */
     .checkbox-wrapper input:checked + div { background-color: #EC4899; color: white; border-color: #EC4899; }
-
-    /* Creamy shadows */
     .shadow-cream { box-shadow: 0 10px 30px rgba(236, 178, 120, 0.15); }
-
-    /* Softer hover on buttons */
     button, .hover\:scale-105:hover, a { transition: all 0.3s ease; }
-
-    /* Make gallery images pop more and show zoom cursor */
     .gallery-item img:hover {
         transform: scale(1.03);
         box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         z-index: 10;
         position: relative;
     }
-    
-    /* FAQ Details styling */
     details > summary { list-style: none; }
     details > summary::-webkit-details-marker { display: none; }
 </style>
@@ -128,7 +113,7 @@
     <a href="#gallery" class="hover:text-strawberry transition font-bold">Gallery</a>
     <a href="#contact" class="hover:text-strawberry transition font-bold">Contact</a>
     <a href="tel:+27737095975" class="text-gray-600 hover:text-strawberry" title="Call Us"><i class="fas fa-phone-alt text-xl"></i></a>
-    <a href="https:////www.facebook.com/bridgeangelscakes" target="_blank" class="text-blue-600 hover:text-blue-800" title="Facebook Page"><i class="fab fa-facebook text-2xl"></i></a>
+    <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="text-blue-600 hover:text-blue-800" title="Facebook Page"><i class="fab fa-facebook text-2xl"></i></a>
    </div>
 
    <button id="mobile-menu-btn" class="md:hidden text-2xl text-strawberry"><i class="fas fa-bars"></i></button>
@@ -139,7 +124,7 @@
   <a href="#about" class="block py-3 border-b text-chocolate font-bold">About</a>
   <a href="#services" class="block py-3 border-b text-chocolate font-bold">Services</a>
   <a href="#gallery" class="block py-3 border-b text-chocolate font-bold">Gallery</a>
-  <a href="https:////www.facebook.com/bridgeangelscakes" target="_blank" class="block py-3 text-blue-600 font-bold"><i class="fab fa-facebook mr-2"></i>Visit Facebook</a>
+  <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="block py-3 text-blue-600 font-bold"><i class="fab fa-facebook mr-2"></i>Visit Facebook</a>
   <div class="grid grid-cols-2 gap-2 mt-4">
       <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
       <a href="https://wa.me/27737095975" class="bg-green-500 text-white text-center py-3 rounded-lg"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a>
@@ -237,7 +222,6 @@
  </div>
 
  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto px-4" id="galleryGrid">
-  
   <div class="gallery-item" data-category="wedding">
     <picture>
         <source srcset="wedding-modern-black-gold-stripes.webp" type="image/webp">
@@ -389,23 +373,25 @@
 <section id="order" class="py-20 bg-cream">
  <div class="max-w-4xl mx-auto px-4">
   <h2 class="font-serif text-4xl font-bold text-center mb-10 text-chocolate">Order / Request a Quote</h2>
-  <div class="grid grid-cols-1 gap-6 bg-white p-8 rounded-2xl shadow-cream border border-pink-100">
+  
+  <form action="quote.php" method="POST" class="grid grid-cols-1 gap-6 bg-white p-8 rounded-2xl shadow-cream border border-pink-100">
+   
    <div class="text-center text-gray-500 mb-4 text-sm">
-       <i class="fab fa-whatsapp text-green-500 text-lg mr-1"></i> 
-       Submitting this form will open WhatsApp to send your details directly to Bridget.
+       <i class="fas fa-envelope text-strawberry text-lg mr-1"></i> 
+       Fill this out to send an email inquiry directly to Bridget.
    </div>
 
-   <input id="orderName" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Your Name" required>
-   <input id="orderPhone" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Phone Number" required>
+   <input type="text" name="name" id="orderName" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Your Name" required>
+   <input type="tel" name="phone" id="orderPhone" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Phone Number" required>
    
    <div class="grid md:grid-cols-2 gap-4">
        <div>
            <label class="block text-gray-500 text-xs mb-1 ml-1">Event Date</label>
-           <input id="orderDate" type="date" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter">
+           <input type="date" name="date" id="orderDate" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter">
        </div>
        <div>
            <label class="block text-gray-500 text-xs mb-1 ml-1">Quantity/Guests</label>
-           <input id="orderQty" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="e.g. 50 guests OR 12 cupcakes">
+           <input type="text" name="quantity" id="orderQty" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="e.g. 50 guests OR 12 cupcakes">
        </div>
    </div>
 
@@ -413,38 +399,38 @@
        <label class="block text-gray-500 text-sm mb-2 font-bold">What would you like to order? (Select all that apply)</label>
        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Wedding Cake" class="hidden">
+               <input type="checkbox" name="orderType[]" value="Wedding Cake" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Wedding Cake</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Birthday Cake" class="hidden">
+               <input type="checkbox" name="orderType[]" value="Birthday Cake" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Birthday Cake</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Kids/Themed" class="hidden">
+               <input type="checkbox" name="orderType[]" value="Kids/Themed" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Kids/Themed</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Cupcakes (R20ea)" class="hidden">
+               <input type="checkbox" name="orderType[]" value="Cupcakes (R20ea)" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Cupcakes</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Scones (5L Bucket)" class="hidden">
+               <input type="checkbox" name="orderType[]" value="Scones (5L Bucket)" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Scones</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Cookies" class="hidden">
+               <input type="checkbox" name="orderType[]" value="Cookies" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Cookies</div>
            </label>
        </div>
    </div>
    
-   <textarea id="orderDetails" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none h-32 bg-butter" placeholder="Describe your design, flavors, or any allergies..."></textarea>
+   <textarea name="message" id="orderDetails" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none h-32 bg-butter" placeholder="Describe your design, flavors, or any allergies..."></textarea>
    
-   <button onclick="sendToWhatsapp()" class="bg-strawberry hover:bg-pink-700 transition text-white p-4 rounded-lg text-lg font-bold shadow-cream">
-       <i class="fab fa-whatsapp mr-2"></i> Submit Quote via WhatsApp
+   <button type="submit" class="bg-strawberry hover:bg-pink-700 transition text-white p-4 rounded-lg text-lg font-bold shadow-cream">
+       <i class="fas fa-paper-plane mr-2"></i> Send Quote Request
    </button>
-  </div>
+  </form>
  </div>
 </section>
 
@@ -468,7 +454,7 @@
     <p class="mb-6 text-gray-600">Send your design idea via WhatsApp for the fastest response.</p>
     <ul class="space-y-4 mb-6">
      <li class="flex items-center"><i class="fas fa-phone mr-3 text-strawberry"></i> <a href="tel:+27737095975" class="font-bold">+27 73 709 5975</a></li>
-     <li class="flex items-center"><i class="fab fa-facebook mr-3 text-blue-600"></i> <a href="https:////www.facebook.com/bridgeangelscakes" target="_blank" class="font-bold">Bridge Angels on Facebook</a></li>
+     <li class="flex items-center"><i class="fab fa-facebook mr-3 text-blue-600"></i> <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="font-bold">Bridge Angels on Facebook</a></li>
      <li class="flex items-center group">
          <i class="fas fa-map-marker-alt mr-3 text-strawberry group-hover:scale-125 transition"></i> 
          <a href="https://maps.google.com/?q=19C+Hamman+Street,+Lichtenburg" target="_blank" class="hover:text-strawberry transition font-bold underline decoration-strawberry/30">
@@ -516,7 +502,7 @@
 <footer class="bg-gray-800 text-white py-12 text-center">
  <p class="font-serif text-xl font-bold mb-4">Bridge Angels Treats (Pty) Ltd</p>
  <div class="flex justify-center space-x-6 mb-8">
-     <a href="https:////www.facebook.com/bridgeangelscakes" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook text-3xl"></i></a>
+     <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook text-3xl"></i></a>
      <a href="tel:+27737095975" class="text-gray-400 hover:text-white transition"><i class="fas fa-phone text-3xl"></i></a>
  </div>
  <p class="text-gray-400 text-sm">© <span id="currentYear">2025</span> Bridge Angels Treats. All rights reserved.</p>
@@ -570,44 +556,7 @@
         modal.classList.add('hidden');
         document.body.style.overflow = 'auto'; // Re-enable scrolling
     }
-
-    // 5. WHATSAPP SEND FUNCTION
-    function sendToWhatsapp() {
-        var name = document.getElementById('orderName').value;
-        var phone = document.getElementById('orderPhone').value;
-        var date = document.getElementById('orderDate').value;
-        var qty = document.getElementById('orderQty').value;
-        
-        // Collect checked boxes
-        var checkedBoxes = document.querySelectorAll('input[name="orderType"]:checked');
-        var selectedTypes = [];
-        checkedBoxes.forEach((checkbox) => {
-            selectedTypes.push(checkbox.value);
-        });
-        
-        var typeString = selectedTypes.length > 0 ? selectedTypes.join(", ") : "Not Selected";
-        var details = document.getElementById('orderDetails').value;
-
-        if(name === "") {
-            alert("Please enter your name first!");
-            return;
-        }
-
-        var message = "*NEW ORDER INQUIRY* %0a" + 
-                      "-----------------------%0a" +
-                      "*Name:* " + name + "%0a" +
-                      "*Phone:* " + phone + "%0a" +
-                      "*Date:* " + date + "%0a" +
-                      "*Order Items:* " + typeString + "%0a" +
-                      "*Size/Qty:* " + qty + "%0a" +
-                      "-----------------------%0a" +
-                      "*Details:* " + details;
-
-        var url = "https://wa.me/27737095975?text=" + message;
-        window.open(url, '_blank');
-    }
 </script>
 
 </body>
 </html>
-
