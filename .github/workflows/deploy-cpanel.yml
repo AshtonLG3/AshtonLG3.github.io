@@ -1,0 +1,130 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: cpanel-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Upload site to public_html
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Verify required FTP secrets
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
+        run: |
+          missing=0
+          for name in FTP_SERVER FTP_USERNAME FTP_PASSWORD FTP_REMOTE_DIR; do
+            if [ -z "${!name}" ]; then
+              echo "::error title=Missing GitHub secret::$name is not set"
+              missing=1
+            fi
+          done
+          exit "$missing"
+
+      - name: Upload to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
+          protocol: ${{ secrets.FTP_PROTOCOL || 'ftp' }}
+          port: ${{ secrets.FTP_PORT || 21 }}
+          log-level: minimal
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            **/*.zip
+
+      - name: Verify live site
+        env:
+          SITE_URL: https://bridgeangelscakes.co.za/
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          from urllib.request import Request, urlopen
+          import re
+          import sys
+          import time
+
+          site_url = "https://bridgeangelscakes.co.za/"
+          local_html = Path("index.html").read_text(encoding="utf-8")
+          expected_version = ""
+          version_match = re.search(r'<meta name="site-version" content="([^"]+)"', local_html)
+          if version_match:
+              expected_version = version_match.group(1)
+
+          class AssetParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.assets = set()
+
+              def handle_starttag(self, tag, attrs):
+                  for name, value in attrs:
+                      if name not in {"src", "srcset", "href"} or not value:
+                          continue
+                      first_value = value.split()[0]
+                      if first_value.startswith(("http:", "https:", "tel:", "mailto:", "#", "data:", "javascript:")):
+                          continue
+                      self.assets.add(first_value)
+
+          def fetch(url, method="GET"):
+              request = Request(
+                  url,
+                  method=method,
+                  headers={
+                      "User-Agent": "BridgeAngelsDeployCheck/1.0",
+                      "Cache-Control": "no-cache",
+                      "Pragma": "no-cache",
+                  },
+              )
+              return urlopen(request, timeout=30)
+
+          time.sleep(10)
+          page = fetch(site_url + "?deploy_check=github-actions").read().decode("utf-8", errors="replace")
+          if expected_version and expected_version not in page:
+              print(f"::error title=Live version mismatch::Expected site-version {expected_version} in live HTML")
+              sys.exit(1)
+
+          parser = AssetParser()
+          parser.feed(local_html)
+          missing = []
+          for asset in sorted(parser.assets):
+              asset_url = urljoin(site_url, asset)
+              try:
+                  response = fetch(asset_url, method="HEAD")
+                  if response.status >= 400:
+                      missing.append(f"{asset} ({response.status})")
+              except Exception:
+                  try:
+                      response = fetch(asset_url, method="GET")
+                      if response.status >= 400:
+                          missing.append(f"{asset} ({response.status})")
+                  except Exception as exc:
+                      missing.append(f"{asset} ({type(exc).__name__})")
+
+          if missing:
+              print("::error title=Missing live assets::" + ", ".join(missing))
+              sys.exit(1)
+
+          print(f"Live site verified: version={expected_version or 'not set'}, assets={len(parser.assets)}")
+          PY
