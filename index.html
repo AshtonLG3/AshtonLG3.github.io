@@ -8,6 +8,7 @@
 <meta name="description" content="Order custom wedding cakes, birthday cakes, cupcakes, and scones in Lichtenburg. Handcrafted by Bridget. Cakes starting from R650.">
 <meta name="keywords" content="cakes Lichtenburg, custom cakes, wedding cakes, birthday cakes, kids cakes, cupcakes, scones, bakery Lichtenburg, Bridge Angels Treats">
 <meta name="author" content="Bridge Angels Treats">
+<meta name="site-version" content="2026.05.23.1">
 
 <meta name="theme-color" content="#EC4899">
 <link rel="canonical" href="https://bridgeangelscakes.co.za">
@@ -80,19 +81,34 @@
 
 <style>
     html { scroll-behavior:smooth; }
+    
+    /* Darker overlay so white text pops */
     .hero-overlay{ background: rgba(0,0,0,0.5); } 
+    
     #sharePopup{display:none;} 
+    
+    /* Animation for gallery filtering */
     .gallery-item { transition: all 0.3s ease; }
     .hidden-item { display: none; }
+    
+    /* Checkbox styling */
     .checkbox-wrapper input:checked + div { background-color: #EC4899; color: white; border-color: #EC4899; }
+
+    /* Creamy shadows */
     .shadow-cream { box-shadow: 0 10px 30px rgba(236, 178, 120, 0.15); }
+
+    /* Softer hover on buttons */
     button, .hover\:scale-105:hover, a { transition: all 0.3s ease; }
+
+    /* Make gallery images pop more and show zoom cursor */
     .gallery-item img:hover {
         transform: scale(1.03);
         box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         z-index: 10;
         position: relative;
     }
+    
+    /* FAQ Details styling */
     details > summary { list-style: none; }
     details > summary::-webkit-details-marker { display: none; }
 </style>
@@ -222,6 +238,19 @@
  </div>
 
  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto px-4" id="galleryGrid">
+  
+  <div class="gallery-item" data-category="wedding">
+    <picture>
+        <source srcset="wedding-limpopo-white-gold-50-cake.webp" type="image/webp">
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="wedding-limpopo-white-gold-50-cake.jpg" alt="Limpopo wedding cake with white waves and gold details by Bridget" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
+  </div>
+  <div class="gallery-item" data-category="wedding">
+    <picture>
+        <source srcset="wedding-traditional-red-gold-three-tier-cake.webp" type="image/webp">
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="wedding-traditional-red-gold-three-tier-cake.jpg" alt="Traditional red and gold three tier wedding cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
+  </div>
   <div class="gallery-item" data-category="wedding">
     <picture>
         <source srcset="wedding-modern-black-gold-stripes.webp" type="image/webp">
@@ -249,6 +278,12 @@
   </div>
   <div class="gallery-item" data-category="kids">
     <picture>
+        <source srcset="kids-spiderman-blue-birthday-cake.webp" type="image/webp">
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-spiderman-blue-birthday-cake.jpg" alt="Blue Spiderman birthday cake with city skyline and red decorations" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
+  </div>
+  <div class="gallery-item" data-category="kids">
+    <picture>
         <source srcset="kids-princess-castle-pink-zoey.webp" type="image/webp">
         <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-princess-castle-pink-zoey.jpg" alt="Princess Castle Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
@@ -269,6 +304,12 @@
     <picture>
         <source srcset="kids-baby-shower-boy-blue-clouds.webp" type="image/webp">
         <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-baby-shower-boy-blue-clouds.jpg" alt="Blue Baby Shower Cake" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
+  </div>
+  <div class="gallery-item" data-category="kids">
+    <picture>
+        <source srcset="kids-rainbow-first-birthday-cake.webp" type="image/webp">
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="kids-rainbow-first-birthday-cake.jpg" alt="Rainbow first birthday cake with butterflies and pastel decorations" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
 
@@ -294,6 +335,12 @@
     <picture>
         <source srcset="birthday-husband-father-white-gold.webp" type="image/webp">
         <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="birthday-husband-father-white-gold.jpg" alt="Men's Birthday Cake White Gold" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+    </picture>
+  </div>
+  <div class="gallery-item" data-category="celebration">
+    <picture>
+        <source srcset="celebration-mothers-day-floral-cake.webp" type="image/webp">
+        <img onclick="openModal(this.currentSrc || this.src)" loading="lazy" src="celebration-mothers-day-floral-cake.jpg" alt="Mother's Day floral cake with ribbon and pink lettering" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
     </picture>
   </div>
 
@@ -373,25 +420,23 @@
 <section id="order" class="py-20 bg-cream">
  <div class="max-w-4xl mx-auto px-4">
   <h2 class="font-serif text-4xl font-bold text-center mb-10 text-chocolate">Order / Request a Quote</h2>
-  
-  <form action="quote.php" method="POST" class="grid grid-cols-1 gap-6 bg-white p-8 rounded-2xl shadow-cream border border-pink-100">
-   
+  <div class="grid grid-cols-1 gap-6 bg-white p-8 rounded-2xl shadow-cream border border-pink-100">
    <div class="text-center text-gray-500 mb-4 text-sm">
-       <i class="fas fa-envelope text-strawberry text-lg mr-1"></i> 
-       Fill this out to send an email inquiry directly to Bridget.
+       <i class="fab fa-whatsapp text-green-500 text-lg mr-1"></i> 
+       Submitting this form will open WhatsApp to send your details directly to Bridget.
    </div>
 
-   <input type="text" name="name" id="orderName" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Your Name" required>
-   <input type="tel" name="phone" id="orderPhone" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Phone Number" required>
+   <input id="orderName" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Your Name" required>
+   <input id="orderPhone" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Phone Number" required>
    
    <div class="grid md:grid-cols-2 gap-4">
        <div>
            <label class="block text-gray-500 text-xs mb-1 ml-1">Event Date</label>
-           <input type="date" name="date" id="orderDate" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter">
+           <input id="orderDate" type="date" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter">
        </div>
        <div>
            <label class="block text-gray-500 text-xs mb-1 ml-1">Quantity/Guests</label>
-           <input type="text" name="quantity" id="orderQty" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="e.g. 50 guests OR 12 cupcakes">
+           <input id="orderQty" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="e.g. 50 guests OR 12 cupcakes">
        </div>
    </div>
 
@@ -399,38 +444,38 @@
        <label class="block text-gray-500 text-sm mb-2 font-bold">What would you like to order? (Select all that apply)</label>
        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType[]" value="Wedding Cake" class="hidden">
+               <input type="checkbox" name="orderType" value="Wedding Cake" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Wedding Cake</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType[]" value="Birthday Cake" class="hidden">
+               <input type="checkbox" name="orderType" value="Birthday Cake" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Birthday Cake</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType[]" value="Kids/Themed" class="hidden">
+               <input type="checkbox" name="orderType" value="Kids/Themed" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Kids/Themed</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType[]" value="Cupcakes (R20ea)" class="hidden">
+               <input type="checkbox" name="orderType" value="Cupcakes (R20ea)" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Cupcakes</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType[]" value="Scones (5L Bucket)" class="hidden">
+               <input type="checkbox" name="orderType" value="Scones (5L Bucket)" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Scones</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType[]" value="Cookies" class="hidden">
+               <input type="checkbox" name="orderType" value="Cookies" class="hidden">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Cookies</div>
            </label>
        </div>
    </div>
    
-   <textarea name="message" id="orderDetails" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none h-32 bg-butter" placeholder="Describe your design, flavors, or any allergies..."></textarea>
+   <textarea id="orderDetails" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none h-32 bg-butter" placeholder="Describe your design, flavors, or any allergies..."></textarea>
    
-   <button type="submit" class="bg-strawberry hover:bg-pink-700 transition text-white p-4 rounded-lg text-lg font-bold shadow-cream">
-       <i class="fas fa-paper-plane mr-2"></i> Send Quote Request
+   <button onclick="sendToWhatsapp()" class="bg-strawberry hover:bg-pink-700 transition text-white p-4 rounded-lg text-lg font-bold shadow-cream">
+       <i class="fab fa-whatsapp mr-2"></i> Submit Quote via WhatsApp
    </button>
-  </form>
+  </div>
  </div>
 </section>
 
@@ -555,6 +600,42 @@
         const modal = document.getElementById('imageModal');
         modal.classList.add('hidden');
         document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+
+    // 5. WHATSAPP SEND FUNCTION
+    function sendToWhatsapp() {
+        var name = document.getElementById('orderName').value;
+        var phone = document.getElementById('orderPhone').value;
+        var date = document.getElementById('orderDate').value;
+        var qty = document.getElementById('orderQty').value;
+        
+        // Collect checked boxes
+        var checkedBoxes = document.querySelectorAll('input[name="orderType"]:checked');
+        var selectedTypes = [];
+        checkedBoxes.forEach((checkbox) => {
+            selectedTypes.push(checkbox.value);
+        });
+        
+        var typeString = selectedTypes.length > 0 ? selectedTypes.join(", ") : "Not Selected";
+        var details = document.getElementById('orderDetails').value;
+
+        if(name === "") {
+            alert("Please enter your name first!");
+            return;
+        }
+
+        var message = "*NEW ORDER INQUIRY* %0a" + 
+                      "-----------------------%0a" +
+                      "*Name:* " + name + "%0a" +
+                      "*Phone:* " + phone + "%0a" +
+                      "*Date:* " + date + "%0a" +
+                      "*Order Items:* " + typeString + "%0a" +
+                      "*Size/Qty:* " + qty + "%0a" +
+                      "-----------------------%0a" +
+                      "*Details:* " + details;
+
+        var url = "https://wa.me/27737095975?text=" + message;
+        window.open(url, '_blank');
     }
 </script>
 
