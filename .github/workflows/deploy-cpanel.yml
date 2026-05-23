@@ -36,15 +36,48 @@ jobs:
           done
           exit "$missing"
 
+      - name: Prepare FTP settings
+        id: ftp
+        env:
+          RAW_SERVER: ${{ secrets.FTP_SERVER }}
+          RAW_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
+          RAW_PROTOCOL: ${{ secrets.FTP_PROTOCOL }}
+          RAW_PORT: ${{ secrets.FTP_PORT }}
+        run: |
+          protocol="${RAW_PROTOCOL:-ftp}"
+          server="$RAW_SERVER"
+
+          case "$server" in
+            ftps://*)
+              protocol="ftps"
+              server="${server#ftps://}"
+              ;;
+            ftp://*)
+              protocol="ftp"
+              server="${server#ftp://}"
+              ;;
+          esac
+
+          server="${server%%/*}"
+          remote_dir="$RAW_REMOTE_DIR"
+          if [ "${remote_dir: -1}" != "/" ]; then
+            remote_dir="${remote_dir}/"
+          fi
+
+          echo "server=$server" >> "$GITHUB_OUTPUT"
+          echo "remote_dir=$remote_dir" >> "$GITHUB_OUTPUT"
+          echo "protocol=$protocol" >> "$GITHUB_OUTPUT"
+          echo "port=${RAW_PORT:-21}" >> "$GITHUB_OUTPUT"
+
       - name: Upload to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ steps.ftp.outputs.server }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
-          protocol: ${{ secrets.FTP_PROTOCOL || 'ftp' }}
-          port: ${{ secrets.FTP_PORT || 21 }}
+          server-dir: ${{ steps.ftp.outputs.remote_dir }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
           log-level: minimal
           exclude: |
             **/.git*
