@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101820">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Clocking">
+    <title>Employee Scanner</title>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
+    <link rel="stylesheet" href="/dist.css">
+    <script src="capacitor.js"></script>
+  </head>
+  <body class="scanner-page employee-scanner-v2">
+    <main class="phone-shell">
+      <section id="mobile-form" class="phone-screen">
+        <section id="scanner-card" class="scanner-card hidden" aria-live="polite">
+          <header class="scanner-header">
+            <span class="scanner-time phone-time" data-mobile-now>--:--</span>
+            <p class="employee-label">Employee Name</p>
+            <h1 id="scanner-employee-name" class="scanner-owner">Employee</h1>
+            <div class="work-row">
+              <span>Work No.</span>
+              <strong id="scanner-employee-id" class="employee-pill">001</strong>
+            </div>
+          </header>
+
+          <section id="scan-tab" class="mobile-tab-panel active" data-tab-panel="scan">
+            <section class="scanner-frame scan-window" aria-label="Scanner frame">
+              <div class="corner top-left"></div>
+              <div class="corner top-right"></div>
+              <div class="corner bottom-left"></div>
+              <div class="corner bottom-right"></div>
+              <img class="scanner-lens-image" src="/assets/scanner-lens.png" alt="" aria-hidden="true">
+              <div class="lens-placeholder" aria-hidden="true">
+                <span class="material-symbols-outlined scanner-focus-icon">qr_code_scanner</span>
+              </div>
+            </section>
+
+            <section class="next-action-card">
+              <strong id="scanner-next-action" class="scanner-state text-primary">IN</strong>
+            </section>
+
+            <div class="scanner-copy">
+              <p class="scanner-help">Aim at the office terminal QR</p>
+              <small id="scanner-live-status" class="scanner-status-capsule text-primary">System active - Ready to scan</small>
+            </div>
+          </section>
+
+          <section id="history-tab" class="mobile-tab-panel" data-tab-panel="history">
+            <div class="mobile-panel-card">
+              <h2>History</h2>
+              <div id="mobile-history-list" class="mobile-history-list">
+                <p>No shifts loaded yet.</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="profile-tab" class="mobile-tab-panel" data-tab-panel="profile">
+            <div class="mobile-panel-card profile-card">
+              <h2>Profile</h2>
+              <dl>
+                <div>
+                  <dt>Name</dt>
+                  <dd id="profile-employee-name">Employee</dd>
+                </div>
+                <div>
+                  <dt>Badge</dt>
+                  <dd id="profile-employee-id">001</dd>
+                </div>
+                <div>
+                  <dt>Device ID</dt>
+                  <dd id="scanner-credential-id">PHONE:ID</dd>
+                </div>
+                <div>
+                  <dt>Office</dt>
+                  <dd id="profile-server-url">Local terminal</dd>
+                </div>
+              </dl>
+            </div>
+          </section>
+
+          <nav class="bottom-nav" aria-label="Scanner navigation">
+            <button class="active" type="button" data-tab="scan" aria-current="page">
+              <span class="material-symbols-outlined">qr_code_2</span>
+              <strong>Scan</strong>
+            </button>
+            <button type="button" data-tab="history">
+              <span class="material-symbols-outlined">history</span>
+              <strong>History</strong>
+            </button>
+            <button type="button" data-tab="profile">
+              <span class="material-symbols-outlined">person</span>
+              <strong>Profile</strong>
+            </button>
+          </nav>
+        </section>
+
+        <section id="scanner-setup" class="scanner-setup">
+          <header class="scanner-header">
+            <span class="scanner-time phone-time" data-mobile-now>--:--</span>
+            <p class="employee-label">Employee Scanner</p>
+            <h1 class="scanner-owner">Unissued scanner</h1>
+            <div class="work-row">
+              <span>Status</span>
+              <strong class="employee-pill">Office setup pending</strong>
+            </div>
+          </header>
+
+          <section class="mobile-tab-panel active" data-tab-panel="scan">
+            <section class="scanner-frame scan-window" aria-label="Scanner frame">
+              <div class="corner top-left"></div>
+              <div class="corner top-right"></div>
+              <div class="corner bottom-left"></div>
+              <div class="corner bottom-right"></div>
+              <img class="scanner-lens-image" src="/assets/scanner-lens.png" alt="" aria-hidden="true">
+              <div class="lens-placeholder" aria-hidden="true">
+                <span class="material-symbols-outlined scanner-focus-icon">qr_code_scanner</span>
+              </div>
+            </section>
+
+            <section class="next-action-card">
+              <strong class="scanner-state setup-state">SETUP</strong>
+            </section>
+
+            <div class="scanner-copy">
+              <p class="scanner-help">Scan the office issue QR once</p>
+              <small>After sync, this phone locks to the employee scanner</small>
+            </div>
+          </section>
+
+          <section class="mobile-tab-panel" data-tab-panel="history">
+            <div class="mobile-panel-card">
+              <h2>History</h2>
+              <p>Office must issue this scanner first.</p>
+            </div>
+          </section>
+
+          <section class="mobile-tab-panel" data-tab-panel="profile">
+            <div class="mobile-panel-card profile-card">
+              <h2>Profile</h2>
+              <p>This scanner has not been issued by the office yet.</p>
+            </div>
+          </section>
+
+          <nav class="bottom-nav" aria-label="Scanner navigation">
+            <button class="active" type="button" data-tab="scan" aria-current="page">
+              <span class="material-symbols-outlined">qr_code_2</span>
+              <strong>Scan</strong>
+            </button>
+            <button type="button" data-tab="history">
+              <span class="material-symbols-outlined">history</span>
+              <strong>History</strong>
+            </button>
+            <button type="button" data-tab="profile">
+              <span class="material-symbols-outlined">person</span>
+              <strong>Profile</strong>
+            </button>
+          </nav>
+        </section>
+      </section>
+
+      <div id="camera-mask" class="camera-mask" aria-hidden="true">
+        <span class="camera-mask-top"></span>
+        <span class="camera-mask-left"></span>
+        <span class="camera-mask-right"></span>
+        <span class="camera-mask-bottom"></span>
+      </div>
+
+      <p id="mobile-message" class="message mobile-message text-primary" role="status" aria-live="polite"></p>
+    </main>
+
+    <script src="/pwa.js" defer></script>
+    <script src="/mobile.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Supervisor Check Point</string>
+    <string name="title_activity_main">Supervisor Check Point</string>
+    <string name="title_activity_employee">Supervisor Check Point</string>
+    <string name="title_activity_supervisor">Supervisor Check Point</string>
+    <string name="package_name">com.employment.clocking.supervisor</string>
+    <string name="custom_url_scheme">employmentclockingsupervisor</string>
+</resources>

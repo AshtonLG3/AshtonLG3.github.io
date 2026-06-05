@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#167a58">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Clocking">
+    <title>Clocking Office + Terminal</title>
+    <link rel="icon" href="/icons/icon-192.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
+    <link rel="stylesheet" href="/dist.css">
+    <script>
+      const isNativeShell =
+        window.Capacitor?.isNativePlatform?.() ||
+        (location.hostname === 'localhost' && !location.port && /\bwv\b/i.test(navigator.userAgent));
+      if (isNativeShell) {
+        window.location.replace('/mobile.html');
+      }
+    </script>
+  </head>
+  <body class="min-h-screen bg-paper-warm text-on-surface select-none font-sans">
+    <nav class="sticky top-0 z-50 bg-surface/95 border-b border-border-subtle backdrop-blur">
+      <div class="flex h-[72px] items-center justify-between w-full px-4 md:px-lg max-w-max-width mx-auto">
+        <div class="flex items-center gap-lg">
+          <a href="#dashboard-top" class="office-brand">Clocking</a>
+          <div class="hidden md:flex items-center gap-md text-sm font-semibold" aria-label="Office sections">
+            <a href="#dashboard-top" class="office-nav-link" data-office-nav="dashboard-top" aria-current="page">Dashboard</a>
+            <a href="#log-title" class="office-nav-link" data-office-nav="log-title">Logs</a>
+            <a href="#employees-title" class="office-nav-link" data-office-nav="employees-title">Employees</a>
+            <a href="#supervisor-setup-title" class="office-nav-link" data-office-nav="supervisor-setup-title">Supervisor</a>
+          </div>
+        </div>
+        <div class="flex items-center gap-sm text-on-surface-variant">
+          <span id="office-nav-status" class="sr-only" role="status" aria-live="polite"></span>
+          <button id="office-settings-button" class="office-icon-button" type="button" title="Settings" aria-label="Settings">
+            <span class="material-symbols-outlined">settings</span>
+          </button>
+          <button id="office-profile-button" class="office-avatar-button" type="button" title="Admin portal" aria-label="Admin portal">AD</button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="dashboard-top" class="max-w-max-width mx-auto px-4 md:px-lg py-lg space-y-lg">
+      <header class="flex flex-col gap-md md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-eyebrow font-extrabold uppercase tracking-wider text-on-surface-variant">Terminal Node 01</p>
+          <h1 class="mt-1 text-headline-lg md:text-[36px] font-bold leading-tight text-on-surface">Daily Overview</h1>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-sm md:min-w-[620px]">
+          <div class="stitch-stat-card">
+            <span class="material-symbols-outlined stitch-stat-icon bg-primary-fixed text-primary">check_circle</span>
+            <div>
+              <p>Completed</p>
+              <strong id="completed-shifts">0</strong>
+            </div>
+          </div>
+          <div class="stitch-stat-card">
+            <span class="material-symbols-outlined stitch-stat-icon bg-tertiary-fixed text-tertiary">schedule</span>
+            <div>
+              <p>Hours Logged</p>
+              <strong id="hours-logged">0h 00m</strong>
+            </div>
+          </div>
+          <div class="stitch-date-card">
+            <label for="log-date">Log Date</label>
+            <input id="log-date" type="date">
+          </div>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
+        <section class="lg:col-span-5 space-y-lg">
+          <article class="stitch-panel border-t-4 border-primary">
+            <div class="stitch-panel-heading">
+              <div>
+                <h2>Check Point QR</h2>
+                <p>Employee scanners use this terminal to clock in/out.</p>
+              </div>
+              <span class="stitch-status-badge bg-primary text-on-primary">CHECK POINT</span>
+            </div>
+
+            <div class="relative overflow-hidden rounded-lg border border-border-subtle bg-pistachio-light px-md py-xl">
+              <div class="stitch-grid-bg" aria-hidden="true"></div>
+              <div class="relative z-10 mx-auto grid w-full max-w-[360px] justify-items-center gap-lg">
+                <div class="scanner-viewfinder relative grid h-72 w-72 max-w-full place-items-center rounded-lg bg-white shadow-inner">
+                  <span class="absolute inset-0 pointer-events-none"></span>
+                  <div id="terminal-qr" class="grid place-items-center bg-white p-md" aria-live="polite">
+                    <div class="qr-placeholder"></div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <strong id="terminal-display-time" class="block text-[44px] font-extrabold leading-none text-primary">--:--</strong>
+                  <span id="terminal-display-date" class="mt-2 block text-label-bold font-bold text-on-surface-variant">Today</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-md grid gap-sm sm:grid-cols-[1fr_auto] sm:items-center">
+              <a id="mobile-link" class="stitch-link-button" href="/mobile">Employee scanner</a>
+              <span id="terminal-expiry" class="stitch-count-badge">--</span>
+            </div>
+
+            <form id="credential-form" class="stitch-form border-t border-border-subtle pt-md mt-md">
+              <label>
+                <span>Registered card, tag, or NFC ID</span>
+                <input id="credential-id" name="credentialId" autocomplete="off" maxlength="64" placeholder="CARD-001" required>
+              </label>
+              <button class="stitch-secondary-action" type="submit">
+                <span class="material-symbols-outlined">sensors</span>
+                <span>Scan registered credential</span>
+              </button>
+            </form>
+            <p id="credential-message" class="stitch-message" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="stitch-panel supervisor-assignment-panel">
+            <div class="stitch-panel-heading">
+              <div>
+                <h2 id="supervisor-setup-title">Supervisor Assignment</h2>
+                <p>Generate a one-time login link for a supervisor device.</p>
+              </div>
+              <span class="stitch-status-badge bg-tertiary text-on-tertiary">SUPERVISOR</span>
+            </div>
+
+            <div class="stitch-form">
+              <label>
+                <span>Supervisor login link</span>
+                <input id="supervisor-setup-link-input" readonly value="" placeholder="Generate a supervisor link">
+              </label>
+              <div class="grid gap-sm sm:grid-cols-3">
+                <button id="supervisor-generate-link-button" class="stitch-primary-action" type="button">
+                  <span class="material-symbols-outlined">link</span>
+                  <span>Generate Link</span>
+                </button>
+                <button id="supervisor-copy-link-button" class="stitch-secondary-action bg-white" type="button" disabled>
+                  <span class="material-symbols-outlined">content_copy</span>
+                  <span>Copy Link</span>
+                </button>
+                <a id="supervisor-open-link" class="stitch-link-button" href="/supervisor" target="_blank" rel="noopener" aria-disabled="true">Open Link</a>
+              </div>
+              <small id="supervisor-setup-expires" class="font-mono text-xs font-bold text-charcoal-muted">No active link</small>
+            </div>
+            <p id="supervisor-setup-message" class="stitch-message" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="stitch-panel">
+            <div class="stitch-panel-heading">
+              <div>
+                <h2>Manual Override</h2>
+                <p>Record a supervised correction.</p>
+              </div>
+            </div>
+
+            <form id="clock-form" class="stitch-form">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                <label>
+                  <span>Employee ID</span>
+                  <input id="employee-id" name="employeeId" autocomplete="off" maxlength="24" placeholder="E.g. 4021" required>
+                </label>
+                <label>
+                  <span>Staff Name</span>
+                  <input id="employee-name" name="employeeName" autocomplete="name" maxlength="80" placeholder="Search name..." required>
+                </label>
+              </div>
+
+              <fieldset class="stitch-segmented" aria-label="Clocking action">
+                <label>
+                  <input type="radio" name="action" value="in" checked>
+                  <span>Start shift</span>
+                </label>
+                <label>
+                  <input type="radio" name="action" value="out">
+                  <span>End shift</span>
+                </label>
+              </fieldset>
+
+              <button class="stitch-primary-action" type="submit">
+                <span class="material-symbols-outlined">timer</span>
+                <span id="submit-label">Clock in</span>
+              </button>
+            </form>
+            <p id="message" class="stitch-message" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="rounded-xl border border-border-subtle bg-surface-container p-lg">
+            <div class="mb-md flex items-center gap-sm text-primary">
+              <span class="material-symbols-outlined">person_add</span>
+              <h2 class="text-headline-md font-semibold">Register Employee</h2>
+            </div>
+
+            <form id="employee-form" class="stitch-form">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                <label>
+                  <span>Employee number</span>
+                  <input name="employeeId" autocomplete="off" maxlength="24" placeholder="RICHIE001" required>
+                </label>
+                <label>
+                  <span>Employee name</span>
+                  <input name="employeeName" autocomplete="name" maxlength="80" placeholder="Richie" required>
+                </label>
+              </div>
+              <label>
+                <span>Approved phone/card/NFC credential</span>
+                <input name="credentialId" autocomplete="off" maxlength="64" placeholder="PHONE:RICHIE001" required>
+              </label>
+              <button class="stitch-secondary-action bg-white" type="submit">
+                <span class="material-symbols-outlined">badge</span>
+                <span>Register with office</span>
+              </button>
+            </form>
+            <p id="employee-message" class="stitch-message" role="status" aria-live="polite"></p>
+            <div id="scanner-setup-panel" class="hidden mt-md grid gap-sm rounded-lg border border-border-subtle bg-white p-md">
+              <div id="scanner-setup-qr" class="qr-box setup-qr"></div>
+              <a id="scanner-setup-link" class="stitch-link-button" href="/mobile">Issue employee scanner</a>
+            </div>
+          </article>
+        </section>
+
+        <section class="lg:col-span-7 space-y-lg">
+          <article class="stitch-panel overflow-hidden">
+            <div class="stitch-panel-heading">
+              <div>
+                <h2 id="status-title" class="uppercase tracking-wider">On Duty Now (<span id="on-duty-count">0</span>)</h2>
+                <p>Live staff currently clocked in.</p>
+              </div>
+              <a href="#employees-title" class="text-sm font-bold text-primary hover:underline">View All</a>
+            </div>
+            <div id="active-list" class="flex gap-md overflow-x-auto pb-sm no-scrollbar"></div>
+          </article>
+
+          <article class="stitch-panel overflow-hidden">
+            <div class="stitch-panel-heading">
+              <div>
+                <h2 id="employees-title">Registered Employees</h2>
+                <p>Issued scanners and office credentials.</p>
+              </div>
+              <span id="registered-count" class="stitch-count-badge">0 TOTAL</span>
+            </div>
+            <div id="employee-list" class="stitch-registry-list"></div>
+          </article>
+
+          <article class="stitch-panel overflow-hidden p-0">
+            <div class="border-b border-border-subtle px-lg py-md flex justify-between items-center gap-md">
+              <div>
+                <h2 id="log-title" class="text-headline-md font-semibold">Central Attendance Log</h2>
+                <p class="mt-1 text-sm text-on-surface-variant">Audit history for the selected day.</p>
+              </div>
+              <button id="refresh-button" class="office-icon-button bg-surface-container text-primary" type="button" aria-label="Refresh log" title="Refresh log">
+                <span class="material-symbols-outlined">refresh</span>
+              </button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="stitch-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Names</th>
+                    <th>Employee No.</th>
+                    <th>IN Time</th>
+                    <th>OUT Time</th>
+                    <th>Total</th>
+                    <th>Source</th>
+                    <th>Location</th>
+                  </tr>
+                </thead>
+              <tbody id="log-body"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="stitch-panel overflow-hidden">
+            <div class="stitch-panel-heading">
+              <div>
+                <h2 id="supervisor-activity-title">Supervisor Device Activity</h2>
+                <p>Mobile check point scans and employee flags.</p>
+              </div>
+              <span id="supervisor-activity-count" class="stitch-count-badge">0 TODAY</span>
+            </div>
+            <div id="supervisor-device-activity" class="grid gap-sm"></div>
+          </article>
+        </section>
+      </div>
+
+      <section id="admin-portal" class="stitch-panel border-t-4 border-tertiary">
+        <div class="stitch-panel-heading">
+          <div>
+            <h2>Admin Portal</h2>
+            <p>Use high-power credentials for audited clocking support.</p>
+          </div>
+          <span class="stitch-status-badge bg-tertiary text-on-tertiary">POWER ACTIONS</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+          <form id="admin-action-form" class="stitch-form">
+            <label>
+              <span>Admin or super credential</span>
+              <input id="admin-power-credential" name="adminCredentialId" autocomplete="off" maxlength="64" placeholder="ADMIN:001" required>
+            </label>
+
+            <label>
+              <span>Employee to clock</span>
+              <select id="admin-target-employee" name="targetEmployeeId" required></select>
+            </label>
+
+            <label>
+              <span>Reason</span>
+              <input id="admin-reason" name="reason" autocomplete="off" maxlength="120" placeholder="Supervisor assisted clocking">
+            </label>
+
+            <div class="grid gap-sm sm:grid-cols-2">
+              <button id="admin-clock-button" class="stitch-primary-action" type="submit">
+                <span class="material-symbols-outlined">admin_panel_settings</span>
+                <span>Auto Clock</span>
+              </button>
+              <button id="admin-force-out-button" class="stitch-secondary-action bg-white" type="button">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Emergency Out</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="rounded-lg border border-border-subtle bg-pistachio-light p-md">
+            <h3 class="m-0 text-headline-md font-semibold text-on-surface">Power Rules</h3>
+            <dl class="mt-md grid gap-sm text-body-md text-on-surface-variant">
+              <div>
+                <dt class="font-extrabold text-on-surface">Admin</dt>
+                <dd>Can clock regular employees in or out. The next action is chosen automatically.</dd>
+              </div>
+              <div>
+                <dt class="font-extrabold text-on-surface">Super</dt>
+                <dd>Can clock out anyone, including admins, for emergency recovery.</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+        <p id="admin-message" class="stitch-message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="settings-panel" class="stitch-panel">
+        <div class="stitch-panel-heading">
+          <div>
+            <h2>Settings</h2>
+            <p>Office key, themes, version, and power credentials.</p>
+          </div>
+          <span id="settings-version" class="stitch-count-badge">v0.7.28</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+          <article class="grid gap-md rounded-lg border border-border-subtle bg-pistachio-light p-md">
+            <h3 class="m-0 text-headline-md font-semibold text-on-surface">Office Access</h3>
+            <label class="grid gap-xs text-label-bold font-bold text-on-surface">
+              <span>Office terminal key</span>
+              <input id="settings-office-key" autocomplete="off" placeholder="Saved locally in this browser">
+            </label>
+            <div class="grid gap-sm sm:grid-cols-2">
+              <button id="settings-save-key-button" class="stitch-secondary-action bg-white" type="button">
+                <span class="material-symbols-outlined">key</span>
+                <span>Save Key</span>
+              </button>
+              <button id="settings-clear-key-button" class="stitch-secondary-action bg-white" type="button">
+                <span class="material-symbols-outlined">key_off</span>
+                <span>Clear Key</span>
+              </button>
+            </div>
+
+            <fieldset class="stitch-form">
+              <legend class="text-label-bold font-bold text-on-surface">Theme</legend>
+              <div class="grid grid-cols-3 gap-sm">
+                <label class="theme-choice">
+                  <input type="radio" name="officeTheme" value="classic" checked>
+                  <span>Classic</span>
+                </label>
+                <label class="theme-choice">
+                  <input type="radio" name="officeTheme" value="sky">
+                  <span>Sky</span>
+                </label>
+                <label class="theme-choice">
+                  <input type="radio" name="officeTheme" value="graphite">
+                  <span>Graphite</span>
+                </label>
+              </div>
+            </fieldset>
+          </article>
+
+          <article class="grid gap-md rounded-lg border border-border-subtle bg-white p-md">
+            <h3 class="m-0 text-headline-md font-semibold text-on-surface">Power Credentials</h3>
+            <form id="power-credential-form" class="stitch-form">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                <label>
+                  <span>Employee number</span>
+                  <input name="employeeId" autocomplete="off" maxlength="24" placeholder="ADMIN001" required>
+                </label>
+                <label>
+                  <span>Name</span>
+                  <input name="employeeName" autocomplete="name" maxlength="80" placeholder="Admin name" required>
+                </label>
+              </div>
+              <label>
+                <span>Power credential</span>
+                <input name="credentialId" autocomplete="off" maxlength="64" placeholder="SUPER:001" required>
+              </label>
+              <label>
+                <span>Power level</span>
+                <select name="role" required>
+                  <option value="admin">Admin</option>
+                  <option value="super">Super</option>
+                </select>
+              </label>
+              <button class="stitch-primary-action" type="submit">
+                <span class="material-symbols-outlined">verified_user</span>
+                <span>Save Power Credential</span>
+              </button>
+            </form>
+            <p id="power-credential-message" class="stitch-message" role="status" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="/pwa.js" defer></script>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

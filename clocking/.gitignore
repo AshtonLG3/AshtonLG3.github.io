@@ -1,0 +1,11 @@
+node_modules/
+data/*.json
+!data/.gitkeep
+.env
+.idea/
+.DS_Store
+Thumbs.db
+Clocking Terminal _ Google AI Studio.html
+Clocking Terminal _ Google AI Studio_files/
+clocking-terminal/
+.playwright-mcp/
