@@ -1,6 +1,7 @@
 node_modules/
 data/*.json
 !data/.gitkeep
+logs/
 .env
 .idea/
 .DS_Store

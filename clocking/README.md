@@ -16,6 +16,39 @@ npm start
 
 Then open `http://localhost:3000`.
 
+For phones, do not use `localhost`. On a phone, `localhost` means the phone
+itself, not the office computer. Use the office computer's LAN address instead,
+for example:
+
+```text
+http://192.168.0.44:3000
+```
+
+## Keep Local Backend Running
+
+For a local office setup, install the Windows logon task:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-local-backend-task.ps1
+```
+
+The task starts the backend when Windows logs in and sets `PUBLIC_BASE_URL` to
+the current LAN IP so generated employee and supervisor links point back to the
+office computer. It also tries to allow inbound TCP port `3000` on Private
+networks.
+
+If Windows blocks the scheduled task, the installer falls back to a Startup
+folder shortcut. If Windows blocks the firewall rule, open PowerShell as
+Administrator and run:
+
+```powershell
+New-NetFirewallRule -DisplayName "Employment Clocking Backend Port 3000" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3000 -Profile Private
+```
+
+If the router gives the computer a different IP address later, generate fresh
+setup links from the office dashboard. For the most stable local setup, reserve
+the office computer's IP address on the router or use a public hosted backend.
+
 The office terminal shows a short-lived QR code for the employee scanner. Employees scan it from their phones at the terminal and submit a scan to the same central log. The phone does not manually toggle IN or OUT; the backend decides whether the scan means clock in or clock out. Unknown employees or unknown credentials are rejected.
 
 The terminal also accepts card, tag, or NFC IDs that the office has already registered. Each scan uses the credential ID alone, and the backend decides whether that scan is IN or OUT.
