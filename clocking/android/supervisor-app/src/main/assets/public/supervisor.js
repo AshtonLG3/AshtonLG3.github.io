@@ -483,7 +483,19 @@ function renderSupervisorMessage(text) {
 
 async function fetchOfficeJson(url, options = {}) {
   const resolvedUrl = await resolveApiUrl(url);
-  const response = await fetchWithTimeout(resolvedUrl, withSupervisorSession(options));
+  let response;
+
+  try {
+    response = await fetchWithTimeout(resolvedUrl, withSupervisorSession(options));
+  } catch (error) {
+    if (error?.requiresSupervisorRelink) {
+      clearSupervisorSession();
+      lockSupervisorApp();
+      setSupervisorLoginMessage(`${error.message} Enter a fresh one-time supervisor link from the office.`, true);
+    }
+    throw error;
+  }
+
   const result = await parseJsonResponse(response);
 
   if (response.status === 403 && shouldRequireFreshSupervisorLink(result.error)) {
@@ -527,10 +539,16 @@ async function fetchWithTimeout(url, options = {}) {
   try {
     return await fetch(url, fetchOptions);
   } catch (error) {
+    const networkError = error?.name === 'AbortError'
+      ? new Error('Office server did not respond. Check the office link or network.')
+      : new Error('Office server is not reachable. Check the office link or network.');
+    networkError.requiresSupervisorRelink = true;
+    networkError.cause = error;
+
     if (error?.name === 'AbortError') {
-      throw new Error('Office server did not respond. Check the office link or network.');
+      throw networkError;
     }
-    throw new Error('Office server is not reachable. Check the office link or network.');
+    throw networkError;
   } finally {
     if (timeout) {
       window.clearTimeout(timeout);
