@@ -284,13 +284,15 @@ async function handleSupervisorSetup(request, response) {
 
   const payload = await readJsonBody(request);
   const setup = await store.createSupervisorSetupToken(payload);
-  const supervisorUrl = buildSupervisorSetupUrl(request, setup.token);
-  const supervisorAppUrl = buildSupervisorSetupAppUrl(request, setup.token);
+  const supervisorBase = supervisorSetupBaseUrl(request);
+  const supervisorUrl = buildSupervisorSetupUrl(supervisorBase.url, setup.token);
+  const supervisorAppUrl = buildSupervisorSetupAppUrl(supervisorBase.url, setup.token);
 
   sendJson(response, 200, {
     supervisorUrl,
     supervisorAppUrl,
-    serverUrl: publicBaseUrl(request),
+    serverUrl: supervisorBase.url,
+    setupWarning: supervisorBase.warning,
     expiresAt: setup.expiresAt
   });
 }
@@ -657,18 +659,35 @@ function buildScannerSetupAppUrl(request, employee) {
   return url.toString();
 }
 
-function buildSupervisorSetupUrl(request, token) {
-  const url = new URL('/supervisor', publicBaseUrl(request));
-  url.searchParams.set('server', publicBaseUrl(request));
+function buildSupervisorSetupUrl(baseUrl, token) {
+  const url = new URL('/supervisor', baseUrl);
+  url.searchParams.set('server', baseUrl);
   url.searchParams.set('token', token);
   return url.toString();
 }
 
-function buildSupervisorSetupAppUrl(request, token) {
+function buildSupervisorSetupAppUrl(baseUrl, token) {
   const url = new URL(`${SUPERVISOR_APP_URL_SCHEME}://setup`);
-  url.searchParams.set('server', publicBaseUrl(request));
+  url.searchParams.set('server', baseUrl);
   url.searchParams.set('token', token);
   return url.toString();
+}
+
+function supervisorSetupBaseUrl(request) {
+  const url = publicBaseUrl(request);
+  if (isUnsafeMobileBaseUrl(url)) {
+    throw new ClockingError(
+      'Supervisor setup links cannot use localhost. Open the office dashboard with the office PC LAN IP or set PUBLIC_BASE_URL to a public HTTPS domain.',
+      400
+    );
+  }
+
+  return {
+    url,
+    warning: PUBLIC_BASE_URL
+      ? ''
+      : 'Local supervisor links use this computer network address. If the phone cannot connect, open the office dashboard with the office PC LAN IP or set PUBLIC_BASE_URL to a public HTTPS domain.'
+  };
 }
 
 function publicBaseUrl(request) {
@@ -722,6 +741,26 @@ function splitHostHeader(hostHeader) {
 function isLoopbackHost(hostname) {
   const host = hostname.toLowerCase();
   return host === 'localhost' || host === '127.0.0.1' || host === '::1';
+}
+
+function isUnsafeMobileBaseUrl(value) {
+  try {
+    const url = new URL(value);
+    return isUnsafeMobileHost(url.hostname);
+  } catch {
+    return true;
+  }
+}
+
+function isUnsafeMobileHost(hostname) {
+  const host = String(hostname || '').toLowerCase().replace(/^\[|\]$/g, '');
+  return (
+    host === 'localhost' ||
+    host === '0.0.0.0' ||
+    host === '::' ||
+    host === '::1' ||
+    host.startsWith('127.')
+  );
 }
 
 function getLanAddress() {

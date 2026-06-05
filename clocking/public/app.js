@@ -311,7 +311,7 @@ async function handleGenerateSupervisorSetup() {
     }
 
     renderSupervisorSetupLink(result);
-    setSupervisorSetupMessage('One-time supervisor link is ready.', false);
+    setSupervisorSetupMessage(result.setupWarning || 'One-time supervisor link is ready.', false);
   } catch (error) {
     setSupervisorSetupMessage(error.message, true);
   } finally {
@@ -320,11 +320,12 @@ async function handleGenerateSupervisorSetup() {
 }
 
 function renderSupervisorSetupLink(result) {
-  const link = result.supervisorAppUrl || result.supervisorUrl || '';
+  const link = result.supervisorUrl || result.supervisorAppUrl || '';
+  const openLink = result.supervisorAppUrl || result.supervisorUrl || '';
   supervisorSetupLinkInput.value = link;
   supervisorCopyLinkButton.disabled = !link;
-  supervisorOpenLink.href = link || '/supervisor';
-  supervisorOpenLink.setAttribute('aria-disabled', link ? 'false' : 'true');
+  supervisorOpenLink.href = openLink || '/supervisor';
+  supervisorOpenLink.setAttribute('aria-disabled', openLink ? 'false' : 'true');
   supervisorSetupExpires.textContent = result.expiresAt
     ? `Expires ${formatTime(result.expiresAt)}`
     : 'No active link';

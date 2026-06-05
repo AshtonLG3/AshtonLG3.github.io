@@ -73,6 +73,9 @@ New-Item -ItemType Directory -Force -Path $publicTarget | Out-Null
     -SourcePath (Join-Path $publicSource.Path $_) `
     -TargetPath (Join-Path $publicTarget $_)
 }
+Copy-RegularFile `
+  -SourcePath (Join-Path $publicSource.Path 'supervisor.html') `
+  -TargetPath (Join-Path $publicTarget 'index.html')
 Copy-RegularTree -SourceRoot (Join-Path $publicSource.Path 'icons') -TargetRoot (Join-Path $publicTarget 'icons')
 
 $config = @{

@@ -28,6 +28,8 @@ const LEGACY_SERVER_URL_STORAGE = 'clocking.serverUrl';
 const SUPERVISOR_SERVER_URL_STORAGE = 'clocking.supervisorServerUrl';
 const SUPERVISOR_SESSION_STORAGE = 'clocking.supervisorSessionToken';
 const SUPERVISOR_LABEL_STORAGE = 'clocking.supervisorDeviceLabel';
+const SUPERVISOR_APP_SCHEME = 'employmentclockingsupervisor:';
+const LOCALHOST_SUPERVISOR_LINK_ERROR = 'This link uses localhost, which only works on the computer running the server. Generate a new supervisor link using the office PC LAN IP or public HTTPS domain.';
 
 let currentLocation = null;
 let currentQrExpiresAtMs = 0;
@@ -57,7 +59,7 @@ async function initialiseSupervisor() {
   setInterval(updateSupervisorClock, 1000);
   setInterval(updateQrCountdown, 1000);
 
-  if (launchSetup.token) {
+  if (launchSetup.token || launchSetup.error) {
     await activateSupervisorSetup(launchSetup);
     return;
   }
@@ -91,8 +93,9 @@ async function activateSupervisorSetup(setup) {
   setSupervisorLoginMessage('');
 
   try {
+    const setupError = setup?.error || '';
     if (!setup.serverUrl || !setup.token) {
-      throw new Error('Enter the one-time supervisor link from the office.');
+      throw new Error(setupError || 'Invalid supervisor link. Generate a fresh one-time supervisor link from the office.');
     }
 
     saveServerUrl(setup.serverUrl);
@@ -114,7 +117,7 @@ async function activateSupervisorSetup(setup) {
     unlockSupervisorApp();
     setSupervisorMessage('Supervisor link accepted. Check point is ready.', false);
   } catch (error) {
-    clearSupervisorSession();
+    clearSupervisorSession({ clearServer: true });
     lockSupervisorApp();
     setSupervisorLoginMessage(error.message, true);
   } finally {
@@ -489,7 +492,7 @@ async function fetchOfficeJson(url, options = {}) {
     response = await fetchWithTimeout(resolvedUrl, withSupervisorSession(options));
   } catch (error) {
     if (error?.requiresSupervisorRelink) {
-      clearSupervisorSession();
+      clearSupervisorSession({ clearServer: true });
       lockSupervisorApp();
       setSupervisorLoginMessage(`${error.message} Enter a fresh one-time supervisor link from the office.`, true);
     }
@@ -521,7 +524,7 @@ async function ensureSupervisorLogin() {
 }
 
 function getBaseUrl() {
-  if (isNative && serverUrl) {
+  if (serverUrl) {
     return serverUrl;
   }
   return '';
@@ -598,6 +601,8 @@ function saveServerUrl(value) {
   serverUrl = normaliseServerUrl(value);
   if (serverUrl) {
     localStorage.setItem(SUPERVISOR_SERVER_URL_STORAGE, serverUrl);
+  } else {
+    clearSupervisorServerUrl();
   }
 }
 
@@ -619,9 +624,18 @@ function lockSupervisorApp() {
   setSupervisorStatus('LOGIN');
 }
 
-function clearSupervisorSession() {
+function clearSupervisorSession(options = {}) {
   supervisorSessionToken = '';
   localStorage.removeItem(SUPERVISOR_SESSION_STORAGE);
+  if (options.clearServer) {
+    clearSupervisorServerUrl();
+  }
+}
+
+function clearSupervisorServerUrl() {
+  serverUrl = '';
+  localStorage.removeItem(SUPERVISOR_SERVER_URL_STORAGE);
+  localStorage.removeItem(LEGACY_SERVER_URL_STORAGE);
 }
 
 function setSupervisorLoginBusy(isBusy) {
@@ -635,42 +649,120 @@ function setSupervisorLoginMessage(text, isError = false) {
 }
 
 function readInitialSupervisorServerUrl() {
-  const supervisorUrl = normaliseServerUrl(localStorage.getItem(SUPERVISOR_SERVER_URL_STORAGE) || '');
+  const supervisorRaw = localStorage.getItem(SUPERVISOR_SERVER_URL_STORAGE) || '';
+  const supervisorUrl = normaliseServerUrl(supervisorRaw);
   if (supervisorUrl) {
     return supervisorUrl;
   }
 
-  const legacyUrl = normaliseServerUrl(localStorage.getItem(LEGACY_SERVER_URL_STORAGE) || '');
+  if (supervisorRaw) {
+    localStorage.removeItem(SUPERVISOR_SERVER_URL_STORAGE);
+  }
+
+  const legacyRaw = localStorage.getItem(LEGACY_SERVER_URL_STORAGE) || '';
+  const legacyUrl = normaliseServerUrl(legacyRaw);
   if (legacyUrl) {
     localStorage.setItem(SUPERVISOR_SERVER_URL_STORAGE, legacyUrl);
+  } else if (legacyRaw) {
+    localStorage.removeItem(LEGACY_SERVER_URL_STORAGE);
   }
 
   return legacyUrl;
 }
 
-function setupFromUrl(url) {
+function setupFromLink(value) {
+  const text = String(value || '').trim();
+  if (!text) {
+    return invalidSupervisorSetup();
+  }
+
+  try {
+    const parsed = parseSupervisorLink(text);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+      return setupFromPastedUrl(parsed);
+    }
+
+    if (parsed.protocol !== SUPERVISOR_APP_SCHEME) {
+      return invalidSupervisorSetup();
+    }
+
+    return setupFromPastedUrl(parsed);
+  } catch {
+    return invalidSupervisorSetup();
+  }
+}
+
+function setupFromPastedUrl(url) {
+  const setup = setupFromUrl(url);
+  return setup.serverUrl || setup.token || setup.error
+    ? setup
+    : invalidSupervisorSetup('Invalid supervisor link format. The link must include both server and token.');
+}
+
+function parseSupervisorLink(text) {
+  if (text.startsWith('?')) {
+    return new URL(`/supervisor${text}`, window.location.origin);
+  }
+
+  if (/^employmentclockingsupervisor:\/*/i.test(text)) {
+    return new URL(normaliseSupervisorAppLink(text));
+  }
+
+  return new URL(text);
+}
+
+function normaliseSupervisorAppLink(text) {
+  if (/^employmentclockingsupervisor:\/\/setup([/?#]|$)/i.test(text)) {
+    return text;
+  }
+
+  const suffix = text.replace(/^employmentclockingsupervisor:\/*/i, '');
+  if (!suffix || suffix === 'setup') {
+    return 'employmentclockingsupervisor://setup';
+  }
+
+  if (suffix.startsWith('?') || suffix.startsWith('#')) {
+    return `employmentclockingsupervisor://setup${suffix}`;
+  }
+
+  return `employmentclockingsupervisor://setup/${suffix.replace(/^setup\/?/i, '')}`;
+}
+
+function invalidSupervisorSetup(message = 'Invalid supervisor link format. Generate a fresh one-time supervisor link from the office and paste the full link.') {
   return {
-    serverUrl: normaliseServerUrl(url.searchParams.get('server') || ''),
-    token: String(url.searchParams.get('token') || '').trim()
+    serverUrl: '',
+    token: '',
+    error: message
   };
 }
 
-function setupFromLink(value) {
-  const text = String(value || '').trim();
-  try {
-    const parsed = new URL(text);
-    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
-      const setup = setupFromUrl(parsed);
-      return {
-        serverUrl: setup.serverUrl || normaliseServerUrl(parsed.origin),
-        token: setup.token
-      };
-    }
+function supervisorSetupIsValid(setup) {
+  return Boolean(setup.serverUrl && setup.token);
+}
 
-    return setupFromUrl(parsed);
-  } catch {
+function setupFromUrl(url) {
+  const hasServer = url.searchParams.has('server');
+  const hasToken = url.searchParams.has('token');
+  if (!hasServer && !hasToken) {
     return { serverUrl: '', token: '' };
   }
+
+  if (!hasServer || !hasToken) {
+    return invalidSupervisorSetup('Invalid supervisor link format. The link must include both server and token.');
+  }
+
+  const serverValue = url.searchParams.get('server') || '';
+  const serverError = supervisorServerValidationError(serverValue);
+  if (serverError) {
+    return invalidSupervisorSetup(serverError);
+  }
+
+  const setup = {
+    serverUrl: normaliseServerUrl(serverValue),
+    token: String(url.searchParams.get('token') || '').trim()
+  };
+
+  return supervisorSetupIsValid(setup) ? setup : invalidSupervisorSetup();
 }
 
 function clearLaunchParamsFromUrl() {
@@ -745,10 +837,45 @@ function normaliseServerUrl(value) {
     if (url.protocol !== 'http:' && url.protocol !== 'https:') {
       return '';
     }
+    if (isUnsafeSupervisorServerHost(url.hostname)) {
+      return '';
+    }
     return `${url.protocol}//${url.host}`;
   } catch {
     return '';
   }
+}
+
+function supervisorServerValidationError(value) {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) {
+    return 'Invalid supervisor link format. The link must include both server and token.';
+  }
+
+  try {
+    const candidate = /^[a-z]+:\/\//i.test(trimmed) ? trimmed : `http://${trimmed}`;
+    const url = new URL(candidate);
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      return 'Invalid supervisor link format. The server must be an http or https address.';
+    }
+    if (isUnsafeSupervisorServerHost(url.hostname)) {
+      return LOCALHOST_SUPERVISOR_LINK_ERROR;
+    }
+    return '';
+  } catch {
+    return 'Invalid supervisor link format. The server address is not valid.';
+  }
+}
+
+function isUnsafeSupervisorServerHost(hostname) {
+  const host = String(hostname || '').toLowerCase().replace(/^\[|\]$/g, '');
+  return (
+    host === 'localhost' ||
+    host === '0.0.0.0' ||
+    host === '::' ||
+    host === '::1' ||
+    host.startsWith('127.')
+  );
 }
 
 function svgFromString(svgText) {
