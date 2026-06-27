@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Clocking System</string>
-    <string name="title_activity_main">Clocking System</string>
-    <string name="title_activity_employee">Clocking Employee</string>
-    <string name="title_activity_supervisor">Clocking Supervisor</string>
-    <string name="package_name">com.employment.clocking</string>
-    <string name="custom_url_scheme">com.employment.clocking</string>
-</resources>
