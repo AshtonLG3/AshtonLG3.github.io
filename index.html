@@ -8,7 +8,7 @@
 <meta name="description" content="Order custom wedding cakes, birthday cakes, cupcakes, and scones in Lichtenburg. Handcrafted by Bridget. Cakes starting from R650.">
 <meta name="keywords" content="cakes Lichtenburg, custom cakes, wedding cakes, birthday cakes, kids cakes, cupcakes, scones, bakery Lichtenburg, Bridge Angels Treats">
 <meta name="author" content="Bridge Angels Treats">
-<meta name="site-version" content="2026.06.27.1">
+<meta name="site-version" content="2026.07.25.1">
 
 <meta name="theme-color" content="#EC4899">
 <link rel="canonical" href="https://bridgeangelscakes.co.za">
@@ -38,6 +38,37 @@
   "priceRange": "R650+",
   "url": "https://bridgeangelscakes.co.za"
 }
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "VideoObject",
+      "name": "Cake Stacking and Rainbow Decoration Process",
+      "description": "Behind-the-scenes video of Bridget stacking a custom cake and adding rainbow-themed decoration for Bridge Angels Treats in Lichtenburg.",
+      "thumbnailUrl": "https://bridgeangelscakes.co.za/cake-stacking-rainbow-decoration-poster.webp",
+      "uploadDate": "2025-11-27",
+      "duration": "PT1M2S",
+      "contentUrl": "https://bridgeangelscakes.co.za/Cake-Stacking-And-Rainbow-Decoration.mp4"
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Pink Rainbow Birthday Cake Decorating Process",
+      "description": "Behind-the-scenes video showing a pink rainbow birthday cake decorating process by Bridge Angels Treats.",
+      "thumbnailUrl": "https://bridgeangelscakes.co.za/pink-rainbow-birthday-cake-decorating-poster.webp",
+      "uploadDate": "2025-11-27",
+      "duration": "PT23S",
+      "contentUrl": "https://bridgeangelscakes.co.za/Pink-Rainbow-Birthday-Cake-Decorating-Process.mp4"
+    }
+  ]
+}
+</script>
+
+<script>
+  const savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light';
+  document.documentElement.dataset.theme = savedTheme;
 </script>
 
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -111,6 +142,52 @@
     /* FAQ Details styling */
     details > summary { list-style: none; }
     details > summary::-webkit-details-marker { display: none; }
+
+    .theme-toggle {
+        border: 1px solid rgba(236, 72, 153, 0.35);
+        color: #92400E;
+        background: #FFF8F0;
+    }
+
+    html[data-theme="dark"] body {
+        background: #16100d;
+        color: #f5efe7;
+    }
+
+    html[data-theme="dark"] nav,
+    html[data-theme="dark"] #mobile-menu,
+    html[data-theme="dark"] .bg-white {
+        background-color: #211812 !important;
+        color: #f5efe7 !important;
+        border-color: rgba(255, 248, 240, 0.14) !important;
+    }
+
+    html[data-theme="dark"] .bg-cream,
+    html[data-theme="dark"] .bg-butter,
+    html[data-theme="dark"] .bg-vanilla,
+    html[data-theme="dark"] .bg-rose\/30 {
+        background-color: #16100d !important;
+    }
+
+    html[data-theme="dark"] .text-gray-700,
+    html[data-theme="dark"] .text-gray-600,
+    html[data-theme="dark"] .text-gray-500,
+    html[data-theme="dark"] .text-chocolate {
+        color: #f1e5d6 !important;
+    }
+
+    html[data-theme="dark"] .theme-toggle {
+        background: #352219;
+        color: #fff8f0;
+        border-color: rgba(236, 72, 153, 0.5);
+    }
+
+    html[data-theme="dark"] input,
+    html[data-theme="dark"] textarea {
+        background-color: #2a1d17 !important;
+        color: #fff8f0 !important;
+        border-color: rgba(255, 248, 240, 0.18) !important;
+    }
 </style>
 </head>
 <body class="font-sans text-gray-700 antialiased">
@@ -130,7 +207,10 @@
     <a href="#contact" class="hover:text-strawberry transition font-bold">Contact</a>
     <a href="tel:+27737095975" class="text-gray-600 hover:text-strawberry" title="Call Us"><i class="fas fa-phone-alt text-xl"></i></a>
     <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="text-blue-600 hover:text-blue-800" title="Facebook Page"><i class="fab fa-facebook text-2xl"></i></a>
-    <span class="text-xs font-bold text-gray-400" title="Site version">v2026.06.27.1</span>
+    <button type="button" class="theme-toggle rounded-full px-3 py-2 text-xs font-bold" onclick="toggleTheme()" title="Switch color theme">
+        <i class="fas fa-adjust mr-1"></i><span data-theme-label>Light</span>
+    </button>
+    <span class="text-xs font-bold text-gray-400" title="Site version" data-site-version>v2026.07.25.1</span>
    </div>
 
    <button id="mobile-menu-btn" class="md:hidden text-2xl text-strawberry"><i class="fas fa-bars"></i></button>
@@ -141,7 +221,10 @@
   <a href="#about" class="block py-3 border-b text-chocolate font-bold">About</a>
   <a href="#services" class="block py-3 border-b text-chocolate font-bold">Services</a>
   <a href="#gallery" class="block py-3 border-b text-chocolate font-bold">Gallery</a>
-  <span class="block py-3 border-b text-xs font-bold text-gray-400">v2026.06.27.1</span>
+  <button type="button" class="theme-toggle w-full rounded-lg px-3 py-3 text-left text-sm font-bold my-3" onclick="toggleTheme()">
+      <i class="fas fa-adjust mr-2"></i><span data-theme-label>Light</span> Theme
+  </button>
+  <span class="block py-3 border-b text-xs font-bold text-gray-400" data-site-version>v2026.07.25.1</span>
   <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="block py-3 text-blue-600 font-bold"><i class="fab fa-facebook mr-2"></i>Visit Facebook</a>
   <div class="grid grid-cols-2 gap-2 mt-4">
       <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
@@ -508,12 +591,20 @@
 <section class="py-20 bg-white">
  <h2 class="font-serif text-4xl text-center font-bold mb-10 text-chocolate">Behind the Scenes</h2>
  <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto px-4">
-  <video preload="none" aria-label="Video showing cake stacking and rainbow decoration" controls class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
-   <source src="Cake-Stacking-And-Rainbow-Decoration.mp4" type="video/mp4">
-  </video>
-  <video preload="none" aria-label="Video showing pink rainbow birthday cake decorating process" controls class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
-   <source src="Pink-Rainbow-Birthday-Cake-Decorating-Process.mp4" type="video/mp4">
-  </video>
+  <figure>
+   <h3 class="font-serif text-2xl font-bold mb-3 text-chocolate">Cake Stacking and Rainbow Decoration</h3>
+   <video preload="metadata" poster="cake-stacking-rainbow-decoration-poster.webp" title="Cake Stacking and Rainbow Decoration Process" aria-label="Cake stacking and rainbow decoration process by Bridge Angels Treats" controls playsinline class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
+    <source src="Cake-Stacking-And-Rainbow-Decoration.mp4" type="video/mp4">
+   </video>
+   <figcaption class="mt-3 text-sm text-gray-600">Behind-the-scenes cake stacking and rainbow decoration by Bridget.</figcaption>
+  </figure>
+  <figure>
+   <h3 class="font-serif text-2xl font-bold mb-3 text-chocolate">Pink Rainbow Birthday Cake Decorating</h3>
+   <video preload="metadata" poster="pink-rainbow-birthday-cake-decorating-poster.webp" title="Pink Rainbow Birthday Cake Decorating Process" aria-label="Pink rainbow birthday cake decorating process by Bridge Angels Treats" controls playsinline class="rounded-xl shadow-lg w-full bg-black h-64 md:h-96">
+    <source src="Pink-Rainbow-Birthday-Cake-Decorating-Process.mp4" type="video/mp4">
+   </video>
+   <figcaption class="mt-3 text-sm text-gray-600">A pink rainbow birthday cake decorating process from the Bridge Angels kitchen.</figcaption>
+  </figure>
  </div>
 </section>
 
@@ -580,6 +671,27 @@
 </footer>
 
 <script>
+    const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.07.25.1';
+    document.querySelectorAll('[data-site-version]').forEach((item) => {
+        item.textContent = 'v' + siteVersion;
+    });
+
+    function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem('bridgeAngelsTheme', theme);
+        const label = theme === 'dark' ? 'Dark' : 'Light';
+        document.querySelectorAll('[data-theme-label]').forEach((item) => {
+            item.textContent = label;
+        });
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    }
+
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+
     // 1. AUTO-UPDATE YEAR
     document.getElementById('currentYear').innerText = new Date().getFullYear();
 
