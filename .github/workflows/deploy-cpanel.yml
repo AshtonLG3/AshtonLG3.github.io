@@ -84,6 +84,7 @@ jobs:
             **/.git*/**
             **/.github/**
             **/node_modules/**
+            **/tools/**
             **/*.zip
 
       - name: Verify live site
@@ -137,6 +138,34 @@ jobs:
           if expected_version and expected_version not in page:
               print(f"::error title=Live version mismatch::Expected site-version {expected_version} in live HTML")
               sys.exit(1)
+
+          required_paths = [
+              "/custom-cakes/",
+              "/wedding-cakes/",
+              "/birthday-cakes/",
+              "/kids-cakes/",
+              "/cupcakes-scones/",
+              "/gallery/",
+              "/gallery/limpopo-white-gold-wedding-cake/",
+              "/videos/cake-stacking-rainbow-decoration-process/",
+              "/quote/",
+              "/sitemap.xml",
+              "/robots.txt",
+          ]
+
+          for path in required_paths:
+              target = urljoin(site_url, path)
+              response = fetch(target)
+              body = response.read().decode("utf-8", errors="replace")
+              if response.status >= 400:
+                  print(f"::error title=Live route failed::{path} returned {response.status}")
+                  sys.exit(1)
+              if path.endswith("/") and expected_version and expected_version not in body:
+                  print(f"::error title=Live route version mismatch::{path} does not include {expected_version}")
+                  sys.exit(1)
+              if path == "/sitemap.xml" and "/gallery/limpopo-white-gold-wedding-cake/" not in body:
+                  print("::error title=Sitemap missing SEO routes::Expected gallery detail route in sitemap.xml")
+                  sys.exit(1)
 
           parser = AssetParser()
           parser.feed(local_html)
