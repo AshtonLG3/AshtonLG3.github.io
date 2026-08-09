@@ -8,7 +8,7 @@
 <meta name="description" content="Order custom cakes in Lichtenburg from Bridge Angels Treats. Bridget makes wedding cakes, birthday cakes, kids themed cakes, cupcakes, scones and celebration bakes.">
 <meta name="keywords" content="custom cakes Lichtenburg, bakery Lichtenburg, wedding cakes Lichtenburg, birthday cakes Lichtenburg, kids cakes Lichtenburg, cupcakes Lichtenburg, scones Lichtenburg, Bridge Angels Treats">
 <meta name="author" content="Bridge Angels Treats">
-<meta name="site-version" content="2026.07.26.1">
+<meta name="site-version" content="2026.08.09.1">
 
 <meta name="theme-color" content="#EC4899">
 <link rel="canonical" href="https://bridgeangelscakes.co.za/">
@@ -49,7 +49,7 @@
       "name": "Cake Stacking and Rainbow Decoration Process",
       "description": "Behind-the-scenes video of Bridget stacking a custom cake and adding rainbow-themed decoration for Bridge Angels Treats in Lichtenburg.",
       "thumbnailUrl": "https://bridgeangelscakes.co.za/cake-stacking-rainbow-decoration-poster.webp",
-      "uploadDate": "2025-11-27",
+      "uploadDate": "2026-07-25T00:00:00+02:00",
       "duration": "PT1M2S",
       "contentUrl": "https://bridgeangelscakes.co.za/Cake-Stacking-And-Rainbow-Decoration.mp4"
     },
@@ -58,7 +58,7 @@
       "name": "Pink Rainbow Birthday Cake Decorating Process",
       "description": "Behind-the-scenes video showing a pink rainbow birthday cake decorating process by Bridge Angels Treats.",
       "thumbnailUrl": "https://bridgeangelscakes.co.za/pink-rainbow-birthday-cake-decorating-poster.webp",
-      "uploadDate": "2025-11-27",
+      "uploadDate": "2026-07-25T00:00:00+02:00",
       "duration": "PT23S",
       "contentUrl": "https://bridgeangelscakes.co.za/Pink-Rainbow-Birthday-Cake-Decorating-Process.mp4"
     }
@@ -211,7 +211,7 @@
     <button type="button" class="theme-toggle rounded-full px-3 py-2 text-xs font-bold" onclick="toggleTheme()" title="Switch color theme">
         <i class="fas fa-adjust mr-1"></i><span data-theme-label>Light</span>
     </button>
-    <span class="text-xs font-bold text-gray-400" title="Site version" data-site-version>v2026.07.26.1</span>
+    <span class="text-xs font-bold text-gray-400" title="Site version" data-site-version>v2026.08.09.1</span>
    </div>
 
    <button id="mobile-menu-btn" class="md:hidden text-2xl text-strawberry"><i class="fas fa-bars"></i></button>
@@ -227,7 +227,7 @@
   <button type="button" class="theme-toggle w-full rounded-lg px-3 py-3 text-left text-sm font-bold my-3" onclick="toggleTheme()">
       <i class="fas fa-adjust mr-2"></i><span data-theme-label>Light</span> Theme
   </button>
-  <span class="block py-3 border-b text-xs font-bold text-gray-400" data-site-version>v2026.07.26.1</span>
+  <span class="block py-3 border-b text-xs font-bold text-gray-400" data-site-version>v2026.08.09.1</span>
   <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="block py-3 text-blue-600 font-bold"><i class="fab fa-facebook mr-2"></i>Visit Facebook</a>
   <div class="grid grid-cols-2 gap-2 mt-4">
       <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
@@ -718,7 +718,7 @@
 </footer>
 
 <script>
-    const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.07.26.1';
+    const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.08.09.1';
     document.querySelectorAll('[data-site-version]').forEach((item) => {
         item.textContent = 'v' + siteVersion;
     });
@@ -740,24 +740,6 @@
     applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
 
     document.querySelectorAll('.gallery-link').forEach((link) => {
-        link.addEventListener('click', (event) => {
-            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
-                return;
-            }
-            event.preventDefault();
-            openModal(link.dataset.image, link.dataset.alt, link.href);
-        });
-    });
-
-    window.addEventListener('popstate', () => {
-        if (!window.location.pathname.startsWith('/gallery/')) {
-            const modal = document.getElementById('imageModal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-document.querySelectorAll('.gallery-link').forEach((link) => {
         link.addEventListener('click', (event) => {
             if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
                 return;

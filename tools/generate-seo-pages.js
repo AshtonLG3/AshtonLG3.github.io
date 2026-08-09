@@ -3,8 +3,9 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 const SITE_URL = "https://bridgeangelscakes.co.za";
-const VERSION = "2026.07.26.1";
-const LASTMOD = "2026-07-26";
+const VERSION = "2026.08.09.1";
+const LASTMOD = "2026-08-09";
+const VIDEO_UPLOAD_DATE = "2026-07-25T00:00:00+02:00";
 
 const galleryItems = [
   {
@@ -455,6 +456,7 @@ function updateIndex() {
   let html = fs.readFileSync(indexPath, "utf8");
   html = html.replace(/\r\n/g, "\n");
   html = html.replace(/2026\.\d{2}\.\d{2}\.\d+/g, VERSION);
+  html = html.replace(/"uploadDate": "\d{4}-\d{2}-\d{2}(?:T[^"]+)?"/g, `"uploadDate": "${VIDEO_UPLOAD_DATE}"`);
   html = html.replace(
     /<title>.*?<\/title>/,
     "<title>Custom Cakes in Lichtenburg | Bridge Angels Treats Bakery</title>"
@@ -583,9 +585,14 @@ function updateIndex() {
         }
     }`
   );
-  html = html.replace(
-    /    applyTheme\(document\.documentElement\.dataset\.theme === 'dark' \? 'dark' : 'light'\);\s*/,
-    `    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+  const galleryScriptStart = "    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');";
+  const galleryScriptEnd = "// 1. AUTO-UPDATE YEAR";
+  const galleryScriptStartIndex = html.indexOf(galleryScriptStart);
+  const galleryScriptEndIndex = html.indexOf(galleryScriptEnd, galleryScriptStartIndex);
+  if (galleryScriptStartIndex === -1 || galleryScriptEndIndex === -1) {
+    throw new Error("Could not locate homepage gallery script insertion point");
+  }
+  html = html.slice(0, galleryScriptStartIndex) + `    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
 
     document.querySelectorAll('.gallery-link').forEach((link) => {
         link.addEventListener('click', (event) => {
@@ -605,8 +612,7 @@ function updateIndex() {
         }
     });
 
-`
-  );
+` + html.slice(galleryScriptEndIndex);
 
   fs.writeFileSync(indexPath, html, "utf8");
 }
@@ -744,7 +750,7 @@ function generatePages() {
         name: video.title,
         description: video.description,
         thumbnailUrl: `${SITE_URL}/${video.poster}`,
-        uploadDate: "2025-11-27",
+        uploadDate: VIDEO_UPLOAD_DATE,
         duration: video.duration,
         contentUrl: `${SITE_URL}/${video.file}`,
       })}</script>`,
