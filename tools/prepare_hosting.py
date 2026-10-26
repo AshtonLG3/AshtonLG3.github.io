@@ -60,7 +60,8 @@ def main():
         ftp.retrbinary("RETR index.html", index.write)
         if b'https://bridgeangelscakes.co.za/' not in index.getvalue():
             raise RuntimeError("Remote directory is not the Bridge Angels website")
-        names = {name.rsplit("/", 1)[-1] for name in ftp.nlst("-a")}
+        # MLSD includes dotfiles without non-standard LIST/NLST flags.
+        names = {name.rsplit("/", 1)[-1] for name, _facts in ftp.mlsd()}
         original = io.BytesIO()
         existed = ".htaccess" in names
         if existed:
