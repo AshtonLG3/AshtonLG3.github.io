@@ -3,3 +3,9 @@ node_modules/
 *.zip
 .DS_Store
 Thumbs.db
+
+# Generated from backed-up server rules during deployment
+/.htaccess
+
+__pycache__/
+*.pyc

@@ -41,10 +41,9 @@ jobs:
         env:
           RAW_SERVER: ${{ secrets.FTP_SERVER }}
           RAW_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
-          RAW_PROTOCOL: ${{ secrets.FTP_PROTOCOL }}
           RAW_PORT: ${{ secrets.FTP_PORT }}
         run: |
-          protocol="${RAW_PROTOCOL:-ftp}"
+          protocol="ftps"
           server="$RAW_SERVER"
 
           case "$server" in
@@ -53,12 +52,15 @@ jobs:
               server="${server#ftps://}"
               ;;
             ftp://*)
-              protocol="ftp"
               server="${server#ftp://}"
               ;;
           esac
 
           server="${server%%/*}"
+          if [ "$server" != "cp69.domains.co.za" ]; then
+            echo "::error::FTP_SERVER must be the verified Bridge Angels host cp69.domains.co.za"
+            exit 1
+          fi
           remote_dir="$RAW_REMOTE_DIR"
           if [ "${remote_dir: -1}" != "/" ]; then
             remote_dir="${remote_dir}/"
@@ -69,7 +71,26 @@ jobs:
           echo "protocol=$protocol" >> "$GITHUB_OUTPUT"
           echo "port=${RAW_PORT:-21}" >> "$GITHUB_OUTPUT"
 
+      - name: Back up hosting rules and prepare HTTPS redirects
+        id: hosting
+        env:
+          FTP_HOST: ${{ steps.ftp.outputs.server }}
+          FTP_PORT: ${{ steps.ftp.outputs.port }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ steps.ftp.outputs.remote_dir }}
+        run: python tools/prepare_hosting.py
+
+      - name: Preserve hosting configuration backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: bridge-angels-hosting-backup-${{ github.run_id }}
+          path: ${{ runner.temp }}/bridge-angels-hosting-backup/
+          retention-days: 7
+          if-no-files-found: error
+
       - name: Upload to cPanel
+        id: upload
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ steps.ftp.outputs.server }}
@@ -78,6 +99,7 @@ jobs:
           server-dir: ${{ steps.ftp.outputs.remote_dir }}
           protocol: ${{ steps.ftp.outputs.protocol }}
           port: ${{ steps.ftp.outputs.port }}
+          security: strict
           log-level: minimal
           exclude: |
             **/.git*
@@ -202,3 +224,16 @@ jobs:
 
           print(f"Live site verified: version={expected_version or 'not set'}, assets={len(parser.assets)}")
           PY
+
+      - name: Verify canonical HTTPS redirects
+        run: python tools/verify_hosting.py
+
+      - name: Restore hosting rules if deployment checks fail
+        if: ${{ failure() && steps.hosting.outcome == 'success' && steps.upload.outcome != 'skipped' }}
+        env:
+          FTP_HOST: ${{ steps.ftp.outputs.server }}
+          FTP_PORT: ${{ steps.ftp.outputs.port }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ steps.ftp.outputs.remote_dir }}
+        run: python tools/prepare_hosting.py --restore

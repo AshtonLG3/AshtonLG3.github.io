@@ -3,7 +3,7 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 const SITE_URL = "https://bridgeangelscakes.co.za";
-const VERSION = "2026.10.26.2";
+const VERSION = "2026.10.27.1";
 const LASTMOD = "2026-10-26";
 const VIDEO_UPLOAD_DATE = "2026-07-25T00:00:00+02:00";
 
@@ -393,6 +393,10 @@ function writeRoute(route, html) {
   fs.writeFileSync(path.join(ROOT, route, "index.html"), html, "utf8");
 }
 
+function siteNavigation() {
+  return fs.readFileSync(path.join(__dirname, "navigation.html"), "utf8").trim().replaceAll("{{VERSION}}", VERSION);
+}
+
 function pageShell({ title, description, canonical, body, image = "wedding-modern-black-gold-stripes.webp", structuredData = "", extraHead = "" }) {
   return `<!DOCTYPE html>
 <html lang="en" data-theme="light">
@@ -413,6 +417,8 @@ function pageShell({ title, description, canonical, body, image = "wedding-moder
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="/site-navigation.css">
+<script src="/site-navigation.js" defer></script>
 ${structuredData}${extraHead}
 <script>
   let savedTheme = 'light';
@@ -430,39 +436,7 @@ ${structuredData}${extraHead}
 </style>
 </head>
 <body>
-<nav class="bg-white shadow-md relative z-40">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex gap-4 items-center justify-between">
-    <a href="/" class="font-serif text-2xl font-bold text-pink-600">Bridge Angels Treats</a>
-    <div class="hidden md:flex flex-wrap gap-4 items-center text-sm font-bold">
-      <a href="/custom-cakes/">Custom Cakes</a>
-      <a href="/wedding-cakes/">Wedding Cakes</a>
-      <a href="/birthday-cakes/">Birthday Cakes</a>
-      <a href="/kids-cakes/">Kids Cakes</a>
-      <a href="/gallery/">Gallery</a>
-      <a href="/videos/">Videos</a>
-      <a href="/quote/">Get Your Quote</a>
-      <button type="button" class="theme-toggle rounded-full px-3 py-2 text-xs font-bold" onclick="toggleTheme()"><i class="fas fa-adjust mr-1"></i><span data-theme-label>Light</span></button>
-      <span class="text-xs text-gray-500" data-site-version>v${VERSION}</span>
-    </div>
-    <button type="button" id="mobile-menu-btn" class="md:hidden text-2xl text-pink-600 px-2" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
-  </div>
-  <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 font-bold">
-    <a href="/" class="block py-3 border-b">Home</a>
-    <a href="/custom-cakes/" class="block py-3 border-b">Custom Cakes</a>
-    <a href="/wedding-cakes/" class="block py-3 border-b">Wedding Cakes</a>
-    <a href="/birthday-cakes/" class="block py-3 border-b">Birthday Cakes</a>
-    <a href="/kids-cakes/" class="block py-3 border-b">Kids Cakes</a>
-    <a href="/gallery/" class="block py-3 border-b">Gallery</a>
-    <a href="/videos/" class="block py-3 border-b">Videos</a>
-    <a href="/quote/" class="block py-3 border-b">Get Your Quote</a>
-    <button type="button" class="theme-toggle w-full rounded-lg px-3 py-3 text-left text-sm font-bold my-3" onclick="toggleTheme()"><i class="fas fa-adjust mr-2"></i><span data-theme-label>Light</span> Theme</button>
-    <span class="block pb-3 text-xs text-gray-500" data-site-version>v${VERSION}</span>
-    <div class="grid grid-cols-2 gap-2">
-      <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
-      <a href="https://wa.me/27737095975" class="bg-green-500 text-white text-center py-3 rounded-lg"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a>
-    </div>
-  </div>
-</nav>
+${siteNavigation()}
 <main>${body}</main>
 <footer class="bg-white mt-12 py-8 text-center text-sm text-gray-600">
   <p class="font-serif text-xl font-bold text-pink-600 mb-2">Bridge Angels Treats (Pty) Ltd</p>
@@ -703,6 +677,12 @@ function updateIndex() {
   const indexPath = path.join(ROOT, "index.html");
   let html = fs.readFileSync(indexPath, "utf8");
   html = html.replace(/\r\n/g, "\n");
+  html = html.replace(/<nav[\s\S]*?<\/nav>/, siteNavigation());
+  if (!html.includes('href="/site-navigation.css"')) {
+    html = html.replace('</head>', '<link rel="stylesheet" href="/site-navigation.css">\n<script src="/site-navigation.js" defer></script>\n</head>');
+  }
+  html = html.replace(/    const btn = document.getElementById\('mobile-menu-btn'\);\n    const menu = document.getElementById\('mobile-menu'\);\n    btn.addEventListener\('click', \(\) => menu.classList.toggle\('hidden'\)\);/, '');
+
   html = html.replace(/2026\.\d{2}\.\d{2}\.\d+/g, VERSION);
   html = html.replace(/"uploadDate": "\d{4}-\d{2}-\d{2}(?:T[^"]+)?"/g, `"uploadDate": "${VIDEO_UPLOAD_DATE}"`);
   html = html.replace(

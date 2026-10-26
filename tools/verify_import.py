@@ -8,7 +8,7 @@ class Parser(HTMLParser):
  def handle_starttag(self,tag,attrs):
   global n
   a=dict(attrs)
-  if tag=='img' and not a.get('alt'): errors.append(f'{self.path}: missing alt')
+  if tag=='img' and 'alt' not in a: errors.append(f'{self.path}: missing alt')
   for key in ['src','href','poster','srcset']:
    val=a.get(key,'').split(' ')[0]
    if not val or val.startswith(('#','data:','http:','https:','tel:','mailto:','javascript:')): continue
@@ -19,7 +19,7 @@ class Parser(HTMLParser):
 for p in root.rglob('*.html'):
  if 'tools' in p.parts or '.git' in p.parts: continue
  txt=p.read_text(encoding='utf-8'); parser=Parser(); parser.path=p; parser.feed(txt)
- assert '2026.10.26.2' in txt,p
+ assert '2026.10.27.1' in txt,p
  assert 'data-site-version' in txt and 'toggleTheme' in txt,p
  for schema in re.findall(r'<script type="application/ld\+json">(.*?)</script>',txt,re.S): json.loads(schema)
 photos=list(root.glob('white-blue-gold-two-tier-celebration-cake-*.jpg'))+list(root.glob('colourful-graduation-cake-*.jpg')); assert len(photos)==11

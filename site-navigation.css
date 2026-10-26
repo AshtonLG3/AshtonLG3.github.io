@@ -1,0 +1,16 @@
+.site-nav{--nav-bg:#fff;--nav-text:#374151;--nav-line:#f2e4dc;position:sticky;top:0;z-index:50;background:var(--nav-bg);color:var(--nav-text);box-shadow:0 2px 10px #49251412;font-family:Lato,sans-serif;font-size:14px;line-height:1.5}
+.site-nav-bar{max-width:1280px;margin:auto;padding:0 24px;min-height:80px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.site-brand{display:flex;align-items:center;gap:12px;flex-shrink:0;color:#db2777;font-family:"Playfair Display",serif;font-size:24px;font-weight:700;text-decoration:none}
+.site-brand img{width:64px;height:64px;object-fit:contain}
+.site-nav a{text-decoration:none}.site-nav a:hover,.site-nav a[aria-current]{color:#db2777}.site-nav a:focus-visible,.site-nav button:focus-visible{outline:3px solid #db2777;outline-offset:4px}
+.site-nav-desktop{display:none;align-items:center;gap:20px;font-weight:700;white-space:nowrap}
+.site-nav .theme-toggle{border:1px solid #ec489959;border-radius:999px;padding:8px 12px;background:var(--nav-bg);color:var(--nav-text);font-size:12px;font-weight:700;cursor:pointer}
+.site-nav-version{font-size:11px;font-weight:400;color:#6b7280;white-space:nowrap}
+.site-menu-button{display:block;border:0;background:transparent;color:#db2777;font-size:24px;padding:8px;min-width:44px;min-height:44px;cursor:pointer}
+.site-mobile-menu{padding:0 24px 20px;max-height:calc(100dvh - 80px);overflow-y:auto;border-top:1px solid var(--nav-line);background:var(--nav-bg)}
+.site-mobile-menu.hidden{display:none}.site-mobile-menu>a{display:block;padding:12px 0;border-bottom:1px solid var(--nav-line);font-weight:700}
+.site-menu-settings{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0}.site-menu-contact{display:flex;flex-wrap:wrap;gap:10px}.site-menu-contact a{flex:1;padding:10px;text-align:center;border:1px solid var(--nav-line);border-radius:8px;font-weight:700}
+html[data-theme="dark"] .site-nav{--nav-bg:#16100d;--nav-text:#f5efe7;--nav-line:#ffffff26}html[data-theme="dark"] .site-nav-version{color:#cfc1b5}
+html{scroll-padding-top:96px}
+@media(min-width:1200px){.site-nav-desktop{display:flex}.site-menu-button,.site-mobile-menu{display:none!important}}
+@media(max-width:479px){.site-nav-bar{padding:0 16px;gap:12px}.site-brand{font-size:19px;gap:8px}.site-brand img{width:48px;height:56px}.site-mobile-menu{padding-left:16px;padding-right:16px}}
