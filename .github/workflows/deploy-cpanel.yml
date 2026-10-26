@@ -85,6 +85,7 @@ jobs:
             **/.github/**
             **/node_modules/**
             **/tools/**
+            **/flyer_files/**
             **/*.zip
 
       - name: Verify live site
@@ -147,6 +148,7 @@ jobs:
               "/cupcakes-scones/",
               "/gallery/",
               "/gallery/limpopo-white-gold-wedding-cake/",
+              "/videos/",
               "/videos/cake-stacking-rainbow-decoration-process/",
               "/quote/",
               "/sitemap.xml",
@@ -186,6 +188,16 @@ jobs:
 
           if missing:
               print("::error title=Missing live assets::" + ", ".join(missing))
+              sys.exit(1)
+
+          from urllib.error import HTTPError
+          try:
+              fetch(urljoin(site_url, "/quote.php"))
+          except HTTPError as exc:
+              if exc.code not in (404, 410):
+                  raise
+          else:
+              print("::error title=Retired endpoint still public::/quote.php must return 404 or 410")
               sys.exit(1)
 
           print(f"Live site verified: version={expected_version or 'not set'}, assets={len(parser.assets)}")

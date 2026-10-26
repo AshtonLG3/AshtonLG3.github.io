@@ -19,7 +19,7 @@ class Parser(HTMLParser):
 for p in root.rglob('*.html'):
  if 'tools' in p.parts or '.git' in p.parts: continue
  txt=p.read_text(encoding='utf-8'); parser=Parser(); parser.path=p; parser.feed(txt)
- assert '2026.10.26.1' in txt,p
+ assert '2026.10.26.2' in txt,p
  assert 'data-site-version' in txt and 'toggleTheme' in txt,p
  for schema in re.findall(r'<script type="application/ld\+json">(.*?)</script>',txt,re.S): json.loads(schema)
 photos=list(root.glob('white-blue-gold-two-tier-celebration-cake-*.jpg'))+list(root.glob('colourful-graduation-cake-*.jpg')); assert len(photos)==11
@@ -28,6 +28,7 @@ vids=list(root.glob('*-cake-video-*.mp4')); assert len(vids)==3
 for p in vids:
  info=json.loads(subprocess.check_output(['ffprobe','-v','quiet','-show_streams','-show_format','-of','json',str(p)],text=True))
  assert any(s['codec_type']=='video' and s['codec_name']=='h264' for s in info['streams']),p
+ assert not any(s['codec_type']=='audio' for s in info['streams']),f'{p}: audio track should be removed'
  data=p.read_bytes(); assert data.find(b'moov')<data.find(b'mdat'),p
  print(p.name,info['format']['duration']+' seconds')
 ET.parse(root/'sitemap.xml')

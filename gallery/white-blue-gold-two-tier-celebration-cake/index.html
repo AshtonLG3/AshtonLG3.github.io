@@ -6,7 +6,7 @@
 <title>White, Blue and Gold Two-Tier Celebration Cake in Lichtenburg | Bridge Angels Treats</title>
 <meta name="description" content="A white two-tier celebration cake with textured blue panels, gold accents and white flowers. View this birthday and celebration cakes portfolio item from Bridge Angels Treats and request a custom cake quote in Lichtenburg.">
 <meta name="author" content="Bridge Angels Treats">
-<meta name="site-version" content="2026.10.26.1">
+<meta name="site-version" content="2026.10.26.2">
 <link rel="canonical" href="https://bridgeangelscakes.co.za/gallery/white-blue-gold-two-tier-celebration-cake/">
 <meta property="og:title" content="White, Blue and Gold Two-Tier Celebration Cake in Lichtenburg">
 <meta property="og:description" content="A white two-tier celebration cake with textured blue panels, gold accents and white flowers. View this birthday and celebration cakes portfolio item from Bridge Angels Treats and request a custom cake quote in Lichtenburg.">
@@ -18,8 +18,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ImageObject","name":"White, Blue and Gold Two-Tier Celebration Cake","description":"A white two-tier celebration cake with textured blue panels, gold accents and white flowers.","contentUrl":"https://bridgeangelscakes.co.za/white-blue-gold-two-tier-celebration-cake-1.webp","thumbnailUrl":"https://bridgeangelscakes.co.za/white-blue-gold-two-tier-celebration-cake-1.webp","creator":{"@type":"Bakery","name":"Bridge Angels Treats","address":{"@type":"PostalAddress","addressLocality":"Lichtenburg","addressRegion":"North West","addressCountry":"ZA"}}}</script>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"VideoObject","name":"White, Blue and Gold Two-Tier Celebration Cake - video 1","description":"A white two-tier celebration cake with textured blue panels, gold accents and white flowers.","thumbnailUrl":"https://bridgeangelscakes.co.za/white-blue-gold-two-tier-celebration-cake-video-1-poster.webp","uploadDate":"2026-10-26T00:00:00+02:00","duration":"PT21.20S","contentUrl":"https://bridgeangelscakes.co.za/white-blue-gold-two-tier-celebration-cake-video-1.mp4"}]</script>
 <script>
-  const savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light';
+  let savedTheme = 'light';
+  try { savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light'; } catch (error) {}
   document.documentElement.dataset.theme = savedTheme;
 </script>
 <style>
@@ -31,21 +33,38 @@
   html[data-theme="dark"] .text-gray-600,html[data-theme="dark"] .text-gray-700,html[data-theme="dark"] .text-orange-900{color:#f1e5d6!important}
   html[data-theme="dark"] .theme-toggle{background:#352219;color:#fff8f0}
 </style>
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "VideoObject", "name": "White, Blue and Gold Two-Tier Celebration Cake - video 1", "description": "A white two-tier celebration cake with textured blue panels, gold accents and white flowers.", "thumbnailUrl": "https://bridgeangelscakes.co.za/white-blue-gold-two-tier-celebration-cake-video-1-poster.webp", "uploadDate": "2026-10-26T00:00:00+02:00", "duration": "PT21.20S", "contentUrl": "https://bridgeangelscakes.co.za/white-blue-gold-two-tier-celebration-cake-video-1.mp4"}]</script>
 </head>
 <body>
-<nav class="bg-white shadow-md">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-4 items-center justify-between">
+<nav class="bg-white shadow-md relative z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex gap-4 items-center justify-between">
     <a href="/" class="font-serif text-2xl font-bold text-pink-600">Bridge Angels Treats</a>
-    <div class="flex flex-wrap gap-4 items-center text-sm font-bold">
+    <div class="hidden md:flex flex-wrap gap-4 items-center text-sm font-bold">
       <a href="/custom-cakes/">Custom Cakes</a>
       <a href="/wedding-cakes/">Wedding Cakes</a>
       <a href="/birthday-cakes/">Birthday Cakes</a>
       <a href="/kids-cakes/">Kids Cakes</a>
       <a href="/gallery/">Gallery</a>
+      <a href="/videos/">Videos</a>
       <a href="/quote/">Get Your Quote</a>
       <button type="button" class="theme-toggle rounded-full px-3 py-2 text-xs font-bold" onclick="toggleTheme()"><i class="fas fa-adjust mr-1"></i><span data-theme-label>Light</span></button>
-      <span class="text-xs text-gray-500" data-site-version>v2026.10.26.1</span>
+      <span class="text-xs text-gray-500" data-site-version>v2026.10.26.2</span>
+    </div>
+    <button type="button" id="mobile-menu-btn" class="md:hidden text-2xl text-pink-600 px-2" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 font-bold">
+    <a href="/" class="block py-3 border-b">Home</a>
+    <a href="/custom-cakes/" class="block py-3 border-b">Custom Cakes</a>
+    <a href="/wedding-cakes/" class="block py-3 border-b">Wedding Cakes</a>
+    <a href="/birthday-cakes/" class="block py-3 border-b">Birthday Cakes</a>
+    <a href="/kids-cakes/" class="block py-3 border-b">Kids Cakes</a>
+    <a href="/gallery/" class="block py-3 border-b">Gallery</a>
+    <a href="/videos/" class="block py-3 border-b">Videos</a>
+    <a href="/quote/" class="block py-3 border-b">Get Your Quote</a>
+    <button type="button" class="theme-toggle w-full rounded-lg px-3 py-3 text-left text-sm font-bold my-3" onclick="toggleTheme()"><i class="fas fa-adjust mr-2"></i><span data-theme-label>Light</span> Theme</button>
+    <span class="block pb-3 text-xs text-gray-500" data-site-version>v2026.10.26.2</span>
+    <div class="grid grid-cols-2 gap-2">
+      <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
+      <a href="https://wa.me/27737095975" class="bg-green-500 text-white text-center py-3 rounded-lg"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a>
     </div>
   </div>
 </nav>
@@ -66,18 +85,23 @@
       </div>
     </div>
   </div>
-</section><section class="px-4 py-10 max-w-5xl mx-auto"><h2 class="font-serif text-3xl font-bold text-orange-900 mb-6">More views</h2><div class="grid md:grid-cols-3 gap-6"><a href="/white-blue-gold-two-tier-celebration-cake-2.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-2.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-2.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 2" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-3.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-3.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-3.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 3" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-4.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-4.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-4.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 4" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-5.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-5.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-5.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 5" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-6.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-6.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-6.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 6" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-7.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-7.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-7.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 7" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a></div><h2 class="font-serif text-3xl font-bold text-orange-900 mt-10 mb-6">See the cake on video</h2><div class="grid md:grid-cols-2 gap-6"><figure><video controls playsinline preload="none" poster="/white-blue-gold-two-tier-celebration-cake-video-1-poster.webp" title="White, Blue and Gold Two-Tier Celebration Cake, video 1" class="w-full rounded-lg shadow bg-black"><source src="/white-blue-gold-two-tier-celebration-cake-video-1.mp4" type="video/mp4">Your browser does not support video. <a href="/white-blue-gold-two-tier-celebration-cake-video-1.mp4">Download the video</a>.</video><figcaption class="mt-3 text-gray-600">White, Blue and Gold Two-Tier Celebration Cake — video 1.</figcaption></figure></div></section></main>
+</section><section class="px-4 py-10 max-w-5xl mx-auto"><h2 class="font-serif text-3xl font-bold text-orange-900 mb-6">More views</h2><div class="grid md:grid-cols-3 gap-6"><a href="/white-blue-gold-two-tier-celebration-cake-2.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-2.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-2.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 2" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-3.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-3.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-3.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 3" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-4.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-4.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-4.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 4" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-5.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-5.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-5.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 5" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-6.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-6.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-6.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 6" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a><a href="/white-blue-gold-two-tier-celebration-cake-7.jpg"><picture><source srcset="/white-blue-gold-two-tier-celebration-cake-7.webp" type="image/webp"><img src="/white-blue-gold-two-tier-celebration-cake-7.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake, view 7" loading="lazy" width="1200" height="1600" class="w-full rounded-lg shadow"></picture></a></div><h2 class="font-serif text-3xl font-bold text-orange-900 mt-10 mb-6">See the cake on video</h2><div class="grid md:grid-cols-2 gap-6"><figure><video controls playsinline muted preload="none" poster="/white-blue-gold-two-tier-celebration-cake-video-1-poster.webp" title="White, Blue and Gold Two-Tier Celebration Cake, video 1" class="w-full rounded-lg shadow bg-black"><source src="/white-blue-gold-two-tier-celebration-cake-video-1.mp4" type="video/mp4">Your browser does not support video. <a href="/white-blue-gold-two-tier-celebration-cake-video-1.mp4">Download the video</a>.</video><figcaption class="mt-3 text-gray-600">White, Blue and Gold Two-Tier Celebration Cake — video 1.</figcaption></figure></div></section></main>
 <footer class="bg-white mt-12 py-8 text-center text-sm text-gray-600">
   <p class="font-serif text-xl font-bold text-pink-600 mb-2">Bridge Angels Treats (Pty) Ltd</p>
   <p><a href="tel:+27737095975">+27 73 709 5975</a> · <a href="/quote/">Get Your Quote</a> · Lichtenburg, North West</p>
 </footer>
 <script>
-  const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.10.26.1';
+  const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.10.26.2';
   document.querySelectorAll('[data-site-version]').forEach((item) => item.textContent = 'v' + siteVersion);
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem('bridgeAngelsTheme', theme);
+    try { localStorage.setItem('bridgeAngelsTheme', theme); } catch (error) {}
     document.querySelectorAll('[data-theme-label]').forEach((item) => item.textContent = theme === 'dark' ? 'Dark' : 'Light');
+  }
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const open = menu.classList.toggle('hidden') === false;
+    document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', String(open));
   }
   function toggleTheme() {
     applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');

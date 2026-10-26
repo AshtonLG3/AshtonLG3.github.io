@@ -6,7 +6,7 @@
 <title>Naked 24th Birthday Cake with Single Rose in Lichtenburg | Bridge Angels Treats</title>
 <meta name="description" content="A simple naked birthday cake with a single pink rose and 24th birthday topper. View this birthday and celebration cakes portfolio item from Bridge Angels Treats and request a custom cake quote in Lichtenburg.">
 <meta name="author" content="Bridge Angels Treats">
-<meta name="site-version" content="2026.10.26.1">
+<meta name="site-version" content="2026.10.26.2">
 <link rel="canonical" href="https://bridgeangelscakes.co.za/gallery/naked-24th-birthday-cake-single-rose/">
 <meta property="og:title" content="Naked 24th Birthday Cake with Single Rose in Lichtenburg">
 <meta property="og:description" content="A simple naked birthday cake with a single pink rose and 24th birthday topper. View this birthday and celebration cakes portfolio item from Bridge Angels Treats and request a custom cake quote in Lichtenburg.">
@@ -19,7 +19,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ImageObject","name":"Naked 24th Birthday Cake with Single Rose","description":"A simple naked birthday cake with a single pink rose and 24th birthday topper.","contentUrl":"https://bridgeangelscakes.co.za/birthday-naked-cake-single-rose-24th.webp","thumbnailUrl":"https://bridgeangelscakes.co.za/birthday-naked-cake-single-rose-24th.webp","creator":{"@type":"Bakery","name":"Bridge Angels Treats","address":{"@type":"PostalAddress","addressLocality":"Lichtenburg","addressRegion":"North West","addressCountry":"ZA"}}}</script>
 <script>
-  const savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light';
+  let savedTheme = 'light';
+  try { savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light'; } catch (error) {}
   document.documentElement.dataset.theme = savedTheme;
 </script>
 <style>
@@ -33,18 +34,36 @@
 </style>
 </head>
 <body>
-<nav class="bg-white shadow-md">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-4 items-center justify-between">
+<nav class="bg-white shadow-md relative z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex gap-4 items-center justify-between">
     <a href="/" class="font-serif text-2xl font-bold text-pink-600">Bridge Angels Treats</a>
-    <div class="flex flex-wrap gap-4 items-center text-sm font-bold">
+    <div class="hidden md:flex flex-wrap gap-4 items-center text-sm font-bold">
       <a href="/custom-cakes/">Custom Cakes</a>
       <a href="/wedding-cakes/">Wedding Cakes</a>
       <a href="/birthday-cakes/">Birthday Cakes</a>
       <a href="/kids-cakes/">Kids Cakes</a>
       <a href="/gallery/">Gallery</a>
+      <a href="/videos/">Videos</a>
       <a href="/quote/">Get Your Quote</a>
       <button type="button" class="theme-toggle rounded-full px-3 py-2 text-xs font-bold" onclick="toggleTheme()"><i class="fas fa-adjust mr-1"></i><span data-theme-label>Light</span></button>
-      <span class="text-xs text-gray-500" data-site-version>v2026.10.26.1</span>
+      <span class="text-xs text-gray-500" data-site-version>v2026.10.26.2</span>
+    </div>
+    <button type="button" id="mobile-menu-btn" class="md:hidden text-2xl text-pink-600 px-2" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 font-bold">
+    <a href="/" class="block py-3 border-b">Home</a>
+    <a href="/custom-cakes/" class="block py-3 border-b">Custom Cakes</a>
+    <a href="/wedding-cakes/" class="block py-3 border-b">Wedding Cakes</a>
+    <a href="/birthday-cakes/" class="block py-3 border-b">Birthday Cakes</a>
+    <a href="/kids-cakes/" class="block py-3 border-b">Kids Cakes</a>
+    <a href="/gallery/" class="block py-3 border-b">Gallery</a>
+    <a href="/videos/" class="block py-3 border-b">Videos</a>
+    <a href="/quote/" class="block py-3 border-b">Get Your Quote</a>
+    <button type="button" class="theme-toggle w-full rounded-lg px-3 py-3 text-left text-sm font-bold my-3" onclick="toggleTheme()"><i class="fas fa-adjust mr-2"></i><span data-theme-label>Light</span> Theme</button>
+    <span class="block pb-3 text-xs text-gray-500" data-site-version>v2026.10.26.2</span>
+    <div class="grid grid-cols-2 gap-2">
+      <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
+      <a href="https://wa.me/27737095975" class="bg-green-500 text-white text-center py-3 rounded-lg"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a>
     </div>
   </div>
 </nav>
@@ -71,12 +90,17 @@
   <p><a href="tel:+27737095975">+27 73 709 5975</a> · <a href="/quote/">Get Your Quote</a> · Lichtenburg, North West</p>
 </footer>
 <script>
-  const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.10.26.1';
+  const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.10.26.2';
   document.querySelectorAll('[data-site-version]').forEach((item) => item.textContent = 'v' + siteVersion);
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem('bridgeAngelsTheme', theme);
+    try { localStorage.setItem('bridgeAngelsTheme', theme); } catch (error) {}
     document.querySelectorAll('[data-theme-label]').forEach((item) => item.textContent = theme === 'dark' ? 'Dark' : 'Light');
+  }
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const open = menu.classList.toggle('hidden') === false;
+    document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', String(open));
   }
   function toggleTheme() {
     applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');

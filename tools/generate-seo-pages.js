@@ -3,11 +3,42 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 const SITE_URL = "https://bridgeangelscakes.co.za";
-const VERSION = "2026.08.09.1";
-const LASTMOD = "2026-08-09";
+const VERSION = "2026.10.26.2";
+const LASTMOD = "2026-10-26";
 const VIDEO_UPLOAD_DATE = "2026-07-25T00:00:00+02:00";
 
 const galleryItems = [
+  {
+    category: "celebration",
+    categoryLabel: "Birthday and Celebration Cakes",
+    categoryUrl: "/birthday-cakes/",
+    slug: "white-blue-gold-two-tier-celebration-cake",
+    image: "white-blue-gold-two-tier-celebration-cake-1.jpg",
+    webp: "white-blue-gold-two-tier-celebration-cake-1.webp",
+    title: "White, Blue and Gold Two-Tier Celebration Cake",
+    alt: "White, Blue and Gold Two-Tier Celebration Cake by Bridge Angels Treats",
+    description: "A white two-tier celebration cake with textured blue panels, gold accents and white flowers.",
+    extraViews: [2, 3, 4, 5, 6, 7].map((n) => ({ image: `white-blue-gold-two-tier-celebration-cake-${n}.jpg`, webp: `white-blue-gold-two-tier-celebration-cake-${n}.webp`, width: 1200, height: 1600 })),
+    clips: [
+      { file: "white-blue-gold-two-tier-celebration-cake-video-1.mp4", poster: "white-blue-gold-two-tier-celebration-cake-video-1-poster.webp", duration: "PT21.20S", width: 478, height: 850, uploadDate: "2026-10-26T00:00:00+02:00" },
+    ],
+  },
+  {
+    category: "kids",
+    categoryLabel: "Kids Cakes",
+    categoryUrl: "/kids-cakes/",
+    slug: "colourful-graduation-cake",
+    image: "colourful-graduation-cake-1.jpg",
+    webp: "colourful-graduation-cake-1.webp",
+    title: "Colourful Graduation Cake",
+    alt: "Colourful Graduation Cake by Bridge Angels Treats",
+    description: "A mint-green graduation cake with colourful pencils, alphabet decorations and a graduation topper to celebrate moving up to first grade.",
+    extraViews: [2, 3, 4].map((n) => ({ image: `colourful-graduation-cake-${n}.jpg`, webp: `colourful-graduation-cake-${n}.webp`, width: 1200, height: 1600 })),
+    clips: [
+      { file: "colourful-graduation-cake-video-1.mp4", poster: "colourful-graduation-cake-video-1-poster.webp", duration: "PT18.84S", width: 368, height: 496, uploadDate: "2026-10-26T00:00:00+02:00" },
+      { file: "colourful-graduation-cake-video-2.mp4", poster: "colourful-graduation-cake-video-2-poster.webp", duration: "PT13.08S", width: 368, height: 496, uploadDate: "2026-10-26T00:00:00+02:00" },
+    ],
+  },
   {
     category: "wedding",
     categoryLabel: "Wedding Cakes",
@@ -280,6 +311,8 @@ const videos = [
     title: "Cake Stacking and Rainbow Decoration Process",
     file: "Cake-Stacking-And-Rainbow-Decoration.mp4",
     poster: "cake-stacking-rainbow-decoration-poster.webp",
+    width: 1280,
+    height: 720,
     duration: "PT1M2S",
     description: "Behind-the-scenes video of Bridget stacking a custom cake and adding rainbow-themed decoration in Lichtenburg.",
   },
@@ -288,6 +321,8 @@ const videos = [
     title: "Pink Rainbow Birthday Cake Decorating Process",
     file: "Pink-Rainbow-Birthday-Cake-Decorating-Process.mp4",
     poster: "pink-rainbow-birthday-cake-decorating-poster.webp",
+    width: 1280,
+    height: 720,
     duration: "PT23S",
     description: "Behind-the-scenes video showing a pink rainbow birthday cake decorating process by Bridge Angels Treats.",
   },
@@ -296,6 +331,7 @@ const videos = [
 const servicePages = [
   {
     slug: "custom-cakes",
+    image: "wedding-limpopo-white-gold-50-cake.webp",
     title: "Custom Cakes in Lichtenburg",
     heading: "Custom Cakes in Lichtenburg",
     description: "Order custom cakes in Lichtenburg from Bridge Angels Treats. Bridget makes wedding cakes, birthday cakes, kids themed cakes, cupcakes and celebration bakes.",
@@ -304,6 +340,7 @@ const servicePages = [
   },
   {
     slug: "wedding-cakes",
+    image: "wedding-limpopo-white-gold-50-cake.webp",
     title: "Wedding Cakes in Lichtenburg",
     heading: "Wedding Cakes in Lichtenburg",
     description: "Elegant wedding cakes for Lichtenburg, North West and nearby events, including traditional, modern, multi-tier and gold-accent designs.",
@@ -312,6 +349,7 @@ const servicePages = [
   },
   {
     slug: "birthday-cakes",
+    image: "birthday-gold-drip-white-sinah-50.webp",
     title: "Birthday Cakes in Lichtenburg",
     heading: "Birthday Cakes in Lichtenburg",
     description: "Custom birthday and celebration cakes in Lichtenburg, including 50th, 60th, Mother's Day, anniversary and rose-gold designs.",
@@ -320,6 +358,7 @@ const servicePages = [
   },
   {
     slug: "kids-cakes",
+    image: "kids-spiderman-birthday-3-year.webp",
     title: "Kids Cakes in Lichtenburg",
     heading: "Kids Cakes in Lichtenburg",
     description: "Kids themed birthday cakes in Lichtenburg, including Spiderman, Barbie, princess, soccer, rainbow and baby shower cake designs.",
@@ -328,6 +367,7 @@ const servicePages = [
   },
   {
     slug: "cupcakes-scones",
+    image: "kids-gender-reveal-pink-blue-cupcakes.webp",
     title: "Cupcakes, Scones and Bakes in Lichtenburg",
     heading: "Cupcakes, Scones and Bakes in Lichtenburg",
     description: "Cupcakes, muffins, cookies and scones in Lichtenburg for parties, office functions and family events.",
@@ -353,7 +393,7 @@ function writeRoute(route, html) {
   fs.writeFileSync(path.join(ROOT, route, "index.html"), html, "utf8");
 }
 
-function pageShell({ title, description, canonical, body, image = "wedding-modern-black-gold-stripes.webp", structuredData = "" }) {
+function pageShell({ title, description, canonical, body, image = "wedding-modern-black-gold-stripes.webp", structuredData = "", extraHead = "" }) {
   return `<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -373,9 +413,10 @@ function pageShell({ title, description, canonical, body, image = "wedding-moder
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-${structuredData}
+${structuredData}${extraHead}
 <script>
-  const savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light';
+  let savedTheme = 'light';
+  try { savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light'; } catch (error) {}
   document.documentElement.dataset.theme = savedTheme;
 </script>
 <style>
@@ -389,18 +430,36 @@ ${structuredData}
 </style>
 </head>
 <body>
-<nav class="bg-white shadow-md">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-4 items-center justify-between">
+<nav class="bg-white shadow-md relative z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex gap-4 items-center justify-between">
     <a href="/" class="font-serif text-2xl font-bold text-pink-600">Bridge Angels Treats</a>
-    <div class="flex flex-wrap gap-4 items-center text-sm font-bold">
+    <div class="hidden md:flex flex-wrap gap-4 items-center text-sm font-bold">
       <a href="/custom-cakes/">Custom Cakes</a>
       <a href="/wedding-cakes/">Wedding Cakes</a>
       <a href="/birthday-cakes/">Birthday Cakes</a>
       <a href="/kids-cakes/">Kids Cakes</a>
       <a href="/gallery/">Gallery</a>
+      <a href="/videos/">Videos</a>
       <a href="/quote/">Get Your Quote</a>
       <button type="button" class="theme-toggle rounded-full px-3 py-2 text-xs font-bold" onclick="toggleTheme()"><i class="fas fa-adjust mr-1"></i><span data-theme-label>Light</span></button>
       <span class="text-xs text-gray-500" data-site-version>v${VERSION}</span>
+    </div>
+    <button type="button" id="mobile-menu-btn" class="md:hidden text-2xl text-pink-600 px-2" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 font-bold">
+    <a href="/" class="block py-3 border-b">Home</a>
+    <a href="/custom-cakes/" class="block py-3 border-b">Custom Cakes</a>
+    <a href="/wedding-cakes/" class="block py-3 border-b">Wedding Cakes</a>
+    <a href="/birthday-cakes/" class="block py-3 border-b">Birthday Cakes</a>
+    <a href="/kids-cakes/" class="block py-3 border-b">Kids Cakes</a>
+    <a href="/gallery/" class="block py-3 border-b">Gallery</a>
+    <a href="/videos/" class="block py-3 border-b">Videos</a>
+    <a href="/quote/" class="block py-3 border-b">Get Your Quote</a>
+    <button type="button" class="theme-toggle w-full rounded-lg px-3 py-3 text-left text-sm font-bold my-3" onclick="toggleTheme()"><i class="fas fa-adjust mr-2"></i><span data-theme-label>Light</span> Theme</button>
+    <span class="block pb-3 text-xs text-gray-500" data-site-version>v${VERSION}</span>
+    <div class="grid grid-cols-2 gap-2">
+      <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
+      <a href="https://wa.me/27737095975" class="bg-green-500 text-white text-center py-3 rounded-lg"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a>
     </div>
   </div>
 </nav>
@@ -414,8 +473,13 @@ ${structuredData}
   document.querySelectorAll('[data-site-version]').forEach((item) => item.textContent = 'v' + siteVersion);
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem('bridgeAngelsTheme', theme);
+    try { localStorage.setItem('bridgeAngelsTheme', theme); } catch (error) {}
     document.querySelectorAll('[data-theme-label]').forEach((item) => item.textContent = theme === 'dark' ? 'Dark' : 'Light');
+  }
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const open = menu.classList.toggle('hidden') === false;
+    document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', String(open));
   }
   function toggleTheme() {
     applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
@@ -435,9 +499,193 @@ function galleryCard(item) {
     <div class="p-4">
       <h2 class="font-serif text-xl font-bold text-orange-900">${escapeHtml(item.title)}</h2>
       <p class="mt-2 text-sm text-gray-600">${escapeHtml(item.description)}</p>
-      <span class="inline-block mt-3 text-pink-600 font-bold text-sm">View details</span>
+      <span class="inline-block mt-3 text-pink-600 font-bold text-sm">${hasMedia(item) ? "View photos and videos" : "View details"}</span>
     </div>
   </a>`;
+}
+
+function hasMedia(item) {
+  return Boolean((item.extraViews && item.extraViews.length) || (item.clips && item.clips.length));
+}
+
+function galleryExtras(item) {
+  const views = item.extraViews || [];
+  const clips = item.clips || [];
+  if (!views.length && !clips.length) return "";
+  const viewsHtml = views.length ? `<h2 class="font-serif text-3xl font-bold text-orange-900 mb-6">More views</h2><div class="grid md:grid-cols-3 gap-6">${views.map((view, index) => `<a href="/${view.image}"><picture><source srcset="/${view.webp}" type="image/webp"><img src="/${view.image}" alt="${escapeHtml(item.title)}, view ${index + 2}" loading="lazy" width="${view.width}" height="${view.height}" class="w-full rounded-lg shadow"></picture></a>`).join("")}</div>` : "";
+  const clipsHtml = clips.length ? `<h2 class="font-serif text-3xl font-bold text-orange-900 mt-10 mb-6">See the cake on video</h2><div class="grid md:grid-cols-2 gap-6">${clips.map((clip, index) => `<figure><video controls playsinline muted preload="none" poster="/${clip.poster}" title="${escapeHtml(item.title)}, video ${index + 1}" class="w-full rounded-lg shadow bg-black"><source src="/${clip.file}" type="video/mp4">Your browser does not support video. <a href="/${clip.file}">Download the video</a>.</video><figcaption class="mt-3 text-gray-600">${escapeHtml(item.title)} — video ${index + 1}.</figcaption></figure>`).join("")}</div>` : "";
+  return `<section class="px-4 py-10 max-w-5xl mx-auto">${viewsHtml}${clipsHtml}</section>`;
+}
+
+function clipStructuredData(item) {
+  const clips = item.clips || [];
+  if (!clips.length) return "";
+  return `\n<script type="application/ld+json">${JSON.stringify(clips.map((clip, index) => ({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: `${item.title} - video ${index + 1}`,
+    description: item.description,
+    thumbnailUrl: `${SITE_URL}/${clip.poster}`,
+    uploadDate: clip.uploadDate,
+    duration: clip.duration,
+    contentUrl: `${SITE_URL}/${clip.file}`,
+  })))}</script>`;
+}
+
+function fileSizeMb(file) {
+  return (fs.statSync(path.join(ROOT, file)).size / 1048576).toFixed(1);
+}
+
+function libraryVideos() {
+  return [
+    ...galleryItems.flatMap((item) => (item.clips || []).map((clip, index, all) => ({
+      ...clip,
+      title: all.length > 1 ? `${item.title} (video ${index + 1})` : item.title,
+      description: item.description,
+      link: `/gallery/${item.slug}/`,
+      linkLabel: "View this cake",
+    }))),
+    ...videos.map((video) => ({
+      ...video,
+      link: `/videos/${video.slug}/`,
+      linkLabel: "Open video page",
+    })),
+  ];
+}
+
+const videoLibraryHead = `<style>
+  .video-card video{display:block;width:100%;height:auto;max-height:75vh;object-fit:contain;background:#000}
+  .video-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;width:100%;background:rgba(0,0,0,.2);color:#fff;font-weight:700;cursor:pointer}
+  .video-play-icon{display:flex;align-items:center;justify-content:center;width:4rem;height:4rem;border-radius:9999px;background:#db2777;font-size:1.5rem;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  .video-play-label{background:rgba(0,0,0,.65);padding:.25rem .75rem;border-radius:9999px;font-size:.875rem}
+  .video-play:focus-visible{outline:3px solid #f9a8d4;outline-offset:-3px}
+  .video-play[hidden],.is-autoplay .video-play,.is-playing .video-play{display:none}
+</style>`;
+
+function videoCard(video) {
+  const size = fileSizeMb(video.file);
+  return `<figure class="video-card mb-6 break-inside-avoid bg-white rounded-lg shadow overflow-hidden" data-video-card>
+      <div class="relative bg-black">
+        <video controls muted playsinline loop preload="none" width="${video.width}" height="${video.height}" poster="/${video.poster}" aria-label="${escapeHtml(video.title)}"><source src="/${video.file}" type="video/mp4"></video>
+        <button type="button" class="video-play" hidden data-video-play aria-label="Play ${escapeHtml(video.title)} (${size} MB)"><span class="video-play-icon"><i class="fas fa-play"></i></span><span class="video-play-label">Tap to play · ${size} MB</span></button>
+      </div>
+      <figcaption class="p-4">
+        <h2 class="font-serif text-xl font-bold text-orange-900">${escapeHtml(video.title)}</h2>
+        <p class="mt-2 text-sm text-gray-600">${escapeHtml(video.description)}</p>
+        <a href="${video.link}" class="inline-block mt-3 text-pink-600 font-bold text-sm">${video.linkLabel}</a>
+      </figcaption>
+    </figure>`;
+}
+
+// Autoplay (muted, only while on screen) is allowed on Wi-Fi/wired or desktop connections.
+// On mobile data, Data Saver, slow or unknown mobile connections, and reduced motion,
+// nothing downloads until the visitor taps a video. A per-visit override is kept in sessionStorage.
+const videoLibraryScript = `<script>
+  (() => {
+    const choiceKey = 'bridgeAngelsVideoAutoplay';
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const statusText = document.querySelector('[data-video-status-text]');
+    const toggle = document.getElementById('videoAutoplayToggle');
+    const cards = Array.from(document.querySelectorAll('[data-video-card]'));
+    const visible = new Set();
+    let autoplay = false;
+
+    function readChoice() {
+      try { return sessionStorage.getItem(choiceKey); } catch (error) { return null; }
+    }
+    function saveChoice(value) {
+      try { sessionStorage.setItem(choiceKey, value); } catch (error) {}
+    }
+    function networkCheck() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return { auto: false, reason: 'Reduced motion is switched on, so videos will not play by themselves.' };
+      if (connection && connection.saveData) return { auto: false, reason: 'Data Saver is on, so videos will not play by themselves.' };
+      if (connection && connection.type === 'cellular') return { auto: false, reason: 'You seem to be on mobile data, so videos will not play by themselves.' };
+      if (connection && ['slow-2g', '2g'].includes(connection.effectiveType)) return { auto: false, reason: 'Your connection looks slow, so videos will not play by themselves.' };
+      if (connection && ['wifi', 'ethernet'].includes(connection.type)) return { auto: true, reason: 'You are on Wi-Fi, so videos play silently as you scroll.' };
+      if (window.matchMedia('(pointer: coarse)').matches) return { auto: false, reason: 'We cannot tell whether you are on Wi-Fi, so videos will not play by themselves to save your data.' };
+      return { auto: true, reason: 'Videos play silently as you scroll.' };
+    }
+    function playMuted(video) {
+      video.muted = true;
+      const playing = video.play();
+      if (playing) playing.catch(() => {});
+    }
+    function apply() {
+      const check = networkCheck();
+      const choice = readChoice();
+      autoplay = choice ? choice === 'on' && 'IntersectionObserver' in window : check.auto && 'IntersectionObserver' in window;
+      statusText.textContent = choice
+        ? (autoplay ? 'Autoplay is on for this visit.' : 'Autoplay is off for this visit. Tap any video to play it.')
+        : check.reason + (autoplay ? '' : ' Tap any video to play it.');
+      toggle.textContent = autoplay ? 'Turn autoplay off' : 'Play automatically anyway';
+      cards.forEach((card) => {
+        const video = card.querySelector('video');
+        if (card.dataset.userStarted) return;
+        card.classList.toggle('is-autoplay', autoplay);
+        video.controls = autoplay;
+        if (autoplay && visible.has(card)) playMuted(video);
+        else video.pause();
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const card = entry.target;
+          const video = card.querySelector('video');
+          if (entry.isIntersecting) visible.add(card);
+          else visible.delete(card);
+          if (card.dataset.userStarted) {
+            if (!entry.isIntersecting) video.pause();
+            return;
+          }
+          if (autoplay && entry.isIntersecting) playMuted(video);
+          else video.pause();
+        });
+      }, { threshold: 0.35 });
+      cards.forEach((card) => observer.observe(card));
+    }
+
+    toggle.hidden = false;
+    cards.forEach((card) => {
+      const video = card.querySelector('video');
+      const playButton = card.querySelector('[data-video-play]');
+      playButton.hidden = false;
+      playButton.addEventListener('click', () => {
+        card.dataset.userStarted = 'true';
+        card.classList.add('is-playing');
+        cards.forEach((other) => { if (other !== card) other.querySelector('video').pause(); });
+        video.controls = true;
+        video.muted = false;
+        const playing = video.play();
+        if (playing) playing.catch(() => {});
+      });
+    });
+
+    toggle.addEventListener('click', () => {
+      saveChoice(autoplay ? 'off' : 'on');
+      apply();
+    });
+    if (connection && connection.addEventListener) connection.addEventListener('change', apply);
+    apply();
+  })();
+</script>`;
+
+function videoLibraryBody() {
+  return `<section class="py-16 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="font-serif text-5xl font-bold text-orange-900 mb-6">Cake Decorating Videos in Lichtenburg</h1>
+    <p class="text-lg text-gray-700 max-w-3xl mb-6">Watch Bridget's cakes come together, from stacking and decorating to the finished celebration cake.</p>
+    <div class="bg-white rounded-lg shadow p-4 mb-8 flex flex-wrap gap-3 items-center justify-between">
+      <p class="text-sm text-gray-700" role="status" data-video-status-text>Videos only play when you tap them.</p>
+      <button type="button" id="videoAutoplayToggle" hidden class="theme-toggle rounded-full px-4 py-2 text-sm font-bold">Play automatically anyway</button>
+    </div>
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-6">
+    ${libraryVideos().map(videoCard).join("\n    ")}
+    </div>
+  </div>
+</section>
+${videoLibraryScript}`;
 }
 
 function generateGalleryGrid(items) {
@@ -447,7 +695,7 @@ function generateGalleryGrid(items) {
           <source srcset="${item.webp}" type="image/webp">
           <img loading="lazy" src="${item.image}" alt="${escapeHtml(item.alt)}" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
       </picture>
-    </a>
+    </a>${hasMedia(item) ? `\n    <a href="/gallery/${item.slug}/" class="block py-3 font-bold text-chocolate">${escapeHtml(item.title)} · Photos &amp; videos</a>` : ""}
   </div>`).join("\n");
 }
 
@@ -642,7 +890,7 @@ function generatePages() {
       description: page.description,
       canonical: `${SITE_URL}/${page.slug}/`,
       body: serviceBody(page),
-      image: galleryItems.find((item) => page.categories.includes(item.category))?.webp,
+      image: page.image,
       structuredData: `<script type="application/ld+json">${JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Service",
@@ -669,7 +917,7 @@ function generatePages() {
     title: "Cake Gallery in Lichtenburg",
     description: "Browse the Bridge Angels Treats cake gallery with wedding cakes, birthday cakes, kids cakes, cupcakes and bakes made in Lichtenburg.",
     canonical: `${SITE_URL}/gallery/`,
-    image: galleryItems[0].webp,
+    image: "wedding-limpopo-white-gold-50-cake.webp",
     body: `<section class="py-16 px-4">
   <div class="max-w-6xl mx-auto">
     <h1 class="font-serif text-5xl font-bold text-orange-900 mb-6">Cake Gallery in Lichtenburg</h1>
@@ -677,6 +925,15 @@ function generatePages() {
     <div class="grid md:grid-cols-3 gap-6">${galleryItems.map(galleryCard).join("\n")}</div>
   </div>
 </section>`,
+  }));
+
+  writeRoute("videos", pageShell({
+    title: "Cake Decorating Videos in Lichtenburg",
+    description: "Watch cake stacking and decorating videos from Bridge Angels Treats in Lichtenburg. Videos only play automatically on Wi-Fi to save mobile data.",
+    canonical: `${SITE_URL}/videos/`,
+    image: videos[0].poster,
+    extraHead: videoLibraryHead,
+    body: videoLibraryBody(),
   }));
 
   writeRoute("quote", pageShell({
@@ -716,7 +973,7 @@ function generatePages() {
             addressCountry: "ZA",
           },
         },
-      })}</script>`,
+      })}</script>${clipStructuredData(item)}`,
       body: `<section class="py-16 px-4">
   <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-start">
     <picture>
@@ -734,7 +991,7 @@ function generatePages() {
       </div>
     </div>
   </div>
-</section>`,
+</section>${galleryExtras(item)}`,
     }));
   }
 
@@ -777,6 +1034,7 @@ function writeSitemap() {
     { loc: "/", priority: "1.00" },
     ...servicePages.map((page) => ({ loc: `/${page.slug}/`, priority: page.slug === "custom-cakes" ? "0.95" : "0.90" })),
     { loc: "/gallery/", priority: "0.90" },
+    { loc: "/videos/", priority: "0.85" },
     { loc: "/quote/", priority: "0.90" },
     ...galleryItems.map((item) => ({ loc: `/gallery/${item.slug}/`, priority: "0.75" })),
     ...videos.map((video) => ({ loc: `/videos/${video.slug}/`, priority: "0.70" })),

@@ -8,7 +8,7 @@
 <meta name="description" content="Order custom cakes in Lichtenburg from Bridge Angels Treats. Bridget makes wedding cakes, birthday cakes, kids themed cakes, cupcakes, scones and celebration bakes.">
 <meta name="keywords" content="custom cakes Lichtenburg, bakery Lichtenburg, wedding cakes Lichtenburg, birthday cakes Lichtenburg, kids cakes Lichtenburg, cupcakes Lichtenburg, scones Lichtenburg, Bridge Angels Treats">
 <meta name="author" content="Bridge Angels Treats">
-<meta name="site-version" content="2026.10.26.1">
+<meta name="site-version" content="2026.10.26.2">
 
 <meta name="theme-color" content="#EC4899">
 <link rel="canonical" href="https://bridgeangelscakes.co.za/">
@@ -67,7 +67,8 @@
 </script>
 
 <script>
-  const savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light';
+  let savedTheme = 'light';
+  try { savedTheme = localStorage.getItem('bridgeAngelsTheme') || 'light'; } catch (error) {}
   document.documentElement.dataset.theme = savedTheme;
 </script>
 
@@ -124,6 +125,7 @@
 
     /* Checkbox styling */
     .checkbox-wrapper input:checked + div { background-color: #EC4899; color: white; border-color: #EC4899; }
+    .checkbox-wrapper input:focus-visible + div { outline: 3px solid #EC4899; outline-offset: 2px; }
 
     /* Creamy shadows */
     .shadow-cream { box-shadow: 0 10px 30px rgba(236, 178, 120, 0.15); }
@@ -205,13 +207,14 @@
     <a href="/custom-cakes/" class="hover:text-strawberry transition font-bold">Custom Cakes</a>
     <a href="/wedding-cakes/" class="hover:text-strawberry transition font-bold">Wedding Cakes</a>
     <a href="/gallery/" class="hover:text-strawberry transition font-bold">Gallery</a>
+    <a href="/videos/" class="hover:text-strawberry transition font-bold">Videos</a>
     <a href="/quote/" class="hover:text-strawberry transition font-bold">Quote</a>
     <a href="tel:+27737095975" class="text-gray-600 hover:text-strawberry" title="Call Us"><i class="fas fa-phone-alt text-xl"></i></a>
     <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="text-blue-600 hover:text-blue-800" title="Facebook Page"><i class="fab fa-facebook text-2xl"></i></a>
     <button type="button" class="theme-toggle rounded-full px-3 py-2 text-xs font-bold" onclick="toggleTheme()" title="Switch color theme">
         <i class="fas fa-adjust mr-1"></i><span data-theme-label>Light</span>
     </button>
-    <span class="text-xs font-bold text-gray-400" title="Site version" data-site-version>v2026.10.26.1</span>
+    <span class="text-xs font-bold text-gray-400" title="Site version" data-site-version>v2026.10.26.2</span>
    </div>
 
    <button id="mobile-menu-btn" class="md:hidden text-2xl text-strawberry"><i class="fas fa-bars"></i></button>
@@ -223,11 +226,12 @@
   <a href="/custom-cakes/" class="block py-3 border-b text-chocolate font-bold">Custom Cakes</a>
   <a href="/wedding-cakes/" class="block py-3 border-b text-chocolate font-bold">Wedding Cakes</a>
   <a href="/gallery/" class="block py-3 border-b text-chocolate font-bold">Gallery</a>
+  <a href="/videos/" class="block py-3 border-b text-chocolate font-bold">Videos</a>
   <a href="/quote/" class="block py-3 border-b text-chocolate font-bold">Quote</a>
   <button type="button" class="theme-toggle w-full rounded-lg px-3 py-3 text-left text-sm font-bold my-3" onclick="toggleTheme()">
       <i class="fas fa-adjust mr-2"></i><span data-theme-label>Light</span> Theme
   </button>
-  <span class="block py-3 border-b text-xs font-bold text-gray-400" data-site-version>v2026.10.26.1</span>
+  <span class="block py-3 border-b text-xs font-bold text-gray-400" data-site-version>v2026.10.26.2</span>
   <a href="https://www.facebook.com/bridgeangelscakes" target="_blank" class="block py-3 text-blue-600 font-bold"><i class="fab fa-facebook mr-2"></i>Visit Facebook</a>
   <div class="grid grid-cols-2 gap-2 mt-4">
       <a href="tel:+27737095975" class="bg-gray-800 text-white text-center py-3 rounded-lg"><i class="fas fa-phone-alt mr-2"></i>Call</a>
@@ -325,7 +329,25 @@
     </button>
  </div>
 
- <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto px-4" id="galleryGrid"><div class="gallery-item" data-category="birthday"><a href="/gallery/white-blue-gold-two-tier-celebration-cake/" class="gallery-link block" data-image="white-blue-gold-two-tier-celebration-cake-1.webp" data-alt="White, Blue and Gold Two-Tier Celebration Cake"><picture><source srcset="white-blue-gold-two-tier-celebration-cake-1.webp" type="image/webp"><img loading="lazy" src="white-blue-gold-two-tier-celebration-cake-1.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake by Bridge Angels Treats" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300"></picture></a><a href="/gallery/white-blue-gold-two-tier-celebration-cake/" class="block py-3 font-bold text-chocolate">White, Blue and Gold Two-Tier Celebration Cake · Photos &amp; videos</a></div><div class="gallery-item" data-category="kids"><a href="/gallery/colourful-graduation-cake/" class="gallery-link block" data-image="colourful-graduation-cake-1.webp" data-alt="Colourful Graduation Cake"><picture><source srcset="colourful-graduation-cake-1.webp" type="image/webp"><img loading="lazy" src="colourful-graduation-cake-1.jpg" alt="Colourful Graduation Cake by Bridge Angels Treats" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300"></picture></a><a href="/gallery/colourful-graduation-cake/" class="block py-3 font-bold text-chocolate">Colourful Graduation Cake · Photos &amp; videos</a></div>
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto px-4" id="galleryGrid">
+  <div class="gallery-item" data-category="celebration">
+    <a href="/gallery/white-blue-gold-two-tier-celebration-cake/" class="gallery-link block" data-image="white-blue-gold-two-tier-celebration-cake-1.webp" data-alt="White, Blue and Gold Two-Tier Celebration Cake by Bridge Angels Treats">
+      <picture>
+          <source srcset="white-blue-gold-two-tier-celebration-cake-1.webp" type="image/webp">
+          <img loading="lazy" src="white-blue-gold-two-tier-celebration-cake-1.jpg" alt="White, Blue and Gold Two-Tier Celebration Cake by Bridge Angels Treats" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+      </picture>
+    </a>
+    <a href="/gallery/white-blue-gold-two-tier-celebration-cake/" class="block py-3 font-bold text-chocolate">White, Blue and Gold Two-Tier Celebration Cake · Photos &amp; videos</a>
+  </div>
+  <div class="gallery-item" data-category="kids">
+    <a href="/gallery/colourful-graduation-cake/" class="gallery-link block" data-image="colourful-graduation-cake-1.webp" data-alt="Colourful Graduation Cake by Bridge Angels Treats">
+      <picture>
+          <source srcset="colourful-graduation-cake-1.webp" type="image/webp">
+          <img loading="lazy" src="colourful-graduation-cake-1.jpg" alt="Colourful Graduation Cake by Bridge Angels Treats" class="cursor-zoom-in rounded-lg h-80 w-full object-cover shadow-md transition duration-300" />
+      </picture>
+    </a>
+    <a href="/gallery/colourful-graduation-cake/" class="block py-3 font-bold text-chocolate">Colourful Graduation Cake · Photos &amp; videos</a>
+  </div>
   <div class="gallery-item" data-category="wedding">
     <a href="/gallery/limpopo-white-gold-wedding-cake/" class="gallery-link block" data-image="wedding-limpopo-white-gold-50-cake.webp" data-alt="Three-tier white and gold Limpopo wedding cake by Bridge Angels Treats near Lichtenburg">
       <picture>
@@ -582,16 +604,18 @@
        Submitting this form will open WhatsApp to send your details directly to Bridget.
    </div>
 
-   <input id="orderName" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Your Name" required>
-   <input id="orderPhone" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Phone Number" required>
+   <label for="orderName" class="sr-only">Your name</label>
+   <input id="orderName" autocomplete="name" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Your Name" required>
+   <label for="orderPhone" class="sr-only">Phone number</label>
+   <input id="orderPhone" type="tel" autocomplete="tel" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="Phone Number" required>
 
    <div class="grid md:grid-cols-2 gap-4">
        <div>
-           <label class="block text-gray-500 text-xs mb-1 ml-1">Event Date</label>
+           <label for="orderDate" class="block text-gray-500 text-xs mb-1 ml-1">Event Date</label>
            <input id="orderDate" type="date" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter">
        </div>
        <div>
-           <label class="block text-gray-500 text-xs mb-1 ml-1">Quantity/Guests</label>
+           <label for="orderQty" class="block text-gray-500 text-xs mb-1 ml-1">Quantity/Guests</label>
            <input id="orderQty" class="w-full p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none bg-butter" placeholder="e.g. 50 guests OR 12 cupcakes">
        </div>
    </div>
@@ -600,32 +624,33 @@
        <label class="block text-gray-500 text-sm mb-2 font-bold">What would you like to order? (Select all that apply)</label>
        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Wedding Cake" class="hidden">
+               <input type="checkbox" name="orderType" value="Wedding Cake" class="sr-only">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Wedding Cake</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Birthday Cake" class="hidden">
+               <input type="checkbox" name="orderType" value="Birthday Cake" class="sr-only">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Birthday Cake</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Kids/Themed" class="hidden">
+               <input type="checkbox" name="orderType" value="Kids/Themed" class="sr-only">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Kids/Themed</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Cupcakes (R20ea)" class="hidden">
+               <input type="checkbox" name="orderType" value="Cupcakes (R20ea)" class="sr-only">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Cupcakes</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Scones (5L Bucket)" class="hidden">
+               <input type="checkbox" name="orderType" value="Scones (5L Bucket)" class="sr-only">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Scones</div>
            </label>
            <label class="checkbox-wrapper cursor-pointer">
-               <input type="checkbox" name="orderType" value="Cookies" class="hidden">
+               <input type="checkbox" name="orderType" value="Cookies" class="sr-only">
                <div class="border-2 border-gray-300 bg-white rounded-lg p-3 text-center text-sm font-bold hover:border-strawberry transition">Cookies</div>
            </label>
        </div>
    </div>
 
+   <label for="orderDetails" class="sr-only">Design details, flavours and allergies</label>
    <textarea id="orderDetails" class="p-3 border rounded focus:ring-2 focus:ring-strawberry outline-none h-32 bg-butter" placeholder="Describe your design, flavors, or any allergies..."></textarea>
 
    <button onclick="sendToWhatsapp()" class="bg-strawberry hover:bg-pink-700 transition text-white p-4 rounded-lg text-lg font-bold shadow-cream">
@@ -636,7 +661,8 @@
 </section>
 
 <section class="py-20 bg-white">
- <h2 class="font-serif text-4xl text-center font-bold mb-10 text-chocolate">Cake Decorating Videos in Lichtenburg</h2>
+ <h2 class="font-serif text-4xl text-center font-bold mb-4 text-chocolate">Cake Decorating Videos in Lichtenburg</h2>
+ <p class="text-center mb-10"><a href="/videos/" class="text-strawberry font-bold hover:underline">See all cake videos <i class="fas fa-arrow-right ml-1"></i></a></p>
  <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto px-4">
   <figure>
    <a href="/videos/cake-stacking-rainbow-decoration-process/" class="block font-serif text-2xl font-bold mb-3 text-chocolate">Cake Stacking and Rainbow Decoration</a>
@@ -718,14 +744,14 @@
 </footer>
 
 <script>
-    const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.10.26.1';
+    const siteVersion = document.querySelector('meta[name="site-version"]')?.content || '2026.10.26.2';
     document.querySelectorAll('[data-site-version]').forEach((item) => {
         item.textContent = 'v' + siteVersion;
     });
 
     function applyTheme(theme) {
         document.documentElement.dataset.theme = theme;
-        localStorage.setItem('bridgeAngelsTheme', theme);
+        try { localStorage.setItem('bridgeAngelsTheme', theme); } catch (error) {}
         const label = theme === 'dark' ? 'Dark' : 'Light';
         document.querySelectorAll('[data-theme-label]').forEach((item) => {
             item.textContent = label;
